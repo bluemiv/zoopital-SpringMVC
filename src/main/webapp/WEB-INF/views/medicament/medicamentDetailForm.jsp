@@ -50,5 +50,22 @@
 		<label id = "resultCost">0원</label>
 		<input type = "submit" value="판매" />
 	</form>
+	
+	<form action= "medicamentSendPro.pet" method = "post">
+		<h4>약품 보낼 곳</h4>
+		<select name = "diffStore_code">
+		<c:forEach items = "${storeList}" var = "store">
+			<c:if test="${medicamentDTO.store_code != store}">
+				<option value = "${store}">${store}</option>
+			</c:if>
+		</c:forEach>
+		</select>
+		<input type = "hidden" value = "${medicamentDTO.store_code}" name = "store_code"/>
+		<input type = "hidden" value = "${medicamentDTO.medicament_amount}" name = "medicament_amount"/>
+		<input type = "hidden" value = "${medicamentDTO.medicament_name}" name = "medicament_name"/>
+		<input type = "hidden" value = "${medicamentDTO.medicament_code}" name = "medicament_code"/>
+		<input type = "number" name = "sendNum" min = "0" max = "${medicamentDTO.medicament_amount}"/>개
+		<input type = "submit" value="약품 보내기" />
+	</form>
 </body>
 </html>

@@ -43,9 +43,25 @@
 			,MEDICAMENT_EXDATE = #{medicament_exdate}
 		</if>
 		WHERE MEDICAMENT_CODE = #{medicament_code}
+		<if test="medicament_name != null and medicament_name != ''">
+			AND MEDICAMENT_NAME = #{medicament_name}
+		</if>
 	</update>
 	<delete id="deleteMedicament">
 		DELETE MEDICAMENT
 		WHERE MEDICAMENT_CODE = #{medicament_code}
 	</delete>
+	<select id="getMedicamentStore_code" resultType="java.lang.String">
+		SELECT STORE_CODE
+		FROM MEDICAMENT
+		GROUP BY STORE_CODE
+	</select>
+	<update id="updateMedicamentAmountDiffrentStore">
+		UPDATE MEDICAMENT
+		SET MEDICAMENT_AMOUNT = (MEDICAMENT_AMOUNT + #{medicament_amount})
+		WHERE STORE_CODE = #{store_code}
+		<if test="medicament_name != null and medicament_name != ''">
+			AND MEDICAMENT_NAME = #{medicament_name}
+		</if>
+	</update>
 </mapper>

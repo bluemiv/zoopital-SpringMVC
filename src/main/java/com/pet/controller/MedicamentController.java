@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,7 +113,11 @@ public class MedicamentController {
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		medicamentDTO = medicamentDAO.getMedicament(medicamentDTO);
 		
+		// 지점 코드 가져오기
+		List<String> storeList = medicamentDAO.getMedicamentStore_code();
+		
 		model.addAttribute("medicamentDTO",medicamentDTO);
+		model.addAttribute("storeList",storeList);
 		return "/medicament/medicamentDetailForm";
 	} // 약품 세부정보 Form
 	
@@ -128,6 +133,28 @@ public class MedicamentController {
 
 		return "redirect:medicamentDetailForm.pet?medicament_code="+medicamentDTO.getMedicament_code();
 	} // 약품 개수 수정
+	
+	@Transactional
+	@RequestMapping("medicamentSendPro.pet")
+	public String medicamentSendPro(MedicamentDTO medicamentDTO, int sendNum, String diffStore_code, Model model) throws Exception{
+		System.out.println("medicamentSendPro 접근");
+		
+		// 내 지점 약품 개수 감소
+		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
+		medicamentDTO.setMedicament_amount(medicamentDTO.getMedicament_amount() - sendNum); // 전체수량 - 판매수량
+		medicamentDAO.updateMedicament(medicamentDTO);
+		
+		// 다른 지점의 약품 개수 증가 
+		boolean check = false;
+		medicamentDTO.setMedicament_amount(sendNum); // 보낼수량
+		medicamentDTO.setStore_code(diffStore_code); // 다른 지점의 코드
+		if(medicamentDAO.updateMedicamentAmountDiffrentStore(medicamentDTO) > 0){
+			check = true;
+		}
+
+		model.addAttribute("check", check);
+		return "/medicament/medicamentSendPro";
+	} // 타 지점에 약품 보내기
 	
 	/////////////////////////////////////////////
 	//////////////////// AJAX ///////////////////
