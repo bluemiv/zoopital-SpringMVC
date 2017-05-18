@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.model.MedicamentDAO">
+	<select id="selectAll" resultType="com.pet.model.MedicamentDTO">
+		SELECT *
+		FROM MEDICAMENT
+	</select>
+	<select id="getMedicament" resultType="com.pet.model.MedicamentDTO">
+		SELECT *
+		FROM MEDICAMENT
+		<if test="medicament_code != null and medicament_code != ''">
+			WHERE MEDICAMENT_CODE = #{medicament_code}
+		</if>
+	</select>
+	<insert id="insertMedicament" parameterType="com.pet.model.MedicamentDTO">
+		INSERT INTO MEDICAMENT
+			(MEDICAMENT_CODE, MEDICAMENT_NAME, MEDICAMENT_AMOUNT, MEDICAMENT_MANDATE,
+				MEDICAMENT_EXDATE, STORE_CODE)
+		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_mandate}, #{medicament_exdate}, #{store_code})
+	</insert>
+	<update id="updateMedicament" parameterType="com.pet.model.MedicamentDTO">
+		UPDATE MEDICAMENT
+		SET
+			STORE_CODE = #{store_code}
+		<if test="medicament_name != null and medicament_name != ''">
+			,MEDICAMENT_NAME = #{medicament_name}
+		</if>
+		<if test="medicament_amount != null and medicament_amount != ''">
+			,MEDICAMENT_AMOUNT = #{medicament_amount}
+		</if>
+		<if test="medicament_mandate != null and medicament_mandate != ''">
+			,MEDICAMENT_MANDATE = #{medicament_mandate}
+		</if>
+		<if test="medicament_exdate != null and medicament_exdate != ''">
+			,MEDICAMENT_EXDATE = #{medicament_exdate}
+		</if>
+		WHERE MEDICAMENT_CODE = #{medicament_code}
+	</update>
+	<delete id="deleteMedicament">
+		DELETE MEDICAMENT
+		WHERE MEDICAMENT_CODE = #{medicament_code}
+	</delete>
+</mapper>
