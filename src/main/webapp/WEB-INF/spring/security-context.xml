@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true" />
+		<security:form-login
+		login-page="/member/loginForm.omg"
+		login-processing-url="/j_spring_security_check"
+		default-target-url="/member/loginPro.omg"
+		authentication-failure-url="/member/loginForm.omg?err"/>
+		
+		<security:intercept-url pattern="/member/loginPro.omg" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<security:intercept-url pattern="/test.omg" access="hasRole('ROLE_USER')" />
+		
+		<security:logout logout-success-url="/index.html" logout-url="/j_spring_security_logout"/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="driverManagerDataSource"
+				users-by-username-query="SELECT * 
+											FROM (SELECT ADMIN_ID USERNAME, ADMIN_PWD PWD, 1 ENABLED 
+												FROM ADMIN
+												UNION 
+												SELECT MEMBER_ID USERNAME, MEMBER_PWD PWD, 1 ENABLED 
+												FROM MEMBER)
+											WHERE USERNAME = ?"
+				authorities-by-username-query="SELECT *
+												FROM (SELECT ADMIN_ID username, ADMIN_ROLE role 
+													FROM ADMIN 
+													UNION 
+													SELECT MEMBER_ID username, 'ROLE_USER' role 
+													FROM MEMBER)
+												WHERE USERNAME = ?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
