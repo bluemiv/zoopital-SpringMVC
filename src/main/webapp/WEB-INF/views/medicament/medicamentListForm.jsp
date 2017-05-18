@@ -7,9 +7,11 @@
 <title>약품 리스트</title>
 </head>
 <body>
-	<h2>약품 코드 / 약품 이름 / 개수 / 제조일자 / 유통기한 / 지점</h2><hr>
+	<h2>약품 코드 / 약품 이름 / 개수 / 가격 / 제조일자 / 유통기한 / 지점</h2><hr>
 	<c:forEach items="${list}" var ="var">
-	${var.medicament_code} / ${var.medicament_name} / ${var.medicament_amount} / ${var.medicament_mandate} / 
+	${var.medicament_code} / 
+	<a href = "medicamentDetailForm.pet?medicament_code=${var.medicament_code}">${var.medicament_name}</a> / 
+	${var.medicament_amount} / ${var.medicament_cost}원 / ${var.medicament_mandate} / 
 	${var.medicament_exdate} / ${var.store_code}<br>
 	<button onclick = "location='medicamentUpdateForm.pet?medicament_code=${var.medicament_code}'">수정</button>
 	<button onclick = "location='medicamentDeletePro.pet?medicament_code=${var.medicament_code}'">삭제</button>

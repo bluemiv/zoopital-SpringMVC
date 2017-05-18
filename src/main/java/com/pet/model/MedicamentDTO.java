@@ -8,6 +8,7 @@ public class MedicamentDTO {
 	private String medicament_code; // number constraint medicament_pk primary key, -- 약품 코드
 	private String medicament_name; // varchar2(500) not null, -- 약품 이름
 	private int medicament_amount; // number, -- 약품 개수
+	private int medicament_cost; // number, -- 약품 가격
 	private Date medicament_mandate; // date, -- 약품 제조일자
 	private Date medicament_exdate; // date, -- 약품 유통기한
 	private String store_code; // varchar2(500) not null -- 지점 코드
@@ -34,6 +35,12 @@ public class MedicamentDTO {
 	}
 	public void setMedicament_amount(int medicament_amount) {
 		this.medicament_amount = medicament_amount;
+	}
+	public int getMedicament_cost() {
+		return medicament_cost;
+	}
+	public void setMedicament_cost(int medicament_cost) {
+		this.medicament_cost = medicament_cost;
 	}
 	public Date getMedicament_mandate() {
 		return medicament_mandate;

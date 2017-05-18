@@ -6,6 +6,9 @@
 	<select id="selectAll" resultType="com.pet.model.MedicamentDTO">
 		SELECT *
 		FROM MEDICAMENT
+		<if test="store_code != null and store_code != ''">
+			WHERE STORE_CODE = #{store_code}
+		</if>
 	</select>
 	<select id="getMedicament" resultType="com.pet.model.MedicamentDTO">
 		SELECT *
@@ -16,9 +19,9 @@
 	</select>
 	<insert id="insertMedicament" parameterType="com.pet.model.MedicamentDTO">
 		INSERT INTO MEDICAMENT
-			(MEDICAMENT_CODE, MEDICAMENT_NAME, MEDICAMENT_AMOUNT, MEDICAMENT_MANDATE,
+			(MEDICAMENT_CODE, MEDICAMENT_NAME, MEDICAMENT_AMOUNT, MEDICAMENT_COST, MEDICAMENT_MANDATE,
 				MEDICAMENT_EXDATE, STORE_CODE)
-		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_mandate}, #{medicament_exdate}, #{store_code})
+		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_cost}, #{medicament_mandate}, #{medicament_exdate}, #{store_code})
 	</insert>
 	<update id="updateMedicament" parameterType="com.pet.model.MedicamentDTO">
 		UPDATE MEDICAMENT
@@ -29,6 +32,9 @@
 		</if>
 		<if test="medicament_amount != null and medicament_amount != ''">
 			,MEDICAMENT_AMOUNT = #{medicament_amount}
+		</if>
+		<if test="medicament_cost != null and medicament_cost != ''">
+			,MEDICAMENT_COST = #{medicament_cost}
 		</if>
 		<if test="medicament_mandate != null and medicament_mandate != ''">
 			,MEDICAMENT_MANDATE = #{medicament_mandate}

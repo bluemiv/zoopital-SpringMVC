@@ -5,7 +5,7 @@ import java.util.List;
 public interface MedicamentDAO {
 
 	// 전체 약품 리스트 가져옴
-	public List<MedicamentDTO> selectAll() throws Exception;
+	public List<MedicamentDTO> selectAll(MedicamentDTO medicamentDTO) throws Exception;
 	
 	// 약품 자세한 정보 가져옴
 	public MedicamentDTO getMedicament(MedicamentDTO medicamentDTO) throws Exception;
