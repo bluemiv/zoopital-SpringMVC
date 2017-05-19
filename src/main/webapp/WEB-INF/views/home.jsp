@@ -13,5 +13,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <button onclick= "location='medicament/medicamentListForm.pet'">약품 리스트</button>
+<a href = "j_spring_security_logout">로그아웃</a>
 </body>
 </html>

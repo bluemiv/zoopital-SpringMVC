@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class MedicamentController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("medicamentListForm.pet")
-	public String medicamentListForm(MedicamentDTO medicamentDTO, Model model) throws Exception{
+	public String medicamentListForm(MedicamentDTO medicamentDTO, Model model, Principal principal) throws Exception{
 		System.out.println("medicamentListForm 접근");
-		
+		medicamentDTO.setStore_code(principal.getName()); // 세션 아이디 가져옴
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO); // 모든 약품 리스트 가져옴
 		
@@ -42,9 +43,12 @@ public class MedicamentController {
 	
 	
 	@RequestMapping("medicamentInsertPro.pet")
-	public String medicamentInsertPro(MedicamentDTO medicamentDTO, String exdate, String mandate, Model model) throws Exception{
+	public String medicamentInsertPro(MedicamentDTO medicamentDTO, String exdate, String mandate, Model model, Principal principal) throws Exception{
 		System.out.println("medicamentInsertPro 접근");
 
+		// 세션 아이디 가져옴
+		medicamentDTO.setStore_code(principal.getName());
+		
 		// 날짜 Date 형변환
 		medicamentDTO.setMedicament_exdate(Date.valueOf(exdate));
 		medicamentDTO.setMedicament_mandate(Date.valueOf(mandate));
@@ -167,5 +171,13 @@ public class MedicamentController {
 		return medicamentDTO;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("medicamentPreViewAjax.pet")
+	public MedicamentDTO medicamentPreViewAjax(@RequestBody MedicamentDTO medicamentDTO) throws Exception{
+		
+		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
+		medicamentDTO = medicamentDAO.getMedicament(medicamentDTO); // 특정한 약품 정보 가져옴
+		
+		return medicamentDTO;
+	} // 약품 정보 미리보기
 }

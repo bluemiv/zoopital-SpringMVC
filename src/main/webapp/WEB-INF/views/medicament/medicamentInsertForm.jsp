@@ -12,7 +12,6 @@
 		약품 가격 : <input type = "text" name = "medicament_cost"><br>
 		제조 일자 : <input type = "date" name = "mandate"><br>
 		유통 기한 : <input type = "date" name = "exdate"><br>
-		<input type = "hidden" name = "store_code" value = "판교"><br>
 		<input type = "submit" value = "약품 추가">
 	</form>
 </body>

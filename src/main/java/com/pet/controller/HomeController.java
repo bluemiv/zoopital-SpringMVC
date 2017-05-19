@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.security.Principal;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,20 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		return "home";
+	}
+	
+	// 로그인
+	@RequestMapping("loginForm.pet")
+	public String loginForm() {
+		
+		return "loginForm";
+	}
+	
+	// 권한 거부 에러 페이지
+	@RequestMapping("accessDeniedPage.pet")
+	public String accessDeniedPage(Principal principal){
+		System.out.println(principal.getName() + " 접근 거부");
+		return "accessDeniedPage";
 	}
 	
 }
