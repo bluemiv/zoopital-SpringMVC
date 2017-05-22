@@ -19,20 +19,20 @@
     SELECT * FROM store WHERE STORE_CODE = #{store_code}
     
     </select>
-    
+    <!-- 수정기능 -->
     <update id="adminUpdatePro">
     UPDATE STORE SET STORE_ID=#{store_id} ,STORE_PASSWORD=#{store_password} , STORE_NAME= #{store_name}, STORE_COST= #{store_cost}, STORE_PAYMENT= #{store_payment}, STORE_INCOME=#{store_income}, STORE_RENTCOST= #{store_rentCost}, STORE_DOCTOR= #{store_doctor}, STORE_WORKER=#{store_worker}  WHERE Store_Code = #{store_code}
     </update>
-    
+    <!-- 삭제기능 -->
     <delete id="adminDelete">
     DELETE FROM STORE WHERE STORE_CODE = #{store_code}
     </delete>
-
+	<!-- 페이징 카운트 -->
 	<select id ="getListCount" resultType= "Integer">
 		SELECT COUNT(*)
 		FROM STORE
 	</select>
-	
+	<!-- 패이징 처리기능 -->
 	<select id="getPageSelectAll" resultType = "com.pet.model.StoreDTO" parameterType="com.pet.model.PageDTO">
 		SELECT *
 		FROM (
@@ -43,7 +43,7 @@
 		WHERE R BETWEEN #{startNum} AND #{endNum}
 	</select>
 	
-	
+	<!-- 검색기능 -->
 	<select id="searchStore"  resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
 	SELECT * 
 	FROM STORE

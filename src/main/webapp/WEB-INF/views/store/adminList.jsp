@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="search.pet">
-검색기능<input type="text"  name="store_name"   >
+지점 이름을 검색하세요:<input type="text"  name="store_name"   >
 <input type="submit" value="검색" >    
 <button onclick = "location='selectAll.pet">목록으로 돌아가기</button>
 </form>
