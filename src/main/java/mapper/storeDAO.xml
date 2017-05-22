@@ -16,7 +16,7 @@
      SELECT * FROM STORE
     </select>
     <select id="adminUpdate"   resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
-    SELECT * FROM store WHERE STORE_CODE = #{store_code}
+    SELECT * FROM STORE WHERE STORE_CODE = #{store_code}
     
     </select>
     <!-- 수정기능 -->

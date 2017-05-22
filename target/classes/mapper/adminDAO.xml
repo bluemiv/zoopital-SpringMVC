@@ -31,4 +31,8 @@
     	</set>
     	WHERE STORE_CODE = #{store_code}
     </update>
+    <delete id="deleteAdmin" parameterType="com.pet.model.StoreDTO">
+    	DELETE ADMIN
+    	WHERE STORE_CODE = #{store_code}
+    </delete>
 </mapper>
