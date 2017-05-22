@@ -22,6 +22,7 @@ public interface MedicamentDAO {
 	// 지점 코드 가져오기
 	public List<String> getMedicamentStore_code() throws Exception;
 	
-	// 다른 지점에 보낸 약품 개수 증가
-	public int updateMedicamentAmountDiffrentStore(MedicamentDTO medicamentDTO) throws Exception;
+	// 전체 게시물 개수
+	public int getTotalCountOfMedicament(MedicamentDTO medicamentDTO) throws Exception;
+
 }

@@ -5,9 +5,21 @@
 <mapper namespace="com.pet.model.MedicamentDAO">
 	<select id="selectAll" resultType="com.pet.model.MedicamentDTO">
 		SELECT *
-		FROM MEDICAMENT
-		<if test="store_code != null and store_code != ''">
-			WHERE STORE_CODE = #{store_code}
+		FROM (
+				SELECT ROWNUM R, A.*
+				FROM (
+						SELECT *
+						FROM MEDICAMENT
+						<if test="store_code != null and store_code != ''">
+						WHERE STORE_CODE = #{store_code}
+						</if>
+						<if test = "search != null and search != ''">
+						AND REGEXP_LIKE(MEDICAMENT_NAME, #{search})
+						</if>
+						ORDER BY MEDICAMENT_CODE
+				) A)
+		<if test = "startNum != null and endNum != null and startNum != '' and endNum != ''">
+		WHERE R BETWEEN #{startNum} AND #{endNum}
 		</if>
 	</select>
 	<select id="getMedicament" resultType="com.pet.model.MedicamentDTO">
@@ -43,9 +55,6 @@
 			,MEDICAMENT_EXDATE = #{medicament_exdate}
 		</if>
 		WHERE MEDICAMENT_CODE = #{medicament_code}
-		<if test="medicament_name != null and medicament_name != ''">
-			AND MEDICAMENT_NAME = #{medicament_name}
-		</if>
 	</update>
 	<delete id="deleteMedicament">
 		DELETE MEDICAMENT
@@ -56,12 +65,11 @@
 		FROM MEDICAMENT
 		GROUP BY STORE_CODE
 	</select>
-	<update id="updateMedicamentAmountDiffrentStore">
-		UPDATE MEDICAMENT
-		SET MEDICAMENT_AMOUNT = (MEDICAMENT_AMOUNT + #{medicament_amount})
+	<select id = "getTotalCountOfMedicament" resultType = "Integer" parameterType = "com.pet.model.MedicamentDTO">
+		SELECT COUNT(*)
+		FROM MEDICAMENT
+		<if test="store_code != null and store_code != ''">
 		WHERE STORE_CODE = #{store_code}
-		<if test="medicament_name != null and medicament_name != ''">
-			AND MEDICAMENT_NAME = #{medicament_name}
 		</if>
-	</update>
+	</select>
 </mapper>

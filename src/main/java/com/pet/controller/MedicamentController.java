@@ -1,13 +1,13 @@
 package com.pet.controller;
 
 import java.security.Principal;
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +26,31 @@ public class MedicamentController {
 	@RequestMapping("medicamentListForm.pet")
 	public String medicamentListForm(MedicamentDTO medicamentDTO, Model model, Principal principal) throws Exception{
 		System.out.println("medicamentListForm 접근");
+		
 		medicamentDTO.setStore_code(principal.getName()); // 세션 아이디 가져옴
+		
+		// 페이징 처리
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
-		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO); // 모든 약품 리스트 가져옴
+		int totalCount = medicamentDAO.getTotalCountOfMedicament(medicamentDTO);
+		final int pageSize = 5;
+		if(medicamentDTO.getPageNum() == 0){
+			medicamentDTO.setPageNum(1); // default 값
+		}
+		medicamentDTO.setStartNum(pageSize * (medicamentDTO.getPageNum() - 1) + 1);
+		medicamentDTO.setEndNum(pageSize * medicamentDTO.getPageNum());
+		// 전체 페이지  개수
+		if(totalCount % pageSize == 0){
+			// 정확히 나누어 떨어짐
+			medicamentDTO.setPageTotalNum(totalCount / pageSize);
+		} else {
+			medicamentDTO.setPageTotalNum(1 + totalCount / pageSize);
+		}
+		
+		// 모든 약품 리스트 가져옴
+		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("page", medicamentDTO);
 		return "/medicament/medicamentListForm";
 	} // 약품 리스트 출력
 	
@@ -43,15 +63,11 @@ public class MedicamentController {
 	
 	
 	@RequestMapping("medicamentInsertPro.pet")
-	public String medicamentInsertPro(MedicamentDTO medicamentDTO, String exdate, String mandate, Model model, Principal principal) throws Exception{
+	public String medicamentInsertPro(MedicamentDTO medicamentDTO, Model model, Principal principal) throws Exception{
 		System.out.println("medicamentInsertPro 접근");
 
 		// 세션 아이디 가져옴
 		medicamentDTO.setStore_code(principal.getName());
-		
-		// 날짜 Date 형변환
-		medicamentDTO.setMedicament_exdate(Date.valueOf(exdate));
-		medicamentDTO.setMedicament_mandate(Date.valueOf(mandate));
 		
 		// 약품 추가
 		boolean check = false;
@@ -78,7 +94,7 @@ public class MedicamentController {
 	
 	
 	@RequestMapping("medicamentUpdatePro.pet")
-	public String medicamentUpdatePro(MedicamentDTO medicamentDTO, String exdate, String mandate, Model model) throws Exception{
+	public String medicamentUpdatePro(MedicamentDTO medicamentDTO,  Model model) throws Exception{
 		System.out.println("medicamentUpdatePro 접근");
 		
 		// 정보 수정
@@ -125,59 +141,28 @@ public class MedicamentController {
 		return "/medicament/medicamentDetailForm";
 	} // 약품 세부정보 Form
 	
-	
-	@RequestMapping("medicamentSell.pet")
-	public String medicamentSell(MedicamentDTO medicamentDTO, int sellNum) throws Exception{
-		System.out.println("medicamentSell 접근");
-		
-		// 약품 개수 감소
-		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
-		medicamentDTO.setMedicament_amount(medicamentDTO.getMedicament_amount() - sellNum); // 전체수량 - 판매수량
-		medicamentDAO.updateMedicament(medicamentDTO);
-
-		return "redirect:medicamentDetailForm.pet?medicament_code="+medicamentDTO.getMedicament_code();
-	} // 약품 개수 수정
-	
-	@Transactional
-	@RequestMapping("medicamentSendPro.pet")
-	public String medicamentSendPro(MedicamentDTO medicamentDTO, int sendNum, String diffStore_code, Model model) throws Exception{
-		System.out.println("medicamentSendPro 접근");
-		
-		// 내 지점 약품 개수 감소
-		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
-		medicamentDTO.setMedicament_amount(medicamentDTO.getMedicament_amount() - sendNum); // 전체수량 - 판매수량
-		medicamentDAO.updateMedicament(medicamentDTO);
-		
-		// 다른 지점의 약품 개수 증가 
-		boolean check = false;
-		medicamentDTO.setMedicament_amount(sendNum); // 보낼수량
-		medicamentDTO.setStore_code(diffStore_code); // 다른 지점의 코드
-		if(medicamentDAO.updateMedicamentAmountDiffrentStore(medicamentDTO) > 0){
-			check = true;
-		}
-
-		model.addAttribute("check", check);
-		return "/medicament/medicamentSendPro";
-	} // 타 지점에 약품 보내기
-	
 	/////////////////////////////////////////////
 	//////////////////// AJAX ///////////////////
 	/////////////////////////////////////////////
 	@ResponseBody
-	@RequestMapping("medicamentSellAjax.pet")
-	public MedicamentDTO medicamentSellAjax(@RequestBody MedicamentDTO medicamentDTO) throws Exception{
-		int cost = medicamentDTO.getMedicament_cost() * medicamentDTO.getMedicament_amount();
-		medicamentDTO.setMedicament_cost(cost);
-		return medicamentDTO;
-	}
-	
-	@ResponseBody
-	@RequestMapping("medicamentPreViewAjax.pet")
-	public MedicamentDTO medicamentPreViewAjax(@RequestBody MedicamentDTO medicamentDTO) throws Exception{
+	@RequestMapping("medicamentSearchAjax.pet")
+	public List medicamentPreViewAjax(@RequestBody String search, Principal principal) throws Exception{
+		StringTokenizer tokenizer = new StringTokenizer(search, "=");
+		while(tokenizer.hasMoreTokens()){
+			search = tokenizer.nextToken();
+		}
 		
-		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
-		medicamentDTO = medicamentDAO.getMedicament(medicamentDTO); // 특정한 약품 정보 가져옴
+		MedicamentDTO medicamentDTO = new MedicamentDTO();
+		medicamentDTO.setSearch(search);
+		medicamentDTO.setStore_code(principal.getName());
 		
-		return medicamentDTO;
-	} // 약품 정보 미리보기
+		MedicamentDAO dao = sqlSession.getMapper(MedicamentDAO.class);
+		List<MedicamentDTO> listAll = dao.selectAll(medicamentDTO);
+		ArrayList<String> list = new ArrayList<String>();
+		for(int i = 0; i < listAll.size(); i++){
+			list.add(listAll.get(i).getMedicament_name());
+		}
+		
+		return list;
+	} // 검색 추천 기능
 }
