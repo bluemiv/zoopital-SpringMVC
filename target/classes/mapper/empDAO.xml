@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pet.model.EmpDAO">
+	
+	<select id="getEmpList" resultType="com.pet.model.EmpDTO">
+		SELECT * FROM EMP
+	</select>
+	
+	<!-- 직원코드로 검색해서 삭제수정하는 페이지로 갈 때 셀렉 하는 쿼리 -->
+	<select id="selectEmpList" resultType="com.pet.model.EmpDTO">
+		SELECT * FROM EMP WHERE EMP_CODE = #{emp_code}
+	</select>
+
+	<insert id="insertEmp" parameterType="com.pet.model.EmpDTO">
+		INSERT INTO EMP VALUES
+		(#{emp_name},#{emp_code},#{emp_age},#{emp_tel},SYSDATE,#{emp_pay},#{store_code})
+	</insert>
+	
+	<delete id="deleteEmp" parameterType="com.pet.model.EmpDTO">
+		DELETE FROM EMP WHERE EMP_CODE = #{emp_code}
+	</delete>
+	
+	<update id="updateEmp" parameterType="com.pet.model.EmpDTO">
+		UPDATE EMP SET 
+		EMP_NAME = #{emp_name},
+		EMP_AGE = #{emp_age},
+		EMP_TEL = #{emp_tel),
+		EMP_HIREDATE = #{emp_hiredate},
+		EMP_PAY = #{emp_pay},
+		STORE_CODE = #{store_code}
+		WHERE EMP_CODE = #{emp_code}
+	</update>
+	
+	
+	
+</mapper>
