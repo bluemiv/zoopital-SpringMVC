@@ -23,11 +23,19 @@
 <body>
 <button onclick= "location='medicament/medicamentListForm.pet'">약품 리스트</button>
 
+
+
+
 현재시간은 <span id="clock"></span> 입니다<br />
 <button onclick="location='store/selectAll.pet'">관리자 회원가입 목록</button>
 <br>
 <button onclick="location='store/inputForm.pet'">관리자 회원가입 페이지 입니다. </button>
 
 <a href = "j_spring_security_logout">로그아웃</a>
+
+
+<input type="button" value="동물정보입력" onclick="location='pet/writeForm.pet'">
+<input type="button" value="리스트" onclick="location='pet/list.pet'"> 
+
 </body>
 </html>
