@@ -102,10 +102,10 @@ public class StoreController {
 
 		ModelAndView mav = new ModelAndView("/store/adminUpdate");
 		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
-		List updatelist = dao.adminUpdate(dto);
+		StoreDTO storeDTO = dao.adminUpdate(dto);
 		System.out.println("adminUpdatedetail 실행 되었습니다!~~");
 
-		mav.addObject("updatelist", updatelist);
+		mav.addObject("storeDTO", storeDTO);
 
 		return mav;
 
@@ -137,13 +137,25 @@ public class StoreController {
 		return mav;
 	}
 
+	@Transactional
 	@RequestMapping("/deletePro.pet")
-	public ModelAndView adminDelete(StoreDTO dto) {
-		ModelAndView mav = new ModelAndView("redirect:selectAll.pet");
-		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
-		dao.adminDelete(dto);
+	public ModelAndView adminDelete(StoreDTO dto) throws Exception{
 		System.out.println("deletePro실행 되었습니다!~ ");
-
+		
+		ModelAndView mav = new ModelAndView("redirect:selectAll.pet");
+		
+		// store 테이블
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		storeDAO.adminDelete(dto);
+		
+		// admin 테이블
+		boolean check = false;
+		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
+		if(adminDAO.deleteAdmin(dto) > 0){
+			check = true;
+		}
+		
+		System.out.println(check);
 		return mav;
 	}
 

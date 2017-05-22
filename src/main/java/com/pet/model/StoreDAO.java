@@ -10,9 +10,9 @@ public interface StoreDAO {
  	public List<StoreDTO> getSelectAll();
  	
  	//관리자 수정 세부페이지
- 	public List<StoreDTO> adminUpdate(StoreDTO dto);
+ 	public StoreDTO adminUpdate(StoreDTO dto);
  	
- 	//관리자 수정 process 과정
+ 	//관리자 수정 process 과정ss
  	public int adminUpdatePro(StoreDTO dto);
  	
  	//관리자 삭제

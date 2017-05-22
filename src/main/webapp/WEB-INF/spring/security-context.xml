@@ -15,7 +15,8 @@
 		authentication-failure-url="/loginForm.pet?err"/>
 		
 		<security:intercept-url pattern="/home.pet" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')" />
-		<security:intercept-url pattern="/medicament/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/medicament/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')" />
+		<security:intercept-url pattern="/store/**" access="hasRole('ROLE_SUPER_ADMIN')" />
 		
 		<security:logout logout-success-url="/loginForm.pet" logout-url="/j_spring_security_logout"/>
 	</security:http>

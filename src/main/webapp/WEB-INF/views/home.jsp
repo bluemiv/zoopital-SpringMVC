@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="se"%>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -21,13 +22,18 @@
 	</script>
 </head>
 <body>
-<button onclick= "location='medicament/medicamentListForm.pet'">약품 리스트</button>
+	<!-- 헤더 파일 -->
+	<jsp:include page="layout/header.jsp"/>
 
-현재시간은 <span id="clock"></span> 입니다<br />
-<button onclick="location='store/selectAll.pet'">관리자 회원가입 목록</button>
-<br>
-<button onclick="location='store/inputForm.pet'">관리자 회원가입 페이지 입니다. </button>
-
-<a href = "j_spring_security_logout">로그아웃</a>
+	<!-- 컨텐츠 -->
+	현재시간 : <span id="clock"></span><br>
+	<button onclick= "location='medicament/medicamentListForm.pet'">약품 리스트</button>
+	<br>
+	<se:authorize access="hasRole('ROLE_SUPER_ADMIN')">
+		<button onclick="location='store/selectAll.pet'">관리자 회원가입 목록</button>
+		<br>
+		<button onclick="location='store/inputForm.pet'">관리자 회원가입 페이지 입니다. </button>
+	</se:authorize>
+	<a href = "j_spring_security_logout">로그아웃</a>
 </body>
 </html>
