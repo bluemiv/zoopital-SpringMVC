@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
 	// 테스트 용
-	@RequestMapping("home.pet")
+	@RequestMapping("/home.pet")
 	public String home(Locale locale, Model model) {
 		
 		return "home";

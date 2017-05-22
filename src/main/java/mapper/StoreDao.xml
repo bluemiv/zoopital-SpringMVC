@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="com.pet.model.StoreDAO">
+    <!-- Admin 입력 페이지 쿼리 -->
+    <insert id="insert" parameterType="com.pet.model.StoreDTO">
+	    INSERT INTO STORE
+	    	(STORE_CODE,STORE_ID,STORE_PASSWORD, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE )
+	    VALUES
+	    	(#{store_code},#{store_id},#{store_password},#{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE)
+    </insert>
+   <!-- Admin목록 페이지 쿼리 -->
+    <select id="getSelectAll" resultType="com.pet.model.StoreDTO">
+     SELECT * FROM STORE
+    </select>
+    <select id="adminUpdate"   resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
+    SELECT * FROM store WHERE STORE_CODE = #{store_code}
+    
+    </select>
+    
+    <update id="adminUpdatePro">
+    UPDATE STORE SET STORE_ID=#{store_id} ,STORE_PASSWORD=#{store_password} , STORE_NAME= #{store_name}, STORE_COST= #{store_cost}, STORE_PAYMENT= #{store_payment}, STORE_INCOME=#{store_income}, STORE_RENTCOST= #{store_rentCost}, STORE_DOCTOR= #{store_doctor}, STORE_WORKER=#{store_worker}  WHERE Store_Code = #{store_code}
+    </update>
+    
+    <delete id="adminDelete">
+    DELETE FROM STORE WHERE STORE_CODE = #{store_code}
+    </delete>
+
+	<select id ="getListCount" resultType= "Integer">
+		SELECT COUNT(*)
+		FROM STORE
+	</select>
+	
+	<select id="getPageSelectAll" resultType = "com.pet.model.StoreDTO" parameterType="com.pet.model.PageDTO">
+		SELECT *
+		FROM (
+				SELECT ROWNUM R, A.*
+				FROM (SELECT *
+							FROM STORE
+							ORDER BY STORE_DATE DESC) A)
+		WHERE R BETWEEN #{startNum} AND #{endNum}
+	</select>
+	
+	
+	<select id="searchStore"  resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
+	SELECT * 
+	FROM STORE
+	WHERE STORE_NAME LIKE '%${store_name}%'	
+	</select>
+ </mapper>
