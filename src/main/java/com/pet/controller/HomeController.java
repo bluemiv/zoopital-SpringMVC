@@ -17,7 +17,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	// 테스트 용
-	@RequestMapping("home.pet")
+	@RequestMapping("/home.pet")
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
