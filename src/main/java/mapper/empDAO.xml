@@ -27,8 +27,7 @@
 		UPDATE EMP SET 
 		EMP_NAME = #{emp_name},
 		EMP_AGE = #{emp_age},
-		EMP_TEL = #{emp_tel),
-		EMP_HIREDATE = #{emp_hiredate},
+		EMP_TEL = #{emp_tel},
 		EMP_PAY = #{emp_pay},
 		STORE_CODE = #{store_code}
 		WHERE EMP_CODE = #{emp_code}

@@ -11,6 +11,7 @@ public class EmpDTO {
 	private Timestamp emp_hiredate;
 	private int emp_pay;
 	private String store_code;
+//	private String command;
 	
 	public EmpDTO(){}
 	
@@ -77,6 +78,18 @@ public class EmpDTO {
 				+ emp_tel + ", emp_hiredate=" + emp_hiredate + ", emp_pay=" + emp_pay + ", store_code=" + store_code
 				+ "]";
 	}
+
+/*	public String getCommand() {
+		return command;
+	}
+
+	public void setCommand(String command) {
+		this.command = command;
+	}*/
+
+	
+
+
 	
 	
 }

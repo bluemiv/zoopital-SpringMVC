@@ -65,16 +65,15 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empUpdateDeletePro.pet")
-	public String empUpdateDeletePro(HttpServletRequest request, EmpDTO dto){
+	public String empUpdateDeletePro(HttpServletRequest request, EmpDTO dto, String command){
 		System.out.println("empUpdateDeletePro 컨트롤러 진입");
-		System.out.println("update:"+request.getParameter("update"));
-		System.out.println("delete:"+request.getParameter("delete"));
+		System.out.println("command: "+command);
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		System.out.println(dto.toString());
 		
-		if (request.getParameter("update") != null) {
+		if (command.equals("update")) {
 			EmpDAO.updateEmp(dto);
-		} else if (request.getParameter("delete") != null) {
+		} else if (command.equals("delete")) {
 			EmpDAO.deleteEmp(dto);
 		}
 
