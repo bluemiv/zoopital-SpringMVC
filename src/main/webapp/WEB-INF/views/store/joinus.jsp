@@ -19,6 +19,16 @@
 임대비: <input type="text" name="store_rentCost"><br>
 지점 의사 이름: <input type="text" name="store_doctor"><br>
 지점 직원 이름:<input type="text" name="store_worker"><br>
+권한 :
+<select name = "admin_role">
+	<option value = "ROLE_SUPER_ADMIN">수퍼 관리자</option>
+	<option value = "ROLE_ADMIN">일반 관리자</option>
+</select><br>
+(비)활성화 :
+<select name = "admin_enabled">
+	<option value = "1">활성화</option>
+	<option value = "0">비활성화</option>
+</select><br>
 <input type= "submit" value="회원가입"/>
 </form>
 

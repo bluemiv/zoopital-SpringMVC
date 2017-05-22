@@ -26,20 +26,22 @@
 				data-source-ref="driverManagerDataSource"
 				users-by-username-query="SELECT * 
 											FROM (
-												SELECT ADMIN_ID, ADMIN_PWD, ADMIN_ENABLED
-												FROM ADMIN
+												SELECT A.ADMIN_ID, A.ADMIN_PWD, A.ADMIN_ENABLED
+												FROM ADMIN A, STORE S
+												WHERE A.ADMIN_ID = S.STORE_ID AND A.ADMIN_PWD = S.STORE_PASSWORD
 												UNION
 												SELECT 'system', 'oracle', 1
-												FROM ADMIN
+												FROM ADMIN A
 											)
 											WHERE ADMIN_ID = ?"
 				authorities-by-username-query="SELECT * 
 												FROM (
-													SELECT ADMIN_ID, ADMIN_ROLE
-													FROM ADMIN
+													SELECT A.ADMIN_ID, A.ADMIN_ROLE
+													FROM ADMIN A, STORE S
+													WHERE A.ADMIN_ID = S.STORE_ID AND A.ADMIN_PWD = S.STORE_PASSWORD
 													UNION
 													SELECT 'system', 'ROLE_SUPER_ADMIN'
-													FROM ADMIN
+													FROM ADMIN A
 												)
 												WHERE ADMIN_ID = ?" />
 		</security:authentication-provider>

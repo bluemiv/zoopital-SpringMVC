@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.AdminDAO;
+import com.pet.model.AdminDTO;
 import com.pet.model.PageDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
@@ -26,14 +29,27 @@ public class StoreController {
 		return "store/joinus";
 	}
 
+	@Transactional
 	@RequestMapping("/input.pet")
-	public String Input(StoreDTO dto) {
-
-		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
-		dao.insert(dto);
-
+	public String Input(StoreDTO storeDTO, AdminDTO adminDTO) throws Exception {
 		System.out.println("insert 실행 되었습니다!~~~");
+		
+		// store 테이블 insert
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		storeDAO.insert(storeDTO);
 
+		// admin 테이블 insert
+		boolean check = false;
+		adminDTO.setAdmin_id(storeDTO.getStore_id());
+		adminDTO.setAdmin_pwd(storeDTO.getStore_password());
+		adminDTO.setStore_code(storeDTO.getStore_code());
+		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
+		if(adminDAO.insert(adminDTO) > 0){
+			// 성공
+			check = true;
+		}
+		System.out.println(check);
+		
 		return "redirect:../home.pet";
 	}
 
@@ -96,14 +112,26 @@ public class StoreController {
 	}
 
 	@RequestMapping("/adminUpdatPro.pet")
-	public ModelAndView adminUpdatePro(StoreDTO dto) {
-
+	public ModelAndView adminUpdatePro(StoreDTO storeDTO, AdminDTO adminDTO) throws Exception {
+		System.out.println("adminUpdatedePro 실행 되었습니다!~~");
+		
 		// ModelAndView mav = new ModelAndView("/store/adminList");
-
 		ModelAndView mav = new ModelAndView("redirect:selectAll.pet");
 		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
-		dao.adminUpdatePro(dto);
-		System.out.println("adminUpdatedePro 실행 되었습니다!~~");
+		dao.adminUpdatePro(storeDTO);
+		
+		// admin 테이블 update
+		boolean check = false;
+		adminDTO.setAdmin_id(storeDTO.getStore_id());
+		adminDTO.setAdmin_pwd(storeDTO.getStore_password());
+		adminDTO.setStore_code(storeDTO.getStore_code());
+		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
+		if(adminDAO.update(adminDTO) > 0){
+			// 성공
+			check = true;
+		}
+		System.out.println(check);
+		
 
 		return mav;
 	}
