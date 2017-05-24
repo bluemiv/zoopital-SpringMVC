@@ -40,6 +40,13 @@
 	<br>
 	<button onclick="location='emp/empListForm.pet'">직원보기</button>
 	<br>
+	<button onclick= "location='order/orderInfoForm.pet'">발주 내역</button>
+	<br>
+	<button  onclick="location='store/report.pet'">보고서 페이지 </button>
+	<br>
+	<button onclick="location='store/getReportList.pet'">보고서 리스트 보기</button>
+	<br>
 	<a href = "j_spring_security_logout">로그아웃</a>
+	<br>
 </body>
 </html>

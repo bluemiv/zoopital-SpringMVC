@@ -1,8 +1,6 @@
 package com.pet.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,14 +23,15 @@ public class PetController {
 	
 	@RequestMapping("writeForm.pet")
 	public String writeForm(){
-	return "/pet/writeForm";	
+		System.out.println("writeForm 접근");
+		return "/pet/writeForm";	
 	}
 	
 	@RequestMapping("writePro.pet")
 	public String writePro(PetDTO dto){
+		System.out.println("writePro 접근");
 	
-		System.out.println(dto.toString());
-		PetDAO dao=sqlSession.getMapper(PetDAO.class);
+		PetDAO dao = sqlSession.getMapper(PetDAO.class);
 	
 		dao.insert_pet(dto);
 		return "redirect:list.pet";
@@ -52,7 +51,7 @@ public class PetController {
 	public String updateForm(HttpServletRequest request, Model model){
 		
 		int pet_code=Integer.parseInt(request.getParameter("pet_code"));
-		System.out.println("pet_code:" + pet_code);
+		
 		PetDAO dao=sqlSession.getMapper(PetDAO.class);
 		List list=dao.select_code(pet_code);
 		model.addAttribute("list", list);
@@ -63,10 +62,8 @@ public class PetController {
 	@RequestMapping("updatePro.pet")
 	public String updatePro(PetDTO dto){
 		PetDAO dao=sqlSession.getMapper(PetDAO.class);
-		System.out.println(dto.toString());
+		
 		int result = dao.update_pet(dto);
-		System.out.println("1");
-		System.out.println("result = " + result);
 		return "redirect:list.pet";
 	}
 	
@@ -85,14 +82,11 @@ public class PetController {
 		ModelAndView mav= new ModelAndView();
 		String search=request.getParameter("search");
 		
-		System.out.println("search: "+search);
-		
 		PetDAO dao=sqlSession.getMapper(PetDAO.class);
 		
 		PetDTO dto=new PetDTO();
 		dto.setPet_name(search);
 		List list= dao.searchList(dto);
-		
 
 		mav.addObject("list", list);
 		mav.setViewName("/pet/list");

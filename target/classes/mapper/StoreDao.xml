@@ -7,25 +7,65 @@
     <!-- Admin 입력 페이지 쿼리 -->
     <insert id="insert" parameterType="com.pet.model.StoreDTO">
 	    INSERT INTO STORE
-	    	(STORE_CODE,STORE_ID,STORE_PASSWORD, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE )
+	    	(STORE_CODE,STORE_ID,STORE_PASSWORD, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE, STORE_ENABLED, STORE_ROLE )
 	    VALUES
-	    	(#{store_code},#{store_id},#{store_password},#{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE)
+	    	(#{store_code},#{store_id},#{store_password},#{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE, #{store_enabled}, #{store_role})
     </insert>
    <!-- Admin목록 페이지 쿼리 -->
     <select id="getSelectAll" resultType="com.pet.model.StoreDTO">
-     SELECT * FROM STORE
+		SELECT *
+		FROM STORE
     </select>
     <select id="adminUpdate"   resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
-    SELECT * FROM STORE WHERE STORE_CODE = #{store_code}
-    
+	    SELECT *
+	    FROM STORE
+	    WHERE STORE_CODE = #{store_code}
     </select>
     <!-- 수정기능 -->
     <update id="adminUpdatePro">
-    UPDATE STORE SET STORE_ID=#{store_id} ,STORE_PASSWORD=#{store_password} , STORE_NAME= #{store_name}, STORE_COST= #{store_cost}, STORE_PAYMENT= #{store_payment}, STORE_INCOME=#{store_income}, STORE_RENTCOST= #{store_rentCost}, STORE_DOCTOR= #{store_doctor}, STORE_WORKER=#{store_worker}  WHERE Store_Code = #{store_code}
+    	UPDATE STORE
+    	<set>
+    		<if test="store_id != null and store_id != ''">
+    			STORE_ID=#{store_id},
+    		</if>
+    		<if test="store_password != null and store_password != ''">
+    			STORE_PASSWORD=#{store_password},
+    		</if>
+    		<if test="store_name != null and store_name != ''">
+    			STORE_NAME=#{store_name},
+    		</if>
+    		<if test="store_cost != null and store_cost != ''">
+    			STORE_COST=#{store_cost},
+    		</if>
+    		<if test="store_payment != null and store_payment != ''">
+    			STORE_PAYMENT=#{store_payment},
+    		</if>
+    		<if test="store_income != null and store_income != ''">
+    			STORE_INCOME=#{store_income},
+    		</if>
+    		<if test="store_rentCost != null and store_rentCost != ''">
+    			STORE_RENTCOST=#{store_rentCost},
+    		</if>
+    		<if test="store_doctor != null and store_doctor != ''">
+    			STORE_DOCTOR=#{store_doctor},
+    		</if>
+    		<if test="store_worker != null and store_worker != ''">
+    			STORE_WORKER=#{store_worker},
+    		</if>
+    		<if test="store_enabled != null and store_enabled != ''">
+    			STORE_ENABLED=#{store_enabled},
+    		</if>
+    		<if test="store_role != null and store_role != ''">
+    			STORE_ROLE=#{store_role}
+    		</if>
+    	</set>
+    	WHERE STORE_CODE = #{store_code}
     </update>
     <!-- 삭제기능 -->
     <delete id="adminDelete">
-    DELETE FROM STORE WHERE STORE_CODE = #{store_code}
+	    DELETE
+	    FROM STORE
+	    WHERE STORE_CODE = #{store_code}
     </delete>
 	<!-- 페이징 카운트 -->
 	<select id ="getListCount" resultType= "Integer">
@@ -45,8 +85,20 @@
 	
 	<!-- 검색기능 -->
 	<select id="searchStore"  resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
-	SELECT * 
-	FROM STORE
-	WHERE STORE_NAME LIKE '%${store_name}%'	
+		SELECT * 
+		FROM STORE
+		WHERE STORE_NAME LIKE '%${store_name}%'	
+	</select>
+	
+	<insert id="reportPro"  parameterType="com.pet.model.ReportDTO">
+	 	INSERT INTO REPORT
+	    	(REPORT_STORENAME, REPORT_POSITION, REPORT_DATE,REPORT_WRITER,REPORT_CONTENTS )
+	    VALUES
+	    	(#{report_storeName},#{report_position},SYSDATE,#{report_writer},#{report_contents})
+	</insert>
+	
+	<select id="getReportList" resultType="com.pet.model.ReportDTO" parameterType="com.pet.model.ReportDTO">
+		SELECT *
+		FROM REPORT
 	</select>
  </mapper>

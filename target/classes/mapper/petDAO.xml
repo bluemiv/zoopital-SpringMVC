@@ -3,14 +3,15 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-    <mapper namespace="com.pet.model.PetDAO">
+<mapper namespace="com.pet.model.PetDAO">
     <insert id="insert_pet" parameterType="com.pet.model.PetDTO">
 	    INSERT INTO PET
 	    VALUES( PET_SEQ.NEXTVAL, #{pet_name}, #{pet_type}, #{pet_sex}, #{pet_age}, #{pet_phone}, #{store_code} )
     </insert>
     
     <select id="list_pet" resultType="com.pet.model.PetDTO">
-    	select * from pet
+    	SELECT *
+    	FROM PET
     </select>
     
     <select id="select_code" resultType="com.pet.model.PetDTO">

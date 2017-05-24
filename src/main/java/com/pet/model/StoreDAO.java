@@ -2,9 +2,11 @@ package com.pet.model;
 
 import java.util.List;
 
+import org.springframework.web.servlet.ModelAndView;
+
 public interface StoreDAO {
 	// 관리자 회원가입
-     public void insert(StoreDTO dto);
+    public int insert(StoreDTO dto);
      
     // 회원 가입 목록 보기
  	public List<StoreDTO> getSelectAll();
@@ -27,4 +29,10 @@ public interface StoreDAO {
 
 	//store_name 으로 검색기능
 	public List<StoreDTO> searchStore(StoreDTO dto);
+	
+	//report 보고서 DB저장
+	public void reportPro(ReportDTO dto);	
+	
+	//reportList 보기
+	public List<ReportDTO> getReportList(ReportDTO dto);	
 }
