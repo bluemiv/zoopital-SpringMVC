@@ -4,7 +4,7 @@ import java.util.List;
 public interface EmpDAO {
 	
 	//모든 직원 리스트 불러오기
-	public List<EmpDTO> getEmpList();
+	public List<EmpDTO> getEmpList(EmpDTO dto);
 	
 	//검색해서 직원 리스트 띄우기
 	public List<EmpDTO> selectEmpList(EmpDTO dto);

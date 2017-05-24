@@ -29,7 +29,7 @@ public class MedicamentController {
 		
 		medicamentDTO.setStore_code(principal.getName()); // 세션 아이디 가져옴
 		
-		// 페이징 처리
+		// 페이징 처리0
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		int totalCount = medicamentDAO.getTotalCountOfMedicament(medicamentDTO);
 		final int pageSize = 5;

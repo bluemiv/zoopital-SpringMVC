@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +17,23 @@ import com.pet.model.EmpDTO;
 @Controller
 @RequestMapping("/emp/")
 public class EmpController {
+	Principal principal;
 	
 	@Autowired
 	SqlSession sqlSession;
 	
+	// 직원 목록 모두 띄워주기
 	@RequestMapping("empListForm.pet")
-	public String empListForm(Model model) {
+	public String empListForm(Model model ) {
 		System.out.println("empListForm 컨트롤러 진입");
+		
+		EmpDTO empDTO = new EmpDTO();
+//		empDTO.setStore_code(principal.getName());
+		empDTO.setStore_code("pankyo");
+		
 
-		// 직원 목록 모두 띄워주기
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
-		List<EmpDTO> empList = EmpDAO.getEmpList();
+		List<EmpDTO> empList = EmpDAO.getEmpList(empDTO);
 		model.addAttribute("emplist", empList);
 
 		return "/emp/empListForm";
