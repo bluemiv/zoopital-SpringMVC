@@ -32,8 +32,8 @@
 	<insert id="insertMedicament" parameterType="com.pet.model.MedicamentDTO">
 		INSERT INTO MEDICAMENT
 			(MEDICAMENT_CODE, MEDICAMENT_NAME, MEDICAMENT_AMOUNT, MEDICAMENT_COST, MEDICAMENT_MANDATE,
-				MEDICAMENT_EXDATE, STORE_CODE)
-		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_cost}, #{medicament_mandate}, #{medicament_exdate}, #{store_code})
+				MEDICAMENT_EXDATE, MEDICAMENT_CATEGORY,STORE_CODE)
+		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_cost}, #{medicament_mandate}, #{medicament_exdate}, #{medicament_category}, #{store_code})
 	</insert>
 	<update id="updateMedicament" parameterType="com.pet.model.MedicamentDTO">
 		UPDATE MEDICAMENT
@@ -53,6 +53,9 @@
 		</if>
 		<if test="medicament_exdate != null and medicament_exdate != ''">
 			,MEDICAMENT_EXDATE = #{medicament_exdate}
+		</if>
+		<if test="medicament_category != null and medicament_category != ''">
+			,MEDICAMENT_CATEGORY = #{medicament_category}
 		</if>
 		WHERE MEDICAMENT_CODE = #{medicament_code}
 	</update>

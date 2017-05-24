@@ -43,6 +43,15 @@
 		</div>
 		<div class="form-group has-success has-feedback">
 			<label class="control-label col-sm-2">
+				약품 종류
+			</label>
+			<div class="col-sm-3 input-group">
+				<input type = "text" name = "medicament_cost" required="required" value = "${medicamentDTO.medicament_category}" class="form-control">
+				<span class="input-group-addon">원</span>
+			</div>
+		</div>
+		<div class="form-group has-success has-feedback">
+			<label class="control-label col-sm-2">
 				제조 일자
 			</label>
 			<div class="col-sm-3 input-group">

@@ -11,6 +11,7 @@ public class MedicamentDTO {
 	private int medicament_cost; // number, -- 약품 가격
 	private Date medicament_mandate; // date, -- 약품 제조일자
 	private Date medicament_exdate; // date, -- 약품 유통기한
+	private String medicament_category; // varchar2(500) not null, -- 약품 종류
 	private String store_code; // varchar2(500) not null -- 지점 코드
 	private int startNum; // 첫번째 글
 	private int endNum; // 마지막 글
@@ -59,6 +60,12 @@ public class MedicamentDTO {
 	}
 	public void setMedicament_exdate(Date medicament_exdate) {
 		this.medicament_exdate = medicament_exdate;
+	}
+	public String getMedicament_category() {
+		return medicament_category;
+	}
+	public void setMedicament_category(String medicament_category) {
+		this.medicament_category = medicament_category;
 	}
 	public String getStore_code() {
 		return store_code;

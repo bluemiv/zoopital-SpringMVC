@@ -55,6 +55,7 @@
 				<th>약품 이름</th>
 				<th>개수</th>
 				<th>가격</th>
+				<th>종류</th>
 				<th>제조일자</th>
 				<th>유통기한</th>
 				<th>지점코드</th>
@@ -69,6 +70,7 @@
 				<td onclick = "location='medicamentDetailForm.pet?medicament_code=${var.medicament_code}'">${var.medicament_name}</td>
 				<td>${var.medicament_amount}</td>
 				<td>${var.medicament_cost}원</td>
+				<td>${var.medicament_category}</td>
 				<td>${var.medicament_mandate}</td>
 				<td>${var.medicament_exdate}</td>
 				<td>${var.store_code}</td>

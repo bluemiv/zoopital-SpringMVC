@@ -19,6 +19,7 @@
 				<th>약품 이름</th>
 				<th>개수</th>
 				<th>가격</th>
+				<th>종류</th>
 				<th>제조일자</th>
 				<th>유통기한</th>
 				<th>지점코드</th>
@@ -30,6 +31,7 @@
 				<td>${medicamentDTO.medicament_name}</td>
 				<td>${medicamentDTO.medicament_amount}</td>
 				<td class="center">${medicamentDTO.medicament_cost}원</td>
+				<td class="center">${medicamentDTO.medicament_category}</td>
 				<td class="center">${medicamentDTO.medicament_mandate}</td>
 				<td class="center">${medicamentDTO.medicament_exdate}</td>
 				<td class="center">${medicamentDTO.store_code}</td>
