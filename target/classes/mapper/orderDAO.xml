@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.pet.model.OrderDAO">
 	<!-- 발주 내역 출력 -->
 	<select id="selectAllOfOrder" parameterType = "com.pet.model.OrderDTO" resultType = "com.pet.model.OrderDTO">
