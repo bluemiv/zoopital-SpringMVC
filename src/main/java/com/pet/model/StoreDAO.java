@@ -28,5 +28,5 @@ public interface StoreDAO {
 	public List<StoreDTO> searchStore(StoreDTO dto);
 	
 	// ROLE_SUPER_ADMIN 권한을 가진 store_code 가져오기
-	public List<String> getStoreRole() throws Exception;
+	public List<String> getStoreCode() throws Exception;
 }

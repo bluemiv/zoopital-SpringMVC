@@ -19,6 +19,7 @@ public class MedicamentDTO {
 	private int pageNum; // 몇 페이지?
 	private int pageTotalNum; // 전체 페이지 개수
 	private String search; // 검색어
+	private String amountState; // 개수 감소 혹은 증가 (up 또는 down)
 	
 	// constructor
 	public MedicamentDTO() {
@@ -121,6 +122,13 @@ public class MedicamentDTO {
 	public void setSearch(String search) {
 		this.search = search;
 	}
+	public String getAmountState() {
+		return amountState;
+	}
+	public void setAmountState(String amountState) {
+		this.amountState = amountState;
+	}
+	
 	
 	
 }

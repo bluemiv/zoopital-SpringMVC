@@ -18,6 +18,7 @@ import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
 import com.pet.model.OrderDAO;
 import com.pet.model.OrderDTO;
+import com.pet.model.StoreDAO;
 
 @Controller
 @RequestMapping("/medicament/")
@@ -53,7 +54,8 @@ public class MedicamentController {
 		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO);
 		
 		// 본사 지점 코드 가져오기
-		List<String> storeCodeList = medicamentDAO.getMedicamentStore_code();
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		List<String> storeCodeList = storeDAO.getStoreCode();
 		
 		model.addAttribute("list", list);
 		model.addAttribute("storeCodeList", storeCodeList);
@@ -140,11 +142,8 @@ public class MedicamentController {
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		medicamentDTO = medicamentDAO.getMedicament(medicamentDTO);
 		
-		// 지점 코드 가져오기
-		List<String> storeList = medicamentDAO.getMedicamentStore_code();
-		
 		model.addAttribute("medicamentDTO",medicamentDTO);
-		model.addAttribute("storeList",storeList);
+		
 		return "/medicament/medicamentDetailForm";
 	} // 약품 세부정보 Form
 	

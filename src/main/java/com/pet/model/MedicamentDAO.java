@@ -19,10 +19,10 @@ public interface MedicamentDAO {
 	// 약품 정보 삭제
 	public int deleteMedicament(MedicamentDTO medicamentDTO);
 	
-	// 지점 코드 가져오기
-	public List<String> getMedicamentStore_code() throws Exception;
-	
 	// 전체 게시물 개수
 	public int getTotalCountOfMedicament(MedicamentDTO medicamentDTO) throws Exception;
+
+	// 발주관련 상품 개수 update
+	public int updateAmountOfMedicamentAboutOrder(MedicamentDTO medicamentDTO);
 
 }

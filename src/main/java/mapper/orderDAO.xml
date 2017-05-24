@@ -5,9 +5,17 @@
 <mapper namespace="com.pet.model.OrderDAO">
 	<!-- 발주 내역 출력 -->
 	<select id="selectAllOfOrder" parameterType = "com.pet.model.OrderDTO" resultType = "com.pet.model.OrderDTO">
-		SELECT *
-		FROM ORDER_PET
-		WHERE STORE_CODE = #{store_code} OR ORDER_TO = #{store_code}
+		SELECT O.*, M.MEDICAMENT_AMOUNT
+		FROM ORDER_PET O, MEDICAMENT M
+		WHERE
+			<if test="store_role == 'ROLE_SUPER_ADMIN'">
+			(M.STORE_CODE = O.ORDER_TO)
+			</if>
+			<if test="store_role == 'ROLE_ADMIN'">
+			(M.STORE_CODE = O.ORDER_FROM)
+			</if>
+			AND (M.MEDICAMENT_NAME = O.ORDER_NAME)
+			AND (O.STORE_CODE = #{store_code} OR O.ORDER_TO = #{store_code})
 	</select>
 	<!-- 세부 내용 -->
 	<select id="selectDetailOrder" resultType="com.pet.model.OrderDTO">
@@ -19,16 +27,16 @@
 	<update id="updateOrder" parameterType = "com.pet.model.OrderDTO">
 		UPDATE ORDER_PET
 		<set>
-			<if test="order_amount != null">
+			<if test="order_amount != null and order_amount != ''">
 				ORDER_AMOUNT = #{order_amount},
 			</if>
-			<if test="order_check != null">
+			<if test="order_check != null and order_check != ''">
 				ORDER_CHECK = #{order_check},
 			</if>
-			<if test="order_delivery != null">
+			<if test="order_delivery != null and order_delivery != ''">
 				ORDER_DELIVERY = #{order_delivery},
 			</if>
-			<if test="order_to != null">
+			<if test="order_to != null and order_to != ''">
 				ORDER_TO = #{order_to},
 			</if>
 		</set>
