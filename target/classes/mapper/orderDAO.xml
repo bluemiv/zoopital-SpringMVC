@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pet.model.OrderDAO">
+	<!-- 발주 내역 출력 -->
+	<select id="selectAllOfOrder" parameterType = "com.pet.model.OrderDTO" resultType = "com.pet.model.OrderDTO">
+		SELECT *
+		FROM ORDER_PET
+		WHERE STORE_CODE= #{store_code} OR ORDER_TO = #{store_code}
+	</select>
+	<!-- 승인여부, 배달 수령 여부 update -->
+	<update id="updateOrder" parameterType = "com.pet.model.OrderDTO">
+		UPDATE ORDER_PET
+		<set>
+			<if test="order_check != null">
+			ORDER_CHECK = #{order_check},
+			</if>
+			<if test="order_delivery != null">
+			ORDER_DELIVERY = #{order_delivery},
+			</if>
+		</set>
+		WHERE ORDER_CODE = #{order_code}
+	</update>
+</mapper>

@@ -27,24 +27,22 @@
 				data-source-ref="driverManagerDataSource"
 				users-by-username-query="SELECT * 
 											FROM (
-												SELECT A.ADMIN_ID, A.ADMIN_PWD, A.ADMIN_ENABLED
-												FROM ADMIN A, STORE S
-												WHERE A.ADMIN_ID = S.STORE_ID AND A.ADMIN_PWD = S.STORE_PASSWORD
+												SELECT STORE_ID, STORE_PASSWORD, STORE_ENABLED
+												FROM STORE
 												UNION
 												SELECT 'system', 'oracle', 1
-												FROM ADMIN A
+												FROM STORE
 											)
-											WHERE ADMIN_ID = ?"
+											WHERE STORE_ID = ?"
 				authorities-by-username-query="SELECT * 
 												FROM (
-													SELECT A.ADMIN_ID, A.ADMIN_ROLE
-													FROM ADMIN A, STORE S
-													WHERE A.ADMIN_ID = S.STORE_ID AND A.ADMIN_PWD = S.STORE_PASSWORD
+													SELECT STORE_ID, STORE_ROLE
+													FROM STORE
 													UNION
 													SELECT 'system', 'ROLE_SUPER_ADMIN'
-													FROM ADMIN A
+													FROM STORE
 												)
-												WHERE ADMIN_ID = ?" />
+												WHERE STORE_ID = ?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>

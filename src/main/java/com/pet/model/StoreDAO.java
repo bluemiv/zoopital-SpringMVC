@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface StoreDAO {
 	// 관리자 회원가입
-     public void insert(StoreDTO dto);
+    public int insert(StoreDTO dto);
      
     // 회원 가입 목록 보기
  	public List<StoreDTO> getSelectAll();
