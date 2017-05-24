@@ -17,19 +17,19 @@ import com.pet.model.EmpDTO;
 @Controller
 @RequestMapping("/emp/")
 public class EmpController {
-	Principal principal;
+	
 	
 	@Autowired
 	SqlSession sqlSession;
 	
 	// 직원 목록 모두 띄워주기
 	@RequestMapping("empListForm.pet")
-	public String empListForm(Model model ) {
+	public String empListForm(Model model, Principal principal) {
 		System.out.println("empListForm 컨트롤러 진입");
+		System.out.println(principal.getName());
 		
 		EmpDTO empDTO = new EmpDTO();
-//		empDTO.setStore_code(principal.getName());
-		empDTO.setStore_code("pankyo");
+		empDTO.setStore_code(principal.getName());
 		
 
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
