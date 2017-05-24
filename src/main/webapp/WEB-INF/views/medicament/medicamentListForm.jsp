@@ -26,7 +26,8 @@
 				error : function(result, status, er) {
 					$("#search_display").text(er);
 				}
-			}); // Ajax 응답을 정상적으로 받으면 실행됨.
+			}); // Ajax 응
+			/* 답을 정상적으로 받으면 실행됨. */
 		});
 	});
 </script>

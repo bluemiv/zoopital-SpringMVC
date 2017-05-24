@@ -89,4 +89,16 @@
 		FROM STORE
 		WHERE STORE_NAME LIKE '%${store_name}%'	
 	</select>
+	
+	<insert id="reportPro"  parameterType="com.pet.model.ReportDTO">
+	 	INSERT INTO REPORT
+	    	(REPORT_STORENAME, REPORT_POSITION, REPORT_DATE,REPORT_WRITER,REPORT_CONTENTS )
+	    VALUES
+	    	(#{report_storeName},#{report_position},SYSDATE,#{report_writer},#{report_contents})
+	</insert>
+	
+	<select id="getReportList" resultType="com.pet.model.ReportDTO" parameterType="com.pet.model.ReportDTO">
+		SELECT *
+		FROM REPORT
+	</select>
  </mapper>

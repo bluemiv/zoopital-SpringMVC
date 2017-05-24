@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.PageDTO;
+import com.pet.model.ReportDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
 
@@ -150,5 +152,31 @@ public class StoreController {
 
 		return mav;
 	}
-
+	
+	//report 기능
+	@RequestMapping("/report.pet")
+	public  ModelAndView report(){	
+		ModelAndView mav = new ModelAndView("/store/report");
+		System.out.println("보고서 페이지 이동!!!~~~");
+		return mav;
+	}
+	
+	@RequestMapping("/reportPro.pet")
+	public ModelAndView reportPro(ReportDTO dto){
+		ModelAndView mav = new ModelAndView("redirect:getReportList.pet");
+		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
+		dao.reportPro(dto);
+		System.out.println("보고서 저장완료");
+		return mav;
+	}
+	@RequestMapping("/getReportList.pet")
+	public ModelAndView getReportList(ReportDTO dto){
+		ModelAndView mav = new ModelAndView("/store/reportList");
+	    StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
+	    List getReportList = dao.getReportList(dto);
+		mav.addObject("reportList",getReportList);
+		
+		return mav;
+	}
+	
 }
