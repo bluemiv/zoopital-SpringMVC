@@ -22,6 +22,7 @@
 <body>
 <se:authorize access="isAuthenticated()">
 	<se:authentication property="name" var="username"/>
+	<a href = "/controller/home.pet">홈으로 가기</a>
 	<h1>지점 : ${username} </h1>
 </se:authorize>
 </body>

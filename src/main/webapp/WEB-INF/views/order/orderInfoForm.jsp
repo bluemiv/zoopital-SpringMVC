@@ -76,7 +76,7 @@
 					거부 상태
 				</c:if>
 				</td>
-				<c:if test="${username == var.order_from}">
+				<c:if test="${username == var.order_from && var.order_delivery == 'no'}">
 				<td>
 					<button onclick = "location='orderUpdateForm.pet?order_code=${var.order_code}'">수정</button>
 				</td>
@@ -84,7 +84,7 @@
 					<button onclick = "location='orderDeletePro.pet?order_code=${var.order_code}'">삭제</button>
 				</td>
 				</c:if>
-				<c:if test="${username != var.order_from}">
+				<c:if test="${username != var.order_from || var.order_delivery == 'yes'}">
 				<td>
 					수정 권한 없음
 				</td>
