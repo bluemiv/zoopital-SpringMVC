@@ -30,9 +30,5 @@ public interface StoreDAO {
 	//store_name 으로 검색기능
 	public List<StoreDTO> searchStore(StoreDTO dto);
 	
-	//report 보고서 DB저장
-	public void reportPro(ReportDTO dto);	
-	
-	//reportList 보기
-	public List<ReportDTO> getReportList(ReportDTO dto);	
+		
 }
