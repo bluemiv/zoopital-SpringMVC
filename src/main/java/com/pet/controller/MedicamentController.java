@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
+import com.pet.model.OrderDAO;
+import com.pet.model.OrderDTO;
 
 @Controller
 @RequestMapping("/medicament/")
@@ -49,7 +52,11 @@ public class MedicamentController {
 		// 모든 약품 리스트 가져옴
 		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO);
 		
+		// 본사 지점 코드 가져오기
+		List<String> storeCodeList = medicamentDAO.getMedicamentStore_code();
+		
 		model.addAttribute("list", list);
+		model.addAttribute("storeCodeList", storeCodeList);
 		model.addAttribute("page", medicamentDTO);
 		return "/medicament/medicamentListForm";
 	} // 약품 리스트 출력
@@ -141,6 +148,29 @@ public class MedicamentController {
 		return "/medicament/medicamentDetailForm";
 	} // 약품 세부정보 Form
 	
+	@Transactional
+	@RequestMapping("medicamentRequestPro.pet")
+	public String medicamentRequestPro(MedicamentDTO medicamentDTO, String order_to, Principal principal) throws Exception{
+		System.out.println("medicamentRequestPro 접근");
+		
+		// 물품 요청
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setOrder_name(medicamentDTO.getMedicament_name());
+		orderDTO.setOrder_amount(medicamentDTO.getMedicament_amount());
+		orderDTO.setOrder_check("no");
+		orderDTO.setOrder_delivery("no");
+		orderDTO.setOrder_to(order_to);
+		orderDTO.setOrder_from(principal.getName());
+		orderDTO.setStore_code(principal.getName());
+		OrderDAO orderDAO = sqlSession.getMapper(OrderDAO.class);
+		boolean check = false;
+		if(orderDAO.insertOrder(orderDTO)>0){
+			check = true;
+		}
+		    
+		return "redirect:medicamentListForm.pet";
+	} // 약품 세부정보 Form
+	
 	/////////////////////////////////////////////
 	//////////////////// AJAX ///////////////////
 	/////////////////////////////////////////////
@@ -151,7 +181,7 @@ public class MedicamentController {
 		while(tokenizer.hasMoreTokens()){
 			search = tokenizer.nextToken();
 		}
-		
+		System.out.println(search);
 		MedicamentDTO medicamentDTO = new MedicamentDTO();
 		medicamentDTO.setSearch(search);
 		medicamentDTO.setStore_code(principal.getName());

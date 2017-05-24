@@ -7,19 +7,41 @@
 	<select id="selectAllOfOrder" parameterType = "com.pet.model.OrderDTO" resultType = "com.pet.model.OrderDTO">
 		SELECT *
 		FROM ORDER_PET
-		WHERE STORE_CODE= #{store_code} OR ORDER_TO = #{store_code}
+		WHERE STORE_CODE = #{store_code} OR ORDER_TO = #{store_code}
+	</select>
+	<!-- 세부 내용 -->
+	<select id="selectDetailOrder" resultType="com.pet.model.OrderDTO">
+		SELECT *
+		FROM ORDER_PET
+		WHERE ORDER_CODE = #{order_code}
 	</select>
 	<!-- 승인여부, 배달 수령 여부 update -->
 	<update id="updateOrder" parameterType = "com.pet.model.OrderDTO">
 		UPDATE ORDER_PET
 		<set>
+			<if test="order_amount != null">
+				ORDER_AMOUNT = #{order_amount},
+			</if>
 			<if test="order_check != null">
-			ORDER_CHECK = #{order_check},
+				ORDER_CHECK = #{order_check},
 			</if>
 			<if test="order_delivery != null">
-			ORDER_DELIVERY = #{order_delivery},
+				ORDER_DELIVERY = #{order_delivery},
+			</if>
+			<if test="order_to != null">
+				ORDER_TO = #{order_to},
 			</if>
 		</set>
 		WHERE ORDER_CODE = #{order_code}
 	</update>
+	<!-- 발주 내역 입력 -->
+	<insert id="insertOrder" parameterType="com.pet.model.OrderDTO">
+		INSERT INTO ORDER_PET
+		VALUES (ORDER_NUM.NEXTVAL, #{order_name}, #{order_amount}, #{order_check}, #{order_delivery}, #{order_to}, #{order_from}, #{store_code})
+	</insert>
+	<!-- 발주 내역 삭제 -->
+	<delete id="deleteOrder" parameterType="com.pet.model.OrderDTO">
+		DELETE ORDER_PET
+		WHERE ORDER_CODE = #{order_code}
+	</delete>
 </mapper>

@@ -59,6 +59,7 @@
 				<th>유통기한</th>
 				<th>지점코드</th>
 				<th>수정/삭제</th>
+				<th>요청</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -76,15 +77,26 @@
 					onclick = "location='medicamentUpdateForm.pet?medicament_code=${var.medicament_code}'">수정</button>
 					<button class="btn btn-md btn-info"
 					onclick = "location='medicamentDeletePro.pet?medicament_code=${var.medicament_code}'">삭제</button>
-					<button> 미리보기 </button>
+					<button class="btn btn-md btn-info"> 미리보기 </button>
+				</td>
+				<td>
+					<form action = "medicamentRequestPro.pet" method = "post">
+						<input type = "hidden" name = "medicament_code" value = "${var.medicament_code}"/>
+						<input type = "hidden" name = "medicament_name" value = "${var.medicament_name}"/>
+						<input type = "hidden" name = "medicament_cost" value = "${var.medicament_amount}"/>
+						<input type = "hidden" name = "medicament_manDate" value = "${var.medicament_mandate}"/>
+						<input type = "hidden" name = "medicament_exDate" value = "${var.medicament_exdate}"/>
+						<input type = "hidden" name = "store_code" value = "${var.store_code}"/>
+						<select name = "order_to" class="form-control">
+						<c:forEach items = "${storeCodeList}" var = "store_code">
+							<option value = "${store_code}">${store_code}</option>
+						</c:forEach>
+						</select>
+						<input type="number" min = "0" name="medicament_amount" class="form-control"/>
+						<input class="btn btn-md btn-info" type = "submit" value="요청하기"/>
+					</form>
 				</td>
 			</tr>
-			<input type = "hidden" id = "medicamentCode" value = "${var.medicament_code}"/>
-			<input type = "hidden" name = "medicamentName" value = "${var.medicament_name}"/>
-			<input type = "hidden" name = "medicamentAmount" value = "${var.medicament_amount}"/>
-			<input type = "hidden" name = "medicamentManDate" value = "${var.medicament_mandate}"/>
-			<input type = "hidden" name = "medicamentExDate" value = "${var.medicament_exdate}"/>
-			<input type = "hidden" name = "storeCode" value = "${var.store_code}"/>
 		</c:forEach>
 		</tbody>
 	</table>

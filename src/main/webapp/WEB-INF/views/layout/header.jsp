@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,9 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-
+<se:authorize access="isAuthenticated()">
+	<se:authentication property="name" var="username"/>
+	<h1>지점 : ${username} </h1>
+</se:authorize>
 </body>
 </html>

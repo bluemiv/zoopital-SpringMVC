@@ -12,6 +12,16 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
+	<c:if test="${check == true }">
+		<script type="text/javascript">
+			alert("완료");
+		</script>
+	</c:if>
+	<c:if test="${check == false }">
+		<script type="text/javascript">
+			alert("에러");
+		</script>
+	</c:if>
 	<se:authentication property="name" var="username"/>
 	<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 		<thead>
@@ -22,6 +32,8 @@
 				<th>요구하는 곳(해당 지점)</th>
 				<th>승인 여부</th>
 				<th>배송 완료</th>
+				<th>내역 수정</th>
+				<th>내역 삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,17 +58,33 @@
 				</c:if>
 				</td>
 				<td>
-				<c:if test="${var.order_delivery == 'yes'}">
-					수령 완료
+				<c:if test="${var.order_check == 'yes'}">
+					<c:if test="${var.order_delivery == 'yes'}">
+						수령 완료
+					</c:if>
+					<c:if test="${var.order_delivery == 'no'}">
+						수령 미완료
+					</c:if>
+					<c:if test="${ username == var.order_from && var.order_delivery == 'no'}">
+						<button onclick = "location='orderCheckPro.pet?order_delivery=yes&order_code=${var.order_code}'">수령 완료</button>
+					</c:if>
+					<c:if test="${ username == var.order_from && var.order_delivery == 'yes'}">
+						<button onclick = "location='orderCheckPro.pet?order_delivery=no&order_code=${var.order_code}'">수령 미완료</button>
+					</c:if>
 				</c:if>
-				<c:if test="${var.order_delivery == 'no'}">
-					수령 미완료
+				<c:if test="${var.order_check == 'no'}">
+					거부 상태
 				</c:if>
-				<c:if test="${ username == var.order_from && var.order_delivery == 'no'}">
-					<button onclick = "location='orderCheckPro.pet?order_delivery=yes&order_code=${var.order_code}'">수령 완료</button>
+				</td>
+				<td>
+					<button onclick = "location='orderUpdateForm.pet?order_code=${var.order_code}'">수정</button>
+				</td>
+				<td>
+				<c:if test="${username == var.order_from}">
+					<button onclick = "location='orderDeletePro.pet?order_code=${var.order_code}'">삭제</button>
 				</c:if>
-				<c:if test="${ username == var.order_from && var.order_delivery == 'yes'}">
-					<button onclick = "location='orderCheckPro.pet?order_delivery=no&order_code=${var.order_code}'">수령 미완료</button>
+				<c:if test="${username != var.order_from}">
+					삭제 권한 없음
 				</c:if>
 				</td>
 			</tr>

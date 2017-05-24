@@ -61,9 +61,10 @@
 		WHERE MEDICAMENT_CODE = #{medicament_code}
 	</delete>
 	<select id="getMedicamentStore_code" resultType="java.lang.String">
-		SELECT STORE_CODE
-		FROM MEDICAMENT
-		GROUP BY STORE_CODE
+		SELECT M.STORE_CODE
+		FROM MEDICAMENT M, STORE S
+		WHERE M.STORE_CODE = S.STORE_CODE and S.STORE_ROLE = 'ROLE_SUPER_ADMIN'
+		GROUP BY M.STORE_CODE
 	</select>
 	<select id = "getTotalCountOfMedicament" resultType = "Integer" parameterType = "com.pet.model.MedicamentDTO">
 		SELECT COUNT(*)
