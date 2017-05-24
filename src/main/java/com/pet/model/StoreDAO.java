@@ -14,7 +14,7 @@ public interface StoreDAO {
  	//관리자 수정 세부페이지
  	public StoreDTO adminUpdate(StoreDTO dto);
  	
- 	//관리자 수정 process 과정ss
+ 	//관리자 수정 process 과정
  	public int adminUpdatePro(StoreDTO dto);
  	
  	//관리자 삭제
@@ -26,7 +26,6 @@ public interface StoreDAO {
 	// 페이지 값에 따라 리스트를 출력
 	public List<StoreDTO> getPageSelectAll(PageDTO pageDTO);
  	
-
 	//store_name 으로 검색기능
 	public List<StoreDTO> searchStore(StoreDTO dto);
 	
@@ -34,5 +33,6 @@ public interface StoreDAO {
 	public void reportPro(ReportDTO dto);	
 	
 	//reportList 보기
-	public List<ReportDTO> getReportList(ReportDTO dto);	
+	public List<ReportDTO> getReportList(ReportDTO dto);
+	
 }

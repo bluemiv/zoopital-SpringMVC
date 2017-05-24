@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="">                                                                                                                   
-아이디: <input type="text" name="store_id">
+아이디: <input type="text" name="store_code">
 비번: <input type="text" name="store_password">
 <input type="submit" value="로그인">
 </form>

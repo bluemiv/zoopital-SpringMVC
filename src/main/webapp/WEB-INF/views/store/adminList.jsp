@@ -9,13 +9,12 @@
 </head>
 <body>
 <form action="search.pet">
-지점 이름을 검색하세요:<input type="text"  name="store_name"   >
+지점 이름을 검색하세요:<input type="text"  name="store_name" >
 <input type="submit" value="검색" >    
 <button onclick = "location='selectAll.pet">목록으로 돌아가기</button>
 </form>
 <c:forEach items="${searchList}" var="search">
-지점 코드: ${search.store_code}<br>
-지점 아이디: ${search.store_id}<br>
+지점 코드 및 ID: ${search.store_code}<br>
 지점 패스워드: ${search.store_password}<br>
 지점 이름: ${search.store_name}<br>
 지점별 관리비: ${search.store_cost}<br>
@@ -31,8 +30,7 @@
 </c:forEach>
 
 <c:forEach  items="${adminList}" var="list">
-지점 코드: ${list.store_code}<br>
-지점 아이디: ${list.store_id}<br>
+지점 코드 및 ID: ${list.store_code}<br>
 지점 패스워드: ${list.store_password}<br>
 지점 이름: ${list.store_name}<br>
 지점별 관리비: ${list.store_cost}<br>

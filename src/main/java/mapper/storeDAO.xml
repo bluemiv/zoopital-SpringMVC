@@ -7,9 +7,9 @@
     <!-- Admin 입력 페이지 쿼리 -->
     <insert id="insert" parameterType="com.pet.model.StoreDTO">
 	    INSERT INTO STORE
-	    	(STORE_CODE,STORE_ID,STORE_PASSWORD, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE, STORE_ENABLED, STORE_ROLE )
+	    	(STORE_CODE, STORE_PASSWORD, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE, STORE_ENABLED, STORE_ROLE )
 	    VALUES
-	    	(#{store_code},#{store_id},#{store_password},#{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE, #{store_enabled}, #{store_role})
+	    	(#{store_code}, #{store_password},#{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE, #{store_enabled}, #{store_role})
     </insert>
    <!-- Admin목록 페이지 쿼리 -->
     <select id="getSelectAll" resultType="com.pet.model.StoreDTO">
@@ -25,8 +25,8 @@
     <update id="adminUpdatePro">
     	UPDATE STORE
     	<set>
-    		<if test="store_id != null and store_id != ''">
-    			STORE_ID=#{store_id},
+    		<if test="store_code != null and store_code != ''">
+    			STORE_CODE=#{store_code},
     		</if>
     		<if test="store_password != null and store_password != ''">
     			STORE_PASSWORD=#{store_password},
@@ -90,15 +90,4 @@
 		WHERE STORE_NAME LIKE '%${store_name}%'	
 	</select>
 	
-	<insert id="reportPro"  parameterType="com.pet.model.ReportDTO">
-	 	INSERT INTO REPORT
-	    	(REPORT_STORENAME, REPORT_POSITION, REPORT_DATE,REPORT_WRITER,REPORT_CONTENTS )
-	    VALUES
-	    	(#{report_storeName},#{report_position},SYSDATE,#{report_writer},#{report_contents})
-	</insert>
-	
-	<select id="getReportList" resultType="com.pet.model.ReportDTO" parameterType="com.pet.model.ReportDTO">
-		SELECT *
-		FROM REPORT
-	</select>
  </mapper>

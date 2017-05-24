@@ -15,19 +15,10 @@
 	<form class="form-horizontal" action = "input.pet" method = "post">
 		<div class="form-group has-success has-feedback">
 			<label class="control-label col-sm-2">
-				지점 코드
+				지점 코드 및 ID
 			</label>
 			<div class="col-sm-3 input-group">
 				<input type = "text" name = "store_code" class="form-control">
-				<span class="input-group-addon">한/A</span>
-			</div>
-		</div>
-		<div class="form-group has-success has-feedback">
-			<label class="control-label col-sm-2">
-				지점 ID
-			</label>
-			<div class="col-sm-3 input-group">
-				<input type = "text" name = "store_id" required="required" class="form-control">
 				<span class="input-group-addon">한/A</span>
 			</div>
 		</div>
