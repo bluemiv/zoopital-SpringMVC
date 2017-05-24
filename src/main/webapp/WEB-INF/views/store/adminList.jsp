@@ -42,6 +42,8 @@
 지점 의사: ${list.store_doctor}<br>
 지점 직원: ${list.store_worker}<br>
 가입날짜: ${list.store_date }<br>
+권한: ${list.store_role }<br>
+활성화: ${list.store_enabled }<br>
 <button onclick = "location='adminUpdate.pet?store_code=${list.store_code}'">수정</button>
 <button onclick = "location='deletePro.pet?store_code=${list.store_code}'">삭제</button>
 <hr>

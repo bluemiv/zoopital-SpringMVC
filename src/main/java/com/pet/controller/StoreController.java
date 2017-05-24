@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pet.model.AdminDAO;
-import com.pet.model.AdminDTO;
 import com.pet.model.PageDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
@@ -31,21 +29,13 @@ public class StoreController {
 
 	@Transactional
 	@RequestMapping("/input.pet")
-	public String Input(StoreDTO storeDTO, AdminDTO adminDTO) throws Exception {
+	public String Input(StoreDTO storeDTO) throws Exception {
 		System.out.println("insert 실행 되었습니다!~~~");
 		
-		// store 테이블 insert
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		storeDAO.insert(storeDTO);
-
-		// admin 테이블 insert
+		// insert
 		boolean check = false;
-		adminDTO.setAdmin_id(storeDTO.getStore_id());
-		adminDTO.setAdmin_pwd(storeDTO.getStore_password());
-		adminDTO.setStore_code(storeDTO.getStore_code());
-		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
-		if(adminDAO.insert(adminDTO) > 0){
-			// 성공
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		if(storeDAO.insert(storeDTO)>0){
 			check = true;
 		}
 		System.out.println(check);
@@ -113,21 +103,15 @@ public class StoreController {
 	
 	@Transactional
 	@RequestMapping("/adminUpdatPro.pet")
-	public ModelAndView adminUpdatePro(StoreDTO storeDTO, AdminDTO adminDTO) throws Exception {
+	public ModelAndView adminUpdatePro(StoreDTO storeDTO) throws Exception {
 		System.out.println("adminUpdatedePro 실행 되었습니다!~~");
 		
-		// ModelAndView mav = new ModelAndView("/store/adminList");
 		ModelAndView mav = new ModelAndView("redirect:selectAll.pet");
-		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
-		dao.adminUpdatePro(storeDTO);
 		
-		// admin 테이블 update
+		// update
 		boolean check = false;
-		adminDTO.setAdmin_id(storeDTO.getStore_id());
-		adminDTO.setAdmin_pwd(storeDTO.getStore_password());
-		adminDTO.setStore_code(storeDTO.getStore_code());
-		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
-		if(adminDAO.update(adminDTO) > 0){
+		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
+		if(dao.adminUpdatePro(storeDTO) > 0){
 			// 성공
 			check = true;
 		}
@@ -145,17 +129,13 @@ public class StoreController {
 		ModelAndView mav = new ModelAndView("redirect:selectAll.pet");
 		
 		// store 테이블
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		storeDAO.adminDelete(dto);
-		
-		// admin 테이블
 		boolean check = false;
-		AdminDAO adminDAO = sqlSession.getMapper(AdminDAO.class);
-		if(adminDAO.deleteAdmin(dto) > 0){
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		if(storeDAO.adminDelete(dto) > 0){
 			check = true;
 		}
-		
 		System.out.println(check);
+		
 		return mav;
 	}
 

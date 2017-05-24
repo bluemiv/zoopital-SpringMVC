@@ -108,7 +108,7 @@
 				권한
 			</label>
 			<div class="col-sm-3 input-group">
-				<select name = "admin_role" class="form-control">
+				<select name = "store_role" class="form-control">
 					<option value = "ROLE_SUPER_ADMIN">수퍼 관리자</option>
 					<option value = "ROLE_ADMIN">일반 관리자</option>
 				</select>
@@ -120,7 +120,7 @@
 				(비)활성화
 			</label>
 			<div class="col-sm-3 input-group">
-				<select name = "admin_enabled" class="form-control">
+				<select name = "store_enabled" class="form-control">
 					<option value = "1">활성화</option>
 					<option value = "0">비활성화</option>
 				</select>
