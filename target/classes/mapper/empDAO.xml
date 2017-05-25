@@ -11,7 +11,9 @@
 	
 	<!-- 직원코드로 검색해서 삭제수정하는 페이지로 갈 때 셀렉 하는 쿼리 -->
 	<select id="selectEmpList" resultType="com.pet.model.EmpDTO">
-		SELECT * FROM EMP WHERE EMP_CODE = #{emp_code}
+		SELECT * FROM EMP
+		WHERE EMP_CODE = #{emp_code}
+		AND STORE_CODE = #{store_code}
 	</select>
 
 	<insert id="insertEmp" parameterType="com.pet.model.EmpDTO">

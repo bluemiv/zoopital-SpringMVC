@@ -36,7 +36,7 @@
 	</se:authorize>
 	<input type="button" value="동물정보입력" onclick="location='pet/writeForm.pet'">
 	<br>
-	<input type="button" value="리스트" onclick="location='pet/list.pet'"> 
+	<input type="button" value="동물리스트" onclick="location='pet/list.pet'"> 
 	<br>
 	<button onclick="location='emp/empListForm.pet'">직원보기</button>
 	<br>
@@ -47,6 +47,8 @@
 	<button onclick="location='store/getReportList.pet'">보고서 리스트 보기</button>
 	<br>
 	<a href = "j_spring_security_logout">로그아웃</a>
+	<br>
+	<button onclick="location='reserve/reserveListForm.pet'">예약보기</button>
 	<br>
 </body>
 </html>

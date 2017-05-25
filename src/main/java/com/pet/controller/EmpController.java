@@ -26,7 +26,6 @@ public class EmpController {
 	@RequestMapping("empListForm.pet")
 	public String empListForm(Model model, Principal principal) {
 		System.out.println("empListForm 컨트롤러 진입");
-		System.out.println(principal.getName());
 		
 		EmpDTO empDTO = new EmpDTO();
 		empDTO.setStore_code(principal.getName());
@@ -48,9 +47,9 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empInsertpro.pet")
-	public String empInsertPro(EmpDTO dto){		
-		System.out.println(dto.toString());
+	public String empInsertPro(EmpDTO dto, Principal principal){		
 		System.out.println("empInsertPro 컨트롤러 진입");
+		dto.setStore_code(principal.getName());
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		EmpDAO.insertEmp(dto);
 		
@@ -58,10 +57,10 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empUpdateDeleteForm.pet")
-	public String empUpdateDeleteForm(EmpDTO dto, Model model){
+	public String empUpdateDeleteForm(EmpDTO dto, Model model, Principal principal){
 		System.out.println("empUpdateDeleteForm 컨트롤러 진입");
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
-		
+		dto.setStore_code(principal.getName());
 		
 		List<EmpDTO> selectEmpList = EmpDAO.selectEmpList(dto);
 		
@@ -74,9 +73,7 @@ public class EmpController {
 	@RequestMapping("empUpdateDeletePro.pet")
 	public String empUpdateDeletePro(HttpServletRequest request, EmpDTO dto, String command){
 		System.out.println("empUpdateDeletePro 컨트롤러 진입");
-		System.out.println("command: "+command);
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
-		System.out.println(dto.toString());
 		
 		if (command.equals("update")) {
 			EmpDAO.updateEmp(dto);
