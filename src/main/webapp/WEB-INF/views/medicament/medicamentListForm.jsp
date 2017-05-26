@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,7 @@
 				<th>종류</th>
 				<th>제조일자</th>
 				<th>유통기한</th>
+				<th>약품주기</th>
 				<th>지점코드</th>
 				<th>수정/삭제</th>
 				<th>요청</th>
@@ -73,6 +75,14 @@
 				<td>${var.medicament_category}</td>
 				<td>${var.medicament_mandate}</td>
 				<td>${var.medicament_exdate}</td>
+				<td>
+				<c:if test="${var.medicament_category == '주사'}">
+					${var.medicament_cycle}개월
+				</c:if>
+				<c:if test="${var.medicament_category != '주사'}">
+					해당없음
+				</c:if>
+				</td>
 				<td>${var.store_code}</td>
 				<td>
 					<button class="btn btn-md btn-info"
@@ -90,8 +100,11 @@
 						<input type = "hidden" name = "medicament_exDate" value = "${var.medicament_exdate}"/>
 						<input type = "hidden" name = "store_code" value = "${var.store_code}"/>
 						<select name = "order_to" class="form-control">
+						<se:authentication property="name" var="username"/>
 						<c:forEach items = "${storeCodeList}" var = "store_code">
+						<c:if test="${username != store_code}">
 							<option value = "${store_code}">${store_code}</option>
+						</c:if>
 						</c:forEach>
 						</select>
 						<input type="number" min = "0" name="medicament_amount" class="form-control"/>
@@ -111,5 +124,8 @@
 			onclick = "location='medicamentListForm.pet?pageNum=${pageNum}'">${pageNum}</button>
 		</c:forEach>
 	</div>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

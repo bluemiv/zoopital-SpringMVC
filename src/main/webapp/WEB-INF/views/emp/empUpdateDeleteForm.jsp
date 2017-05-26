@@ -21,6 +21,10 @@
 
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 <fieldset>
 <legend>직원 목록</legend>
 
@@ -52,6 +56,8 @@
 		<!-- <button onclick="location='empUpdateDeletePro.pet?command=update'">수정</button>
 		<button onclick="location='empUpdateDeletePro.pet?command=delete'">삭제</button> -->
 	</fieldset>
-
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

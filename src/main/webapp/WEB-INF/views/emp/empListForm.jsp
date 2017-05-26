@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 <fieldset>
 <legend>직원 목록</legend>
 
@@ -32,5 +36,7 @@
 
 </fieldset>
 
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>
