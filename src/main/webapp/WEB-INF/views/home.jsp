@@ -46,6 +46,7 @@
 	<br>
 	<button onclick="location='store/getReportList.pet'">보고서 리스트 보기</button>
 	<br>
+	<button onclick="location='shot/todayList.pet'">오늘의강아지</button>
 	<a href = "j_spring_security_logout">로그아웃</a>
 	<br>
 </body>

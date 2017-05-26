@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.model.ShotDAO">
+
+<select id="detailList" resultType="com.pet.model.ShotDTO">
+	select * from shot
+</select>
+
+<select id="todayList" resultType="com.pet.model.ShotDTO">
+	select * from shot where shot_must=${shot_mush}
+</select>
+</mapper>

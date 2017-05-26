@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +29,13 @@ public class PetController {
 	}
 	
 	@RequestMapping("writePro.pet")
-	public String writePro(PetDTO dto){
+	public String writePro(PetDTO dto, Principal principal){
 		System.out.println("writePro 접근");
-	
+		System.out.println(principal.getName());
+		dto.setStore_code(principal.getName());
+		
 		PetDAO dao = sqlSession.getMapper(PetDAO.class);
-	
+		
 		dao.insert_pet(dto);
 		return "redirect:list.pet";
 	}
