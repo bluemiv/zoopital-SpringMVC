@@ -76,10 +76,10 @@
 					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 					보고서 <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<c:url value="/report/report.pet" var = "reportReport"></c:url>
-						<li><a href="${reportReport}">보고서 페이지</a></li>
 						<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
-						<li><a href="${reportGetReportList}">보고서 리스트 보기</a></li>
+						<li><a href="${reportGetReportList}">보고서 리스트</a></li>
+						<c:url value="/report/reportInsert.pet" var = "reportInsert"></c:url>
+						<li><a href="${reportInsert}">보고서 쓰기</a></li>
 					</ul>
 				</li>
 					<c:url value="/j_spring_security_logout" var = "logout"></c:url>

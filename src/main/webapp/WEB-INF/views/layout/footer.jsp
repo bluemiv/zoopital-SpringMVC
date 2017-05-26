@@ -21,13 +21,38 @@
 	</script>
 </head>
 <body>
-	<!-- Page Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<p>현재시간 : <span id="clock"></span></p>
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1 text-center">
+					<h4>
+						<strong>KOSTA</strong>
+					</h4>
+					<p>
+						성남시 분당구 삼평동 판교 테크노밸리 <br>147th KOSTA
+					</p>
+					<ul class="list-unstyled">
+						<li>
+							<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+							(010) 3920-8518
+						</li>
+						<li>
+							<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+							<a href="mailto:7538518@naver.com">753851@naver.com</a>
+						</li>
+					</ul>
+					<hr class="small">
+					<p class="text-muted">Copyright &copy; KOSTA 147th 2017</p>
+					<p class="text-muted">
+						<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+						현재시간 : <span id="clock"></span>
+					</p>
+				</div>
 			</div>
 		</div>
-	</div>
+		<a id="to-top" href="#top" class="btn btn-dark btn-lg"><i
+			class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+	</footer>
 </body>
 </html>

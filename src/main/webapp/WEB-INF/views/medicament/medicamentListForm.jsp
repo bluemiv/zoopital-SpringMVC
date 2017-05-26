@@ -6,31 +6,32 @@
 <html>
 <head>
 <title>약품 리스트</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#search_box").keyup(function() {
-			$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-				url : "medicamentSearchAjax.pet",
-				method : 'POST',
-				type : 'json',
-				data : {
-					search : $(this).val()
-				},
-				success : function(result) {
-					var contents = '';
-					for (var i = 0; i < result.length; i++) {
-						contents = contents + result[i] + "<br>";
+	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#search_box").keyup(function() {
+				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+					url : "medicamentSearchAjax.pet",
+					method : 'POST',
+					type : 'json',
+					data : {
+						search : $(this).val()
+					},
+					success : function(result) {
+						var contents = '';
+						for (var i = 0; i < result.length; i++) {
+							contents = contents + result[i] + "<br>";
+						}
+						$("#search_display").html(contents);
+					},
+					error : function(result, status, er) {
+						$("#search_display").text(er);
 					}
-					$("#search_display").html(contents);
-				},
-				error : function(result, status, er) {
-					$("#search_display").text(er);
-				}
-			}); // Ajax 응답을 정상적으로 받으면 실행됨.
+				}); // Ajax 응답을 정상적으로 받으면 실행됨.
+			});
 		});
-	});
-</script>
+	</script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -41,18 +42,19 @@
 		<form action="medicamentListForm.pet" method="get">
 			<span class="input-group-btn">
 				<input type="text" name="search" id= "search_box" class="form-control" placeholder="Search...">
-				<button class="btn btn-default" type="button">
+				<button class="btn btn-info" type="button">
 					<i class="glyphicon glyphicon-search"></i>
 				</button>
 			</span>
 			<div id="search_display"></div>
 		</form>
 	</div>
-	<table width="100%" class="table table-striped table-bordered table-hover"
-		id="dataTables-example">
+	
+	<button onclick = "location='medicamentInsertForm.pet'" class="btn btn-md btn-info">약품 추가</button>
+	
+	<table width="100%" class="table table-striped table-hover" id="dataTables-example">
 		<thead>
-			<tr class="info">
-				<th>약품 코드</th>
+			<tr>
 				<th>약품 이름</th>
 				<th>개수</th>
 				<th>가격</th>
@@ -62,16 +64,15 @@
 				<th>약품주기</th>
 				<th>지점코드</th>
 				<th>수정/삭제</th>
-				<th>요청</th>
+				<th>발주요청</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${list}" var ="var">
 			<tr>
-				<td>${var.medicament_code}</td>
 				<td onclick = "location='medicamentDetailForm.pet?medicament_code=${var.medicament_code}'">${var.medicament_name}</td>
-				<td>${var.medicament_amount}</td>
-				<td>${var.medicament_cost}원</td>
+				<td>${var.medicament_amount} 개</td>
+				<td>${var.medicament_cost} 원</td>
 				<td>${var.medicament_category}</td>
 				<td>${var.medicament_mandate}</td>
 				<td>${var.medicament_exdate}</td>
@@ -84,15 +85,18 @@
 				</c:if>
 				</td>
 				<td>${var.store_code}</td>
-				<td>
+				<td class="form-inline">
 					<button class="btn btn-md btn-info"
-					onclick = "location='medicamentUpdateForm.pet?medicament_code=${var.medicament_code}'">수정</button>
+					onclick = "location='medicamentUpdateForm.pet?medicament_code=${var.medicament_code}'">
+					수정 <span class="glyphicon glyphicon-random"></span></button>
 					<button class="btn btn-md btn-info"
-					onclick = "location='medicamentDeletePro.pet?medicament_code=${var.medicament_code}'">삭제</button>
-					<button class="btn btn-md btn-info"> 미리보기 </button>
+					onclick = "location='medicamentDeletePro.pet?medicament_code=${var.medicament_code}'">
+					<span class="glyphicon glyphicon-trash"></span></button>
+					<button class="btn btn-md btn-info"> 미리보기
+					 <span class="glyphicon glyphicon-list-alt"></span></button>
 				</td>
 				<td>
-					<form action = "medicamentRequestPro.pet" method = "post">
+					<form action = "medicamentRequestPro.pet" method = "post" class="form-inline">
 						<input type = "hidden" name = "medicament_code" value = "${var.medicament_code}"/>
 						<input type = "hidden" name = "medicament_name" value = "${var.medicament_name}"/>
 						<input type = "hidden" name = "medicament_cost" value = "${var.medicament_amount}"/>
@@ -102,9 +106,9 @@
 						<select name = "order_to" class="form-control">
 						<se:authentication property="name" var="username"/>
 						<c:forEach items = "${storeCodeList}" var = "store_code">
-						<c:if test="${username != store_code}">
-							<option value = "${store_code}">${store_code}</option>
-						</c:if>
+							<c:if test="${username != store_code}">
+								<option value = "${store_code}">${store_code}</option>
+							</c:if>
 						</c:forEach>
 						</select>
 						<input type="number" min = "0" name="medicament_amount" class="form-control"/>
@@ -115,16 +119,22 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<div class="blockquote-reverse">
-		<button onclick = "location='medicamentInsertForm.pet'" class="btn btn-md btn-info">약품 추가</button>
-		<br><kbd> ctrl + f</kbd> 를 이용해서 원하는 약을 찾으세요
-		<br>page
-		<c:forEach begin="1" end = "${page.pageTotalNum}" var= "pageNum">
-			<button class="btn btn-sm btn-default"
-			onclick = "location='medicamentListForm.pet?pageNum=${pageNum}'">${pageNum}</button>
-		</c:forEach>
-	</div>
 	
+
+	<div class="blockquote-reverse form-inline">
+		<ul class="pagination">
+			<c:if test="${currentPageNum > '1'}">
+			<li><a href="medicamentListForm.pet?pageNum=${currentPageNum-1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+			</c:if>
+			<c:forEach begin="1" end="${page.pageTotalNum}" var="pageNum">
+				<li><a href="medicamentListForm.pet?pageNum=${pageNum}">${pageNum}</a></li>
+			</c:forEach>
+			<c:if test="${page.pageTotalNum > currentPageNum}">
+			<li><a href="medicamentListForm.pet?pageNum=${currentPageNum+1}"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+			</c:if>
+		</ul>
+	</div>
+
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>
 </body>
