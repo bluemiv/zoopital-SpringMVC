@@ -4,8 +4,27 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-/* Global Styles */
+/* taehong custom styles */
+.navbar-custom {
+	background-color:rgba(f,f,f,0.5);
+}
 
+.btn-custom {
+	border: 1px solid #4da6ff;
+	color: #4da6ff;
+	background-color: transparent
+}
+
+.btn-custom:focus, .btn-custom:hover {
+	border: 1px solid #4da6ff;
+	outline: 0;
+	color: #fff;
+	background-color: #4da6ff
+}
+.board-custom:focus, .board-custom:hover{
+	color: #4da6ff;
+}
+/* Global Styles */
 html,
 body {
     width: 100%;

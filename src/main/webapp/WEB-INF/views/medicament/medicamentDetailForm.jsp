@@ -14,7 +14,7 @@
 	<table width="100%" class="table table-striped table-bordered table-hover"
 		id="dataTables-example">
 		<thead>
-			<tr class="info">
+			<tr>
 				<th>약품 코드</th>
 				<th>약품 이름</th>
 				<th>개수</th>
@@ -26,7 +26,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
+			<tr class = "board-custom">
 				<td>${medicamentDTO.medicament_code}</td>
 				<td>${medicamentDTO.medicament_name}</td>
 				<td>${medicamentDTO.medicament_amount}</td>

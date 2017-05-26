@@ -23,11 +23,11 @@
 		</script>
 	</c:if>
 	<se:authentication property="name" var="username"/>
-	<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+	<table width="100%" class="table table-striped table-hover" id="dataTables-example">
 		<thead>
-			<tr class="info">
+			<tr>
 				<th>물품 내용</th>
-				<th>요청 개수/남은개수</th>
+				<th>요청 개수 / 남은개수</th>
 				<th>요청받는 곳(목적지 지점)</th>
 				<th>요구하는 곳(해당 지점)</th>
 				<th>승인 여부</th>
@@ -38,7 +38,7 @@
 		</thead>
 		<tbody>
 		<c:forEach items="${list}" var ="var">
-			<tr>
+			<tr class = "board-custom">
 				<td>${var.order_name}</td>
 				<td>${var.order_amount}/${var.medicament_amount}</td>
 				<td>${var.order_to}</td>
@@ -51,10 +51,12 @@
 					거부
 				</c:if>
 				<c:if test="${ username == var.order_to && var.order_check == 'no' && var.order_delivery == 'no'}">
-					<button onclick = "location='orderCheckPro.pet?amountState=down&order_check=yes&order_code=${var.order_code}'">승인</button>
+					<button class = "btn btn-custom btn-md"
+					onclick = "location='orderCheckPro.pet?amountState=down&order_check=yes&order_code=${var.order_code}'">승인</button>
 				</c:if>
 				<c:if test="${ username == var.order_to && var.order_check == 'yes' && var.order_delivery == 'no'}">
-					<button onclick = "location='orderCheckPro.pet?amountState=up&order_check=no&order_code=${var.order_code}'">거절</button>
+					<button class = "btn btn-custom btn-md"
+					onclick = "location='orderCheckPro.pet?amountState=up&order_check=no&order_code=${var.order_code}'">거절</button>
 				</c:if>
 				</td>
 				<td>
@@ -66,10 +68,12 @@
 						수령 미완료
 					</c:if>
 					<c:if test="${ username == var.order_from && var.order_delivery == 'no'}">
-						<button onclick = "location='orderCheckPro.pet?amountState=up&order_delivery=yes&order_code=${var.order_code}'">수령 완료</button>
+						<button class = "btn btn-custom btn-md"
+						onclick = "location='orderCheckPro.pet?amountState=up&order_delivery=yes&order_code=${var.order_code}'">수령 완료</button>
 					</c:if>
 					<c:if test="${ username == var.order_from && var.order_delivery == 'yes'}">
-						<button onclick = "location='orderCheckPro.pet?amountState=down&order_delivery=no&order_code=${var.order_code}'">수령 미완료</button>
+						<button class = "btn btn-custom btn-md"
+						onclick = "location='orderCheckPro.pet?amountState=down&order_delivery=no&order_code=${var.order_code}'">수령 미완료</button>
 					</c:if>
 				</c:if>
 				<c:if test="${var.order_check == 'no'}">
@@ -78,18 +82,20 @@
 				</td>
 				<c:if test="${username == var.order_from && var.order_delivery == 'no'}">
 				<td>
-					<button onclick = "location='orderUpdateForm.pet?order_code=${var.order_code}'">수정</button>
+					<button class = "btn btn-custom btn-md"
+					onclick = "location='orderUpdateForm.pet?order_code=${var.order_code}'">수정</button>
 				</td>
 				<td>
-					<button onclick = "location='orderDeletePro.pet?order_code=${var.order_code}'">삭제</button>
+					<button class = "btn btn-custom btn-md"
+					onclick = "location='orderDeletePro.pet?order_code=${var.order_code}'">삭제</button>
 				</td>
 				</c:if>
 				<c:if test="${username != var.order_from || var.order_delivery == 'yes'}">
 				<td>
-					수정 권한 없음
+					-
 				</td>
 				<td>
-					삭제 권한 없음
+					-
 				</td>
 				</c:if>
 			</tr>

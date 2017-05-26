@@ -42,7 +42,7 @@
 		<form action="medicamentListForm.pet" method="get">
 			<span class="input-group-btn">
 				<input type="text" name="search" id= "search_box" class="form-control" placeholder="Search...">
-				<button class="btn btn-info" type="button">
+				<button class="btn btn-custom" type="button">
 					<i class="glyphicon glyphicon-search"></i>
 				</button>
 			</span>
@@ -50,7 +50,7 @@
 		</form>
 	</div>
 	
-	<button onclick = "location='medicamentInsertForm.pet'" class="btn btn-md btn-info">약품 추가</button>
+	<button onclick = "location='medicamentInsertForm.pet'" class="btn btn-md btn-custom">약품 추가</button>
 	
 	<table width="100%" class="table table-striped table-hover" id="dataTables-example">
 		<thead>
@@ -69,8 +69,8 @@
 		</thead>
 		<tbody>
 		<c:forEach items="${list}" var ="var">
-			<tr>
-				<td onclick = "location='medicamentDetailForm.pet?medicament_code=${var.medicament_code}'">${var.medicament_name}</td>
+			<tr class = "board-custom">
+				<td>${var.medicament_name}</td>
 				<td>${var.medicament_amount} 개</td>
 				<td>${var.medicament_cost} 원</td>
 				<td>${var.medicament_category}</td>
@@ -86,14 +86,15 @@
 				</td>
 				<td>${var.store_code}</td>
 				<td class="form-inline">
-					<button class="btn btn-md btn-info"
+					<button class="btn btn-md btn-custom"
 					onclick = "location='medicamentUpdateForm.pet?medicament_code=${var.medicament_code}'">
 					수정 <span class="glyphicon glyphicon-random"></span></button>
-					<button class="btn btn-md btn-info"
+					<button class="btn btn-md btn-custom"
 					onclick = "location='medicamentDeletePro.pet?medicament_code=${var.medicament_code}'">
 					<span class="glyphicon glyphicon-trash"></span></button>
-					<button class="btn btn-md btn-info"> 미리보기
-					 <span class="glyphicon glyphicon-list-alt"></span></button>
+					<button class="btn btn-md btn-custom"
+					onclick = "location='medicamentDetailForm.pet?medicament_code=${var.medicament_code}'">
+					상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
 				</td>
 				<td>
 					<form action = "medicamentRequestPro.pet" method = "post" class="form-inline">
@@ -112,14 +113,13 @@
 						</c:forEach>
 						</select>
 						<input type="number" min = "0" name="medicament_amount" class="form-control"/>
-						<input class="btn btn-md btn-info" type = "submit" value="요청하기"/>
+						<input class="btn btn-md btn-custom" type = "submit" value="요청하기"/>
 					</form>
 				</td>
 			</tr>
-		</c:forEach>
+			</c:forEach>
 		</tbody>
 	</table>
-	
 
 	<div class="blockquote-reverse form-inline">
 		<ul class="pagination">

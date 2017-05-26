@@ -6,7 +6,6 @@
 <html>
 <head>
 	<title>로그인</title>
-	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<div id="top" class="header">
