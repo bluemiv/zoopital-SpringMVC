@@ -12,12 +12,12 @@
 <jsp:include page="layout/header.jsp"/>
 
 <!-- 컨텐츠 -->
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">동물병원 관리 프로그램</h3>
+					<h3 class="panel-title">동물병원</h3>
 				</div>
 				<div class="panel-body">
 				<se:authorize access="isAnonymous()">
@@ -54,5 +54,7 @@
 		</div>
 	</div>
 </div>
+	<!-- 푸터 파일 -->
+	<jsp:include page="layout/footer.jsp"/>
 </body>
 </html>

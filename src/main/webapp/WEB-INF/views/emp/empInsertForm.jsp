@@ -7,6 +7,10 @@
 <title></title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 	<form action="empInsertpro.pet" method="post">
 		이름: <input type="text" name="emp_name"><br/>
 		코드: <input type="text" name="emp_code"><br/>
@@ -16,5 +20,8 @@
 		
 		<input type="submit" value="추가">
 	</form>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

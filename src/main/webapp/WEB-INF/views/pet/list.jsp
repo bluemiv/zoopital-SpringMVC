@@ -4,9 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>동물 리스트</title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 	<form action="search.pet" method="post">
 		검색 : <input type="text" size="30" name="search" placeholder="이름으로 검색이 가능합니다">
 		<input type="submit" value="검색">
@@ -23,5 +27,8 @@
 		<input type="button" value="삭제" onclick="location='delete.pet?pet_code=${list.pet_code}'">
 		<hr>
 	</c:forEach>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

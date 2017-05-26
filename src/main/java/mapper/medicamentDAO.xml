@@ -32,39 +32,43 @@
 	<insert id="insertMedicament" parameterType="com.pet.model.MedicamentDTO">
 		INSERT INTO MEDICAMENT
 			(MEDICAMENT_CODE, MEDICAMENT_NAME, MEDICAMENT_AMOUNT, MEDICAMENT_COST, MEDICAMENT_MANDATE,
-				MEDICAMENT_EXDATE, STORE_CODE)
-		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_cost}, #{medicament_mandate}, #{medicament_exdate}, #{store_code})
+				MEDICAMENT_EXDATE, MEDICAMENT_CATEGORY, MEDICAMENT_CYCLE, STORE_CODE)
+		VALUES(MEDICAMENT_NUM.NEXTVAL, #{medicament_name}, #{medicament_amount}, #{medicament_cost}, #{medicament_mandate}, #{medicament_exdate}, #{medicament_category}, #{medicament_cycle}, #{store_code})
 	</insert>
 	<update id="updateMedicament" parameterType="com.pet.model.MedicamentDTO">
 		UPDATE MEDICAMENT
-		SET
-			STORE_CODE = #{store_code}
-		<if test="medicament_name != null and medicament_name != ''">
-			,MEDICAMENT_NAME = #{medicament_name}
-		</if>
-		<if test="medicament_amount != null and medicament_amount != ''">
-			,MEDICAMENT_AMOUNT = #{medicament_amount}
-		</if>
-		<if test="medicament_cost != null and medicament_cost != ''">
-			,MEDICAMENT_COST = #{medicament_cost}
-		</if>
-		<if test="medicament_mandate != null and medicament_mandate != ''">
-			,MEDICAMENT_MANDATE = #{medicament_mandate}
-		</if>
-		<if test="medicament_exdate != null and medicament_exdate != ''">
-			,MEDICAMENT_EXDATE = #{medicament_exdate}
-		</if>
+		<set>
+			<if test="store_code != null and store_code != ''">
+				STORE_CODE = #{store_code}
+			</if>
+			<if test="medicament_name != null and medicament_name != ''">
+				,MEDICAMENT_NAME = #{medicament_name}
+			</if>
+			<if test="medicament_amount != null and medicament_amount != ''">
+				,MEDICAMENT_AMOUNT = #{medicament_amount}
+			</if>
+			<if test="medicament_cost != null and medicament_cost != ''">
+				,MEDICAMENT_COST = #{medicament_cost}
+			</if>
+			<if test="medicament_mandate != null and medicament_mandate != ''">
+				,MEDICAMENT_MANDATE = #{medicament_mandate}
+			</if>
+			<if test="medicament_exdate != null and medicament_exdate != ''">
+				,MEDICAMENT_EXDATE = #{medicament_exdate}
+			</if>
+			<if test="medicament_category != null and medicament_category != ''">
+				,MEDICAMENT_CATEGORY = #{medicament_category}
+			</if>
+			<if test="medicament_cycle != null and medicament_cycle != ''">
+				,MEDICAMENT_CYCLE = #{medicament_cycle}
+			</if>
+		</set>
 		WHERE MEDICAMENT_CODE = #{medicament_code}
 	</update>
 	<delete id="deleteMedicament">
 		DELETE MEDICAMENT
 		WHERE MEDICAMENT_CODE = #{medicament_code}
 	</delete>
-	<select id="getMedicamentStore_code" resultType="java.lang.String">
-		SELECT STORE_CODE
-		FROM MEDICAMENT
-		GROUP BY STORE_CODE
-	</select>
 	<select id = "getTotalCountOfMedicament" resultType = "Integer" parameterType = "com.pet.model.MedicamentDTO">
 		SELECT COUNT(*)
 		FROM MEDICAMENT
@@ -72,4 +76,16 @@
 		WHERE STORE_CODE = #{store_code}
 		</if>
 	</select>
+	<update id="updateAmountOfMedicamentAboutOrder" parameterType="com.pet.model.MedicamentDTO">
+		UPDATE MEDICAMENT
+		<set>
+			<if test="amountState == 'up'">
+				MEDICAMENT_AMOUNT = (MEDICAMENT_AMOUNT + #{medicament_amount})
+			</if>
+			<if test="amountState == 'down'">
+				MEDICAMENT_AMOUNT = (MEDICAMENT_AMOUNT - #{medicament_amount})
+			</if>
+		</set>
+		WHERE MEDICAMENT_NAME = #{medicament_name} AND STORE_CODE = #{store_code}
+	</update>
 </mapper>

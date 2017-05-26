@@ -12,9 +12,9 @@
 	
 
 
-	<button onclick="">예약내역 추가</button>
-	<button onclick="">예약 변경</button>
-	<button onclick="">예약 취소</button>
+	<button onclick="location='reserveInsertPro.pet'">예약내역 추가</button>
+	<button onclick="location='reserveUpdatePro.pet'">예약 변경</button>
+	<button onclick="location='reserveDeletePro.pet'">예약 취소</button>
 	
 
 </body>

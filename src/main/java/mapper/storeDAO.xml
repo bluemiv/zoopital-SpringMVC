@@ -90,4 +90,11 @@
 		WHERE STORE_NAME LIKE '%${store_name}%'	
 	</select>
 	
+	<!-- ROLE_SUPER_ADMIN 권한을 가진 store_code 가져오기 -->
+	<select id="getStoreCode" resultType= "java.lang.String">
+		SELECT STORE_CODE
+		FROM STORE
+		WHERE STORE_ROLE = 'ROLE_SUPER_ADMIN'
+		ORDER BY STORE_CODE
+	</select>
  </mapper>

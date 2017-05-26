@@ -4,9 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>동물 수정</title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 <h3>동물정보 수정</h3>
 	<hr>
 	<form action="updatePro.pet" method="post">
@@ -29,5 +33,8 @@
 		<input type="submit" value="수정"><br>
 		</c:forEach>
 	</form>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>
