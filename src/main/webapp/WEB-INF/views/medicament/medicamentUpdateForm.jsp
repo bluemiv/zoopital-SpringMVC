@@ -52,6 +52,15 @@
 		</div>
 		<div class="form-group has-success has-feedback">
 			<label class="control-label col-sm-2">
+				약품 주기
+			</label>
+			<div class="col-sm-3 input-group">
+				<input type = "number" min = "0" name = "medicament_cycle" value = "${medicamentDTO.medicament_cycle}"  class="form-control">
+				<span class="input-group-addon">개월</span>
+			</div>
+		</div>
+		<div class="form-group has-success has-feedback">
+			<label class="control-label col-sm-2">
 				제조 일자
 			</label>
 			<div class="col-sm-3 input-group">
@@ -74,5 +83,8 @@
 			</div>
 		</div>
 	</form>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

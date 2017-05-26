@@ -96,5 +96,8 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

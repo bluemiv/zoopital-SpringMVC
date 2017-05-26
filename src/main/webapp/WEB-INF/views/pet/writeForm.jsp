@@ -3,9 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>정보입력</title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 	<h3>동물 등록</h3>
 	<hr>
 	<form action="writePro.pet" method="post">
@@ -19,5 +23,8 @@
 		지점:<input type="text" name="store_code" value="판교"><br>
 		<input type="submit" value="확인"><br>
 	</form>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

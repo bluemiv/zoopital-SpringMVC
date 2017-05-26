@@ -8,6 +8,10 @@
 <title>AdminList 페이지 입니다.</title>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+
+	<!-- 컨텐츠 -->
 <form action="search.pet">
 지점 이름을 검색하세요:<input type="text"  name="store_name" >
 <input type="submit" value="검색" >    
@@ -49,5 +53,8 @@
 <c:forEach var = "pageNum" begin= "1" end = "${totalPageNum}">
 [<a href= "selectAll.pet?pageNum=${pageNum}">${pageNum}</a>]
 </c:forEach>
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

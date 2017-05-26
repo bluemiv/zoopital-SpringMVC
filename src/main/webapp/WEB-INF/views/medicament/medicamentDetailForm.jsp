@@ -39,5 +39,8 @@
 		</tbody>
 	</table>
 	<input type = "hidden" value = "${medicamentDTO.medicament_cost}" id = "cost">
+	
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

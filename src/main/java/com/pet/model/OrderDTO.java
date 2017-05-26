@@ -11,6 +11,7 @@ public class OrderDTO {
     private String store_code; // varchar2(500) not null -- 지점 코드
 	private int medicament_amount; // 현재 가지고 있는 약품 개수
 	private String store_role; // 현재 로그인 한 아이디의 권한
+	private String amountState;
 	
 	// set get method
 	public int getOrder_code() {
@@ -73,4 +74,11 @@ public class OrderDTO {
 	public void setStore_role(String store_role) {
 		this.store_role = store_role;
 	}
+	public String getAmountState() {
+		return amountState;
+	}
+	public void setAmountState(String amountState) {
+		this.amountState = amountState;
+	}
+	
 }
