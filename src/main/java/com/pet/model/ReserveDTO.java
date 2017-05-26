@@ -8,6 +8,14 @@ public class ReserveDTO {
 	private Timestamp reserve_date;
 	private String emp_code;
 	private String reserve_contents;
+	private String store_code;
+	
+	public String getStore_code() {
+		return store_code;
+	}
+	public void setStore_code(String store_code) {
+		this.store_code = store_code;
+	}
 	public String getReserve_code() {
 		return reserve_code;
 	}
@@ -32,13 +40,12 @@ public class ReserveDTO {
 	public void setReserve_contents(String reserve_contents) {
 		this.reserve_contents = reserve_contents;
 	}
+	
 	@Override
 	public String toString() {
 		return "ReserveDTO [reserve_code=" + reserve_code + ", reserve_date=" + reserve_date + ", emp_code=" + emp_code
-				+ ", reserve_contents=" + reserve_contents + "]";
+				+ ", reserve_contents=" + reserve_contents + ", store_code=" + store_code + "]";
 	}
-	
-	
-	
+		
 
 }

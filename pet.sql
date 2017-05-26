@@ -62,3 +62,12 @@ create table pet (
   store_code varchar2(500)
   );
   create SEQUENCE pet_seq;
+  
+create table reserve (
+  reserve_code varchar2(500) constraint reserve_pk primary key,
+  reserve_date date,
+  emp_code varchar2(500),
+  reserve_contents varchar2(500)
+  );
+  create SEQUENCE reserve_seq;
+  commit;
