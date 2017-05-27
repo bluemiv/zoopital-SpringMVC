@@ -22,8 +22,11 @@
 				<form action="empInsertpro.pet" method="post">
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">코드</label>
-							<input type="text" class="form-control" name="emp_code" placeholder="고유번호를 입력해주세요.">
+							<label for="name">(비)정규직</label>
+							<select class="form-control" name = "emp_job">
+								<option value = "full" selected="selected">정규직</option>
+								<option value = "part">비정규직</option>
+							</select>
 						</div>
 					</div>
 					
@@ -39,19 +42,11 @@
 					</div>
 					
 					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">전화번호</label>
 							<input type="text" class="form-control" name="emp_tel" placeholder="전화번호를 입력해주세요. ('-' 없이 입력해주시길 바랍니다.)">
 						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
-							<label for="name">지점</label>
-							<input type="text" class="form-control" name="store_code" placeholder="지점명을 입력해주세요.">
-							<p class="help-block text-danger"></p>
-						</div>
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">급여</label>
 							<input type="text" class="form-control" name="emp_pay" placeholder="급여를 입력해주세요.">
 							<p class="help-block text-danger"></p>

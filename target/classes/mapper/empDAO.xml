@@ -5,31 +5,52 @@
     
 <mapper namespace="com.pet.model.EmpDAO">
 	
-	<select id="getEmpList" resultType="com.pet.model.EmpDTO">
-		SELECT * FROM EMP
+	<select id="getEmpList" resultType="com.pet.model.EmpDTO" parameterType="com.pet.model.EmpDTO">
+		SELECT *
+		FROM EMP
+		WHERE STORE_CODE = #{store_code}
 	</select>
 	
 	<!-- 직원코드로 검색해서 삭제수정하는 페이지로 갈 때 셀렉 하는 쿼리 -->
 	<select id="selectEmpList" resultType="com.pet.model.EmpDTO">
-		SELECT * FROM EMP WHERE EMP_CODE = #{emp_code}
+		SELECT *
+		FROM EMP
+		WHERE EMP_CODE = #{emp_code}
 	</select>
 
 	<insert id="insertEmp" parameterType="com.pet.model.EmpDTO">
-		INSERT INTO EMP VALUES
-		(#{emp_name},#{emp_code},#{emp_age},#{emp_tel},SYSDATE,#{emp_pay},#{store_code})
+		INSERT INTO EMP
+		VALUES 
+			(EMP_NUM.NEXTVAL, #{emp_name}, #{emp_age}, #{emp_tel}, SYSDATE, #{emp_pay}, #{emp_job},#{store_code})
 	</insert>
 	
 	<delete id="deleteEmp" parameterType="com.pet.model.EmpDTO">
-		DELETE FROM EMP WHERE EMP_CODE = #{emp_code}
+		DELETE FROM EMP
+		WHERE EMP_CODE = #{emp_code}
 	</delete>
 	
 	<update id="updateEmp" parameterType="com.pet.model.EmpDTO">
-		UPDATE EMP SET 
-		EMP_NAME = #{emp_name},
-		EMP_AGE = #{emp_age},
-		EMP_TEL = #{emp_tel},
-		EMP_PAY = #{emp_pay},
-		STORE_CODE = #{store_code}
+		UPDATE EMP
+		<set>
+			<if test="emp_name != null and emp_name != ''">
+				EMP_NAME = #{emp_name},
+			</if>
+			<if test="emp_age != null and emp_age != ''">
+				EMP_AGE = #{emp_age},
+			</if>
+			<if test="emp_tel != null and emp_tel != ''">
+				EMP_TEL = #{emp_tel},
+			</if>
+			<if test="emp_pay != null and emp_pay != ''">
+				EMP_PAY = #{emp_pay},
+			</if>
+			<if test="emp_job != null and emp_job != ''">
+				EMP_JOB = #{emp_job},
+			</if>
+			<if test="store_code != null and store_code != ''">
+				STORE_CODE = #{store_code}
+			</if>
+		</set> 
 		WHERE EMP_CODE = #{emp_code}
 	</update>
 	

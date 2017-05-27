@@ -19,6 +19,7 @@
 				<th>직원 코드</th>
 				<th>직원 이름</th>
 				<th>직원 나이</th>
+				<th>(비)정규직</th>
 				<th>상세 보기</th>
 			</tr>
 		</thead>
@@ -28,6 +29,14 @@
 				<td>${emp.emp_code}</td>
 				<td>${emp.emp_name}</td>
 				<td>${emp.emp_age}</td>
+				<td>
+				<c:if test="${emp.emp_job == 'full'}">
+					정규직
+				</c:if>
+				<c:if test="${emp.emp_job == 'part'}">
+					비정규직
+				</c:if>
+				</td>
 				<td>
 				<form action="empUpdateDeleteForm.pet" method="post">
 					<input type="hidden" value = "${emp.emp_code}" name="emp_code">
