@@ -10,10 +10,11 @@
 <body>
 	<h3>목록 출력 가능??</h3>
 	<c:forEach items="${hlist }" var="hlist">
-		이름 : ${hlist.pethistory_petcode } <br>
-		약품 : ${hlist.pethistory_medicine } <br>
-		의견 : ${hlist.pethistory_coments } <br>
-		시간 : ${hlist.pethistory_today } <br>
+		동물코드 : ${hlist.pethistory_petcode } <br>
+		동물이름 : ${hlist.pethistory_name } <br>
+		약품처방 : ${hlist.pethistory_medicine } <br>
+		의사의견 : ${hlist.pethistory_coments } <br>
+		진료날짜 : ${hlist.pethistory_today } <br>
 		<button onclick="location='historydelete.pet?key=${hlist.pethistory_key}'">삭제</button>
 		<hr>
 	</c:forEach>

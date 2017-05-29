@@ -8,6 +8,7 @@ public class PetHistoryDTO {
 //	  pethistory_coments varchar2(4000),
 //	  pethistory_today date
 	private int pethistory_petcode;
+	private String pethistory_name;
 	private String pethistory_medicine;
 	private String pethistory_coments;
 	private Date pethistory_today = null;
@@ -43,6 +44,12 @@ public class PetHistoryDTO {
 	}
 	public void setPethistory_key(int pethistory_key) {
 		this.pethistory_key = pethistory_key;
+	}
+	public String getPethistory_name() {
+		return pethistory_name;
+	}
+	public void setPethistory_name(String pethistory_name) {
+		this.pethistory_name = pethistory_name;
 	}
 	
 	

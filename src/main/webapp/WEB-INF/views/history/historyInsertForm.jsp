@@ -19,31 +19,6 @@
 		
 		document.getElementById('field').removeChild(obj.parentNode);
 	} */
-	function sub(){
-		var listname = document.getElementsByName("test");
-		/* 약품을 선택했을때만 제대로 동작하기 위해(500에러 방지) */
-		/* for(var i=0; i<listname.length; i++){
-		alert(i + "요소 : " + listname[i].value);
-		} */
-		if(listname[0].value != ""){
-		/* listname으로 받아온 배열을 ,기호를 붙여 controller로 전송한뒤 Tokenizer를 통해 분리하기 위해
-		스트링을 생성해주는 과정 */
-		var sendData = "";
-		for(var i=listname.length-1; i>=0; i--){
-			sendData += listname[i].value;
-			if(i==0){
-			}else{
-				sendData += ",";
-			}
-		}
-		/* location으로 보낼 값들을 한번에 스트링으로 저장해서 보내기위해서 */
-		var route = "historyinsert.pet?test=" + sendData + "&code=" + document.getElementById("pet_code").value;
-		location.href = route;
-		}else{
-			alert("약품을 선택하지 않았습니다.");
-			return;
-		}
-	}
 	function plus(prams){
 		var am_amount = document.getElementsByName("am_amount");
 		var am_cost = document.getElementsByName("am_cost");
@@ -73,34 +48,6 @@
 			document.getElementById("amtotal_cost").value = Number(document.getElementById("amtotal_cost").value) - Number(am_cost[prams-1].value);
 		}
 	}
-	function del(prams){
-		/* 배열이 계속 뒤로 밀리기 때문에 총 length에서 params 값을 빼줘서 요서에 맞는 배열을 삭제한다. */
-		alert("매개변수 값 : " + prams);
-		var listname = document.getElementsByName("test");
-		var temp_listname = [];
-		for(var j=0; j<=listname.length-1; j++){
-			temp_listname.push(listname[j]);
-		}
-		
-		temp_listname.splice(prams,1);
-		
-		var sendData = "";
-		if(listname.length == 2){
-			alert("여기들어오니?");
-			sendData = "없음";
-		}else{
-		for(var i=temp_listname.length-1; i>=0; i--){
-			sendData += temp_listname[i].value;
-			if(i==0){
-			}else{
-				sendData += ",";
-			}
-		}
-		}
-		alert("넘기는 값 : " + sendData);
-		var route = "historyinsert.pet?test=" + sendData + "&code=" + document.getElementById("pet_code").value;
-		location.href = route;
-	}
 	function add_submit(){
 		alert("test동작");
 		var listname = document.getElementsByName("test");
@@ -119,6 +66,11 @@
 		frm.action="dhistoryinsert.pet";
 		document.frm.submit();
 	}
+	function ins_submit(){
+		var frm = document.getElementById("frm");
+		frm.action="inserthistoryend.pet";
+		document.frm.submit();
+	}
 	
 </script>
 </head>
@@ -126,14 +78,12 @@
 	<h3>처방전 입력구간!!!!!!!!!</h3>
 	<!-- <form action="inserthistoryend.pet" id="mcheck" name="mcheck"> -->
 	<form  id="frm" name="frm" method="post">
-	강아지 코드 --- ${pdto.pet_code }<br>
-	강아지 이름 --- ${pdto.pet_name }<br>
-	강아지 종류 --- ${pdto.pet_type }<br>
-	강아지 성별 --- ${pdto.pet_sex }<br>
-	강아지 나이 --- ${pdto.pet_age }<br>
-	<input type="hidden" name="pet_code" id="pet_code" value="${pdto.pet_code }">
-	<input type="text" name="pethistory_medicine"><br>
-	<input type="text" list="mlist" name="test"/>
+	강아지 코드 --- <input type="text" name="pet_code" id="pet_code" value="${pdto.pet_code }" readonly="readonly"><br>
+	강아지 이름 --- <input type="text" name="pet_name" id="pet_name" value="${pdto.pet_name }" readonly="readonly"><br>
+	강아지 종류 --- <input type="text" name="pet_type" id="pet_type" value="${pdto.pet_type }" readonly="readonly"><br>
+	강아지 성별 --- <input type="text" name="pet_sex" id="pet_sex" value="${pdto.pet_sex }" readonly="readonly"><br>
+	강아지 나이 --- <input type="text" name="pet_age" id="pet_age" value="${pdto.pet_age }" readonly="readonly"><br>
+	약품 선택  ---- <input type="text" list="mlist" name="test"/>
 	<datalist id="mlist">
 		<c:forEach items="${mdto }" var="m">
 			<option value="${m.medicament_name }">가격 : ${m.medicament_cost } || 재고 : ${m.medicament_amount }</option>
@@ -160,7 +110,7 @@
 	<textarea name="pethistory_coments" rows="10" style="width:100%;"></textarea>
 	<input type="hidden" name="pethistory_petcode" value="${pdto.pet_code }"><br>
 	<!-- <input type="submit" value="입력완료"/> -->
-	<input type="button" value="눌러봐" onclick="add_submit()">
+	<input type="button" value="입력완료" onclick="ins_submit()">
 	</form>
 </body>
 </html>

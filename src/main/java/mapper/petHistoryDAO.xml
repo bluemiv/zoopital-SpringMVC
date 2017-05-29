@@ -8,7 +8,7 @@
 	select * from pethistory
 </select>
 <insert id="insertHistory" parameterType="com.pet.model.PetHistoryDTO">
-	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_medicine},#{pethistory_coments},SYSDATE)
+	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_name},#{pethistory_medicine},#{pethistory_coments},SYSDATE)
 </insert>
 <delete id="deleteHistory">
 	delete pethistory where pethistory_key = #{key}

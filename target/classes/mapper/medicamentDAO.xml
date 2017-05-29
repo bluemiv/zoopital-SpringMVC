@@ -104,4 +104,7 @@
 	<select id="getSelectChoice2" resultType="com.pet.model.MedicamentDTO">
 		select * from medicament where store_code = 'pankyo' and medicament_name = #{m_name}
 	</select>
+	<update id="updateAmountOfHistory" parameterType="com.pet.model.MedicamentDTO">
+	update medicament set medicament_amount = (medicament_amount - #{am_count}) where store_code = 'pankyo' and medicament_name = #{medicament_name}
+	</update>
 </mapper>

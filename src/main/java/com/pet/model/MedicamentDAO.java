@@ -33,5 +33,7 @@ public interface MedicamentDAO {
 
 	// 약품 정보 이름값 넣어서 가져오기(history용)
 	public MedicamentDTO getSelectChoice2(String m_name) throws Exception;
+	// 약품 재고 업데이트 (history용)
+	public int updateAmountOfHistory(MedicamentDTO medicamentDTO);
 
 }

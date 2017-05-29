@@ -131,17 +131,54 @@ public class PetHistoryController {
 		return "/history/historyInsertForm";
 	}
 	@RequestMapping("inserthistoryend.pet")
-	public String inserthistoryend(PetHistoryDTO petHistoryDTO, String test, String m_name){
+	public String inserthistoryend(PetHistoryDTO petHistoryDTO, String test, String pet_name, String am_count){
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		System.out.println("coments = " + petHistoryDTO.getPethistory_coments());
 		System.out.println("code = " + petHistoryDTO.getPethistory_petcode());
 		System.out.println("command = " + test);
-		System.out.println("testname = " + m_name);
+		medicamentUpdate(test,am_count);
+		if(test.equals("")){
+			test = "해당없음";
+			petHistoryDTO.setPethistory_medicine(test);
+		}else{
+			String temp = "";
+			List<String> list = new ArrayList<String>();
+			StringTokenizer stk = new StringTokenizer(test, ",");
+			int i = 0;
+			while(stk.hasMoreElements()){
+				list.add(stk.nextToken());
+				temp += list.get(i) + ",";
+				i += 1;
+			}
+			petHistoryDTO.setPethistory_medicine(temp);
+		}
+		petHistoryDTO.setPethistory_name(pet_name);
 		/*System.out.println("m_amount = " + m_amount);
 		System.out.println("m_cost = " + m_cost);*/
-		
 		petHistoryDAO.insertHistory(petHistoryDTO);
 		return "redirect:../home.pet";
+	}
+	public void medicamentUpdate(String test, String am_count){
+		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
+		if(test != null){
+			List<String> list = new ArrayList<String>();
+			List<String> clist = new ArrayList<String>();
+			StringTokenizer stk = new StringTokenizer(test, ",");
+			StringTokenizer cstk = new StringTokenizer(am_count, ",");
+			while(stk.hasMoreTokens()){
+				list.add(stk.nextToken());
+			}
+			while(cstk.hasMoreTokens()){
+				clist.add(cstk.nextToken());
+			}
+			for(int i=0; i<list.size(); i++){
+				MedicamentDTO meDto = new MedicamentDTO();
+				meDto.setMedicament_name(list.get(i));
+				meDto.setAm_count(Integer.parseInt(clist.get(i)));
+				medicamentDAO.updateAmountOfHistory(meDto);
+			}
+			
+		}
 	}
 	@RequestMapping("historydelete.pet")
 	public String deleteHistory(int key){
