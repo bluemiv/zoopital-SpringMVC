@@ -33,5 +33,13 @@
     	delete from pet where pet_code=#{pet_code}
     </delete>
     
+    <select parameterType="com.pet.model.PetDTO" resultType="com.pet.model.PetDTO" id="getCodeForHistory">
+    	select * from pet where pet_name like '%${pet_name}%'
+    </select>
+
+	<select resultType="com.pet.model.PetDTO" id="getHistoryInfo">
+		select * from pet where pet_code = #{code}
+	</select>
+    
     
     </mapper>

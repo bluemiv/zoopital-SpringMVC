@@ -40,6 +40,14 @@
 	<br>
 	<button onclick="location='emp/empListForm.pet'">직원보기</button>
 	<br>
+	<button onclick="location='history/selectallhistory.pet'">히스토리 보기</button>
+	<br>
+	<button onclick="location='history/serarchview.pet'">히스토리 작성</button>
+	<br>
+	<button onclick="location='history/script.pet'">스크립트 테스트</button>
+	<br>
+	<button onclick="location='history/script2.pet'">스크립트 테스트2</button>
+	<br>
 	<a href = "j_spring_security_logout">로그아웃</a>
 </body>
 </html>

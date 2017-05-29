@@ -72,4 +72,17 @@
 		WHERE STORE_CODE = #{store_code}
 		</if>
 	</select>
+	
+	<select id="getSelectAll" resultType="com.pet.model.MedicamentDTO" parameterType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo'
+	</select>
+	<select id="getSelectChoice" resultType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo' and medicament_name in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</select>
+	<select id="getSelectChoice2" resultType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo' and medicament_name = #{m_name}
+	</select>
 </mapper>

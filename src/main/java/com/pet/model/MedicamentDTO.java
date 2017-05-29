@@ -18,7 +18,8 @@ public class MedicamentDTO {
 	private int pageNum; // 몇 페이지?
 	private int pageTotalNum; // 전체 페이지 개수
 	private String search; // 검색어
-	
+	private int am_count;
+	private int amtotal_count;
 	// constructor
 	public MedicamentDTO() {
 	}
@@ -113,6 +114,22 @@ public class MedicamentDTO {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public int getAm_count() {
+		return am_count;
+	}
+
+	public void setAm_count(int am_count) {
+		this.am_count = am_count;
+	}
+
+	public int getAmtotal_count() {
+		return amtotal_count;
+	}
+
+	public void setAmtotal_count(int amtotal_count) {
+		this.amtotal_count = amtotal_count;
 	}
 	
 	

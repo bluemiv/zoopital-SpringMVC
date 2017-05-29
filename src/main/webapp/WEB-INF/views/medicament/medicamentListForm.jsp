@@ -11,6 +11,7 @@
 		$("#search_box").keyup(function() {
 			$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
 				url : "medicamentSearchAjax.pet",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 				method : 'POST',
 				type : 'json',
 				data : {

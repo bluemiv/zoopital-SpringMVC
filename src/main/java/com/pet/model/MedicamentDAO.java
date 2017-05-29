@@ -1,5 +1,6 @@
 package com.pet.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MedicamentDAO {
@@ -25,4 +26,10 @@ public interface MedicamentDAO {
 	// 전체 게시물 개수
 	public int getTotalCountOfMedicament(MedicamentDTO medicamentDTO) throws Exception;
 
+	// 약품 정보 다 가져오기(history용)
+		public List<MedicamentDTO> getSelectAll() throws Exception;
+	// 약품 정보 이름값 넣어서 가져오기(history용)
+		public List<MedicamentDTO> getSelectChoice(List<String> list) throws Exception;
+	// 약품 정보 이름값 넣어서 가져오기(history용)
+		public MedicamentDTO getSelectChoice2(String m_name) throws Exception;
 }
