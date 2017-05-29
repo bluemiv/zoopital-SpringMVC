@@ -78,5 +78,10 @@
 	
 	<!-- 푸터 파일 -->
 	<jsp:include page="layout/footer.jsp"/>
+	
+	<button onclick="location='history/selectallhistory.pet'">히스토리 보기</button>
+	<br>
+	<button onclick="location='history/serarchview.pet'">히스토리 작성</button>
+	
 </body>
 </html>

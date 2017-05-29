@@ -1,7 +1,6 @@
 package com.pet.model;
 
 import java.util.List;
-import java.util.Map;
 
 public interface PetDAO {
 
@@ -23,4 +22,10 @@ public interface PetDAO {
 	// 검색
 	public List searchList(PetDTO dto) throws Exception;
 	
+	//insert시에 pet정보에서 code 가져오기 (history작성전에 사용될 메소드)
+	public List<PetDTO> getCodeForHistory(PetDTO petDTO);
+		
+	//code를 가져온 뒤 insert할 동물의 정보를 처방전에 뿌려준다.
+	public PetDTO getHistoryInfo(int code);
+
 }
