@@ -23,11 +23,11 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">이름</label>
-							<input class="form-control" type="text" name="pet_name">
+							<input class="form-control" type="text" name="pet_name" placeholder="동물 이름">
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">종류</label>
-							<input class="form-control" type="text" name="pet_type">
+							<input class="form-control" type="text" name="pet_type" placeholder="동물 종류">
 						</div>
 					</div>
 					
@@ -41,22 +41,46 @@
 							<input type="radio" name="pet_sex" value="female" class="form-control">
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">나이</label>
-							<input type="text" name="pet_age" class="form-control">
+							<label for="name">나이(개월)</label>
+							<input type="number" min = "0" name="pet_age" class="form-control" placeholder="동물 나이 (개월)">
 						</div>
 					</div>
 					
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">전화번호</label>
-							<input type="text" name="pet_phone" class="form-control">
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">지점</label>
-							<input type="text" name="store_code" value="판교" class="form-control">
+							<input type="text" name="pet_phone" class="form-control" placeholder="'-'없이 입력해주세요">
 						</div>
 					</div>
 					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">이메일</label>
+							<input type="text" name="pet_email" class="form-control" placeholder="이메일 입력" />
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">우편번호</label>
+							<input type="text" name="pet_postCode" readonly="readonly" class="postcodify_postcode5 form-control" placeholder="검색버튼을 눌러주세요" />
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							검색해서 찾아주세요!<br>
+							<p id="postcodify_search_button" class="btn btn-custom btn-md">검색</p>
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">주소</label>
+							<input type="text" name="pet_addr" readonly="readonly" class="postcodify_address form-control" placeholder="검색버튼을 눌러주세요" />						
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">상세주소</label>
+							<input type="text" name="pet_addrDetail" class="postcodify_details form-control" placeholder="상세주소를 입력해주세요"/>						
+						</div>
+					</div>
 					<br>
 					<div id="success"></div>
 					<div class="row">
@@ -70,7 +94,17 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>
+	
+	<!-- 주소 "검색"창  -->
+	<script>
+		$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
+	</script>
+	
+	<!-- jQuery와 Postcodify를 로딩한다 -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 </body>
 </html>

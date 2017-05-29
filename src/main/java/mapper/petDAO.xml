@@ -6,33 +6,69 @@
 <mapper namespace="com.pet.model.PetDAO">
     <insert id="insert_pet" parameterType="com.pet.model.PetDTO">
 	    INSERT INTO PET
-	    VALUES( PET_SEQ.NEXTVAL, #{pet_name}, #{pet_type}, #{pet_sex}, #{pet_age}, #{pet_phone}, #{store_code} )
+	    	(PET_CODE, PET_NAME, PET_TYPE, PET_SEX, PET_AGE, PET_PHONE, PET_POSTCODE, PET_ADDR, PET_ADDRDETAIL, PET_EMAIL, STORE_CODE)
+	    VALUES
+	    	(PET_NUM.NEXTVAL, #{pet_name}, #{pet_type}, #{pet_sex}, #{pet_age}, #{pet_phone}, #{pet_postCode}, #{pet_addr}, #{pet_addrDetail}, #{pet_email}, #{store_code} )
     </insert>
-    
     <select id="list_pet" resultType="com.pet.model.PetDTO">
     	SELECT *
     	FROM PET
     </select>
     
     <select id="select_code" resultType="com.pet.model.PetDTO">
-    	select * from pet where pet_code=#{pet_code}
+    	SELECT *
+    	FROM PET
+    	WHERE PET_CODE = #{pet_code}
     </select>	
     
     
     <select id="searchList" resultType="com.pet.model.PetDTO" parameterType="com.pet.model.PetDTO">
-    select * from pet where pet_name like '%${pet_name}%'
+    	SELECT *
+    	FROM PET
+    	WHERE PET_NAME LIKE '%${pet_name}%'
     </select>
     
     
     <update id="update_pet" parameterType="com.pet.model.PetDTO" >
-    update pet 
-    set pet_name=#{pet_name}, pet_type=#{pet_type}, pet_sex=#{pet_sex}, pet_age=#{pet_age}, pet_phone=#{pet_phone}, store_code=#{store_code} 
-    where pet_code=#{pet_code} 
+	    UPDATE PET
+	    <set>
+	    	<if test="pet_name != null and pet_name != ''">
+	    		PET_NAME = #{pet_name}
+	    	</if>
+	    	<if test="pet_type != null and pet_type != ''">
+	    		,pet_type = #{pet_type}
+	    	</if>
+	    	<if test="pet_sex != null and pet_sex != ''">
+	    		,PET_SEX = #{pet_sex}
+	    	</if>
+	    	<if test="pet_age != null and pet_age != ''">
+	    		,PET_AGE = #{pet_age}
+	    	</if>
+	    	<if test="pet_phone != null and pet_phone != ''">
+	    		,PET_PHONE = #{pet_phone}
+	    	</if>
+	    	<if test="pet_postCode != null and pet_postCode != ''">
+	    		,PET_POSTCODE = #{pet_postCode}
+	    	</if>
+	    	<if test="pet_addr != null and pet_addr != ''">
+	    		,PET_ADDR = #{pet_addr}
+	    	</if>
+	    	<if test="pet_addrDetail != null and pet_addrDetail != ''">
+	    		,PET_ADDRDETAIL = #{pet_addrDetail}
+	    	</if>
+	    	<if test="pet_email != null and pet_email != ''">
+	    		,PET_EMAIL = #{pet_email}
+	    	</if>
+	    	<if test="store_code != null and store_code != ''">
+	    		,STORE_CODE = #{store_code}
+	    	</if>
+	    </set>
+	    WHERE PET_CODE = #{pet_code}
     </update>
     
     <delete id="delete_pet" parameterType="com.pet.model.PetDTO">
-    	delete from pet where pet_code=#{pet_code}
+    	DELETE FROM PET
+    	WHERE PET_CODE = #{pet_code}
     </delete>
-    
     
     </mapper>

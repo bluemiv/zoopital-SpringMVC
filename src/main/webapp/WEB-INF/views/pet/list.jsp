@@ -45,7 +45,7 @@
 						<th>나이(개월)</th>
 						<th>전화번호</th>
 						<th>지점</th>
-						<th>수정/삭제</th>
+						<th>기타</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,10 +58,15 @@
 						<td>${ list.pet_phone }</td>
 						<td>${ list.store_code }</td>
 						<td>
-							<input type="button" value="수정" class = "btn btn-custom btn-md"
+							<button class = "btn btn-custom btn-md"
 							onclick="location='updateForm.pet?pet_code=${list.pet_code}'">
-							<input type="button" value="삭제" class = "btn btn-custom btn-md"
+							수정 <span class="glyphicon glyphicon-random"></span></button>
+							<button class = "btn btn-custom btn-md"
 							onclick="location='delete.pet?pet_code=${list.pet_code}'">
+							<span class="glyphicon glyphicon-trash"></span></button>
+							<button class = "btn btn-custom btn-md"
+							onclick="location='petDetailForm.pet?pet_code=${list.pet_code}'">
+							상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
 						</td>
 					</tr>
 				</c:forEach>

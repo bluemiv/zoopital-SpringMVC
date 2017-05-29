@@ -16,7 +16,7 @@
 		<div class="row">
 			<!-- 첫째 줄 -->
 			<div class="col-lg-12 text-center">
-				<h2>약품 리스트</h2>
+				<h2>직원</h2>
 				<hr>
 			</div>
 			<!-- 두번째 줄 -->
