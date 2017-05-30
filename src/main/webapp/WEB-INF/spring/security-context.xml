@@ -14,9 +14,9 @@
 		default-target-url="/home.pet"
 		authentication-failure-url="/loginForm.pet?err"/>
 		
-		<security:intercept-url pattern="/home.pet" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')" />
-		<security:intercept-url pattern="/medicament/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')" />
-		<security:intercept-url pattern="/store/**" access="hasRole('ROLE_SUPER_ADMIN')" />
+		<security:intercept-url pattern="/home.pet" access="hasAnyRole('ROLE_PART', 'ROLE_FULL', 'ROLE_SUPER_PART','ROLE_SUPER_FULL')" />
+		<security:intercept-url pattern="/medicament/**" access="hasAnyRole('ROLE_PART', 'ROLE_FULL', 'ROLE_SUPER_PART','ROLE_SUPER_FULL')" />
+		<security:intercept-url pattern="/store/**" access="hasRole('ROLE_SUPER_FULL')" />
 		
 		<security:logout logout-success-url="/loginForm.pet" logout-url="/j_spring_security_logout"/>
 	</security:http>
@@ -27,22 +27,22 @@
 				data-source-ref="driverManagerDataSource"
 				users-by-username-query="SELECT * 
 											FROM (
-												SELECT STORE_CODE, STORE_PASSWORD, STORE_ENABLED
-												FROM STORE
+												SELECT EMP_CODE, EMP_PWD, EMP_ENABLED
+												FROM EMP
 												UNION
 												SELECT 'system', 'oracle', 1
 												FROM STORE
 											)
-											WHERE STORE_CODE = ?"
+											WHERE EMP_CODE = ?"
 				authorities-by-username-query="SELECT * 
 												FROM (
-													SELECT STORE_CODE, STORE_ROLE
-													FROM STORE
+													SELECT EMP_CODE, EMP_ROLE
+													FROM EMP
 													UNION
-													SELECT 'system', 'ROLE_SUPER_ADMIN'
-													FROM STORE
+													SELECT 'system', 'ROLE_SUPER_FULL'
+													FROM EMP
 												)
-												WHERE STORE_CODE = ?" />
+												WHERE EMP_CODE = ?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>

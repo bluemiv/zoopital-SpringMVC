@@ -40,8 +40,8 @@
                     <span class="icon-bar"></span>
                 </button>
 				<a class="navbar-brand" href="/controller/home.pet">
-					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					Home
+					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+					Zoopital
 				</a>
 			</div>
 			<se:authorize access="isAuthenticated()">
@@ -86,16 +86,17 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">계정관리 <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							<se:authorize access="isAuthenticated()">${username}</se:authorize>
+							<b class="caret"></b>
+						</a>
 						<ul class="dropdown-menu">
 							<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
 							<li><a href="${messageListForm}">쪽지함</a></li>
 							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
 							<li>
-							<a href="${logout}">
-								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-								<se:authorize access="isAuthenticated()">${username}</se:authorize>(로그아웃)
-							</a>
+							<a href="${logout}">로그아웃</a>
 							</li>
 						</ul>
 					</li>

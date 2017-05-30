@@ -115,9 +115,9 @@
 								<input type = "hidden" name = "store_code" value = "${var.store_code}"/>
 								<select name = "order_to" class="form-control">
 								<se:authentication property="name" var="username"/>
-								<c:forEach items = "${storeCodeList}" var = "store_code">
-									<c:if test="${username != store_code}">
-										<option value = "${store_code}">${store_code}</option>
+								<c:forEach items = "${storeCodeList}" var = "storeList">
+									<c:if test="${session_store_code != storeList}">
+										<option value = "${storeList}">${storeList}</option>
 									</c:if>
 								</c:forEach>
 								</select>
