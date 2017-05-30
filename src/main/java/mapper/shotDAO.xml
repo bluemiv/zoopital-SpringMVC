@@ -5,10 +5,20 @@
 <mapper namespace="com.pet.model.ShotDAO">
 
 <select id="detailList" resultType="com.pet.model.ShotDTO">
-	select * from shot
+	select * from shot where pet_code=#{pet_code}
 </select>
 
 <select id="todayList" resultType="com.pet.model.ShotDTO">
-	select * from shot where shot_must=${shot_mush}
+	select * from shot where shot_must=${shot_must}
 </select>
+
+<select id="categoryList" resultType="com.pet.model.MedicamentDTO">
+select medicament_name from medicament where medicament_category='주사' group by medicament_name
+</select>
+
+<select id="selectCycle" resultType="com.pet.model.MedicamentDTO">
+select medicament_cycle from medicament m join shot on m.MEDICAMENT_NAME=${MEDICAMENT_NAME}
+</select>
+
+
 </mapper>

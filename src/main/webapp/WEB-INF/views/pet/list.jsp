@@ -27,7 +27,7 @@
 		지점: ${ list.store_code }<br>
 		<input type="button" value="수정" onclick="location='updateForm.pet?pet_code=${list.pet_code}'">
 		<input type="button" value="삭제" onclick="location='delete.pet?pet_code=${list.pet_code}'">
-		<input type="button" value="예방접종" onclick="location='../shot/vaccination.pet?pet_code=${list.pet_code}&pet_name=${list.pet_name}'">
+		<input type="button" value="예방접종" onclick="location='../shot/vaccination.pet?pet_code=${list.pet_code}'">
 		<hr>
 	</c:forEach>
 	

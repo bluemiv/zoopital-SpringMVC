@@ -21,23 +21,38 @@ public class ShotController {
 	
 	
 	@RequestMapping("shotListForm.pet")
-	public String listForm(){
+	public ModelAndView listForm(ShotDTO dto){
+		ModelAndView mav= new ModelAndView();
+		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
 		
-		return "shotListForm";
+		
+		List list= dao.categoryList();
+		/*String medicament_cycle=dao.selectCycle();*/
+		
+		mav.addObject("list", list);
+		mav.setViewName("/shot/shotListForm");
+		return mav;
 	}
 	
+	@RequestMapping("shotListPro.pet")
+	public ModelAndView test(ShotDTO dto){
+		ModelAndView mav= new ModelAndView();
+		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
+		
 	
+	
+		mav.setViewName("/shot/shotList");
+		return mav;
+	}
 	@RequestMapping("vaccination.pet")
 	public ModelAndView detailList(HttpServletRequest request, ShotDTO dto){
 		ModelAndView mav= new ModelAndView();
 		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
 		int pet_code=Integer.parseInt(request.getParameter("pet_code"));
-
-		dto.setPet_code(pet_code);
 		
 		System.out.println("pet_code: "+ pet_code);
 		
-		List list= dao.detailList();
+		List list= dao.detailList(pet_code);
 		mav.addObject("list", list);
 		mav.setViewName("/shot/shotList");
 		return mav;
