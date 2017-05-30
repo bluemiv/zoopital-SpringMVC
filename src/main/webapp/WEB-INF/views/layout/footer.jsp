@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-lg-10 col-lg-offset-1 text-center">
 					<h4>
-						<strong>KOSTA</strong>
+						<strong>Zoopital</strong>
 					</h4>
 					<p>
 						성남시 분당구 삼평동 판교 테크노밸리 <br>147th KOSTA

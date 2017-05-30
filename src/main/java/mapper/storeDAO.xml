@@ -91,14 +91,6 @@
 	</select>
 	
 	<!-- ROLE_SUPER_ADMIN 권한을 가진 store_code 가져오기 -->
-	<select id="getStoreCode" resultType= "java.lang.String">
-		SELECT STORE_CODE
-		FROM STORE
-		WHERE STORE_ROLE = 'ROLE_SUPER_ADMIN'
-		ORDER BY STORE_CODE
-	</select>
-	
-	<!-- ROLE_SUPER_ADMIN 권한을 가진 store_code 가져오기 -->
 	<select id="selectAllStoreCode" resultType= "com.pet.model.StoreDTO">
 		SELECT STORE_CODE, STORE_NAME
 		FROM STORE

@@ -45,10 +45,10 @@
 						<td>${emp.emp_name}</td>
 						<td>${emp.emp_age}</td>
 						<td>
-						<c:if test="${emp.emp_job == 'full'}">
+						<c:if test="${emp.emp_role == 'ROLE_FULL' || emp.emp_role == 'ROLE_SUPER_FULL'}">
 							정규직
 						</c:if>
-						<c:if test="${emp.emp_job == 'part'}">
+						<c:if test="${emp.emp_role == 'ROLE_PART' || emp.emp_role == 'ROLE_SUPER_PART'}">
 							비정규직
 						</c:if>
 						</td>

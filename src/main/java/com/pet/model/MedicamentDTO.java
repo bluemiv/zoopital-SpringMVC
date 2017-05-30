@@ -170,4 +170,17 @@ public class MedicamentDTO {
 	public void setAmtotal_count(int amtotal_count) {
 		this.amtotal_count = amtotal_count;
 	}
+
+	@Override
+	public String toString() {
+		return "MedicamentDTO [medicament_code=" + medicament_code + ", medicament_name=" + medicament_name
+				+ ", medicament_amount=" + medicament_amount + ", medicament_cost=" + medicament_cost
+				+ ", medicament_mandate=" + medicament_mandate + ", medicament_exdate=" + medicament_exdate
+				+ ", medicament_category=" + medicament_category + ", medicament_cycle=" + medicament_cycle
+				+ ", store_code=" + store_code + ", startNum=" + startNum + ", endNum=" + endNum + ", pageSize="
+				+ pageSize + ", pageNum=" + pageNum + ", pageTotalNum=" + pageTotalNum + ", search=" + search
+				+ ", amountState=" + amountState + ", am_count=" + am_count + ", amtotal_count=" + amtotal_count + "]";
+	}
+	
+	
 }

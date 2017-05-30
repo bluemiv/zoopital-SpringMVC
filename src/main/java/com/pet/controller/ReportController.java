@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.EmpDAO;
+import com.pet.model.EmpDTO;
 import com.pet.model.ReportDAO;
 import com.pet.model.ReportDTO;
 import com.pet.model.StoreDAO;
@@ -29,11 +31,11 @@ public class ReportController {
 		System.out.println("보고서 쓰기");
 		ModelAndView mav = new ModelAndView("/report/reportInsert");
 		
-	    // 본사 지점 코드 가져오기
- 		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
- 		List<String> storeCodeList = storeDAO.getStoreCode();
-	    mav.addObject("storeCodeList", storeCodeList);
-		
+	    // 본사 리스트  가져오기
+ 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+ 		List<EmpDTO> empFullList = empDAO.getEmpFullTimeInfo();
+ 		mav.addObject("empFullList", empFullList);
+ 		 
 		return mav;
 	}
 	
@@ -94,11 +96,11 @@ public class ReportController {
 		ReportDAO reportDAO = sqlSession.getMapper(ReportDAO.class);
 		reportDTO = reportDAO.getReportDetail(reportDTO);
 		
-	    // 본사 지점 코드 가져오기
- 		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
- 		List<String> storeCodeList = storeDAO.getStoreCode();
-	 
- 		model.addAttribute("storeCodeList", storeCodeList);
+		// 본사 리스트  가져오기
+ 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+ 		List<EmpDTO> empFullList = empDAO.getEmpFullTimeInfo();
+		 		
+		model.addAttribute("empFullList", empFullList);
 		model.addAttribute("reportDTO", reportDTO);
 		
 		return "/report/reportUpdateForm";

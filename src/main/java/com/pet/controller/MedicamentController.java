@@ -1,9 +1,10 @@
 package com.pet.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.model.EmpDAO;
+import com.pet.model.EmpDTO;
 import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
 import com.pet.model.OrderDAO;
 import com.pet.model.OrderDTO;
-import com.pet.model.StoreDAO;
 
 @Controller
 @RequestMapping("/medicament/")
@@ -28,10 +30,11 @@ public class MedicamentController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("medicamentListForm.pet")
-	public String medicamentListForm(MedicamentDTO medicamentDTO, Model model, Principal principal) throws Exception{
+	public String medicamentListForm(MedicamentDTO medicamentDTO, Model model, HttpSession session) throws Exception{
 		System.out.println("medicamentListForm 접근");
 		
-		medicamentDTO.setStore_code(principal.getName()); // 세션 아이디 가져옴
+		// 세션 store 값 가져옴
+		medicamentDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		// 페이징 처리
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
@@ -42,6 +45,7 @@ public class MedicamentController {
 		}
 		medicamentDTO.setStartNum(pageSize * (medicamentDTO.getPageNum() - 1) + 1);
 		medicamentDTO.setEndNum(pageSize * medicamentDTO.getPageNum());
+		
 		// 전체 페이지  개수
 		if(totalCount % pageSize == 0){
 			// 정확히 나누어 떨어짐
@@ -53,9 +57,9 @@ public class MedicamentController {
 		// 모든 약품 리스트 가져옴
 		List<MedicamentDTO> list = medicamentDAO.selectAll(medicamentDTO);
 		
-		// 본사 지점 코드 가져오기
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		List<String> storeCodeList = storeDAO.getStoreCode();
+		// 모든 지점 코드 가져오기
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		List<String> storeCodeList = empDAO.getStoreAll();
 		
 		model.addAttribute("list", list);
 		model.addAttribute("storeCodeList", storeCodeList);
@@ -73,11 +77,11 @@ public class MedicamentController {
 	
 	
 	@RequestMapping("medicamentInsertPro.pet")
-	public String medicamentInsertPro(MedicamentDTO medicamentDTO, Model model, Principal principal) throws Exception{
+	public String medicamentInsertPro(MedicamentDTO medicamentDTO, Model model, HttpSession session) throws Exception{
 		System.out.println("medicamentInsertPro 접근");
 
-		// 세션 아이디 가져옴
-		medicamentDTO.setStore_code(principal.getName());
+		// 세션 store 값 가져옴
+		medicamentDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		// 약품 추가
 		boolean check = false;
@@ -106,7 +110,6 @@ public class MedicamentController {
 	@RequestMapping("medicamentUpdatePro.pet")
 	public String medicamentUpdatePro(MedicamentDTO medicamentDTO,  Model model) throws Exception{
 		System.out.println("medicamentUpdatePro 접근");
-		
 		// 정보 수정
 		boolean check = false;
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
@@ -150,8 +153,11 @@ public class MedicamentController {
 	
 	@Transactional
 	@RequestMapping("medicamentRequestPro.pet")
-	public String medicamentRequestPro(MedicamentDTO medicamentDTO, String order_to, Principal principal) throws Exception{
+	public String medicamentRequestPro(MedicamentDTO medicamentDTO, String order_to, HttpSession session) throws Exception{
 		System.out.println("medicamentRequestPro 접근");
+		
+		// 세션 store 값 가져옴
+		String sessionStoreCode = (String)session.getAttribute("session_store_code");
 		
 		// 물품 요청
 		OrderDTO orderDTO = new OrderDTO();
@@ -160,8 +166,8 @@ public class MedicamentController {
 		orderDTO.setOrder_check("no");
 		orderDTO.setOrder_delivery("no");
 		orderDTO.setOrder_to(order_to);
-		orderDTO.setOrder_from(principal.getName());
-		orderDTO.setStore_code(principal.getName());
+		orderDTO.setOrder_from(sessionStoreCode);
+		orderDTO.setStore_code(sessionStoreCode);
 		OrderDAO orderDAO = sqlSession.getMapper(OrderDAO.class);
 		boolean check = false;
 		if(orderDAO.insertOrder(orderDTO)>0){
@@ -176,7 +182,7 @@ public class MedicamentController {
 	/////////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("medicamentSearchAjax.pet")
-	public List medicamentPreViewAjax(@RequestBody String search, Principal principal) throws Exception{
+	public List medicamentPreViewAjax(@RequestBody String search, HttpSession session) throws Exception{
 		StringTokenizer tokenizer = new StringTokenizer(search, "=");
 		while(tokenizer.hasMoreTokens()){
 			search = tokenizer.nextToken();
@@ -184,7 +190,8 @@ public class MedicamentController {
 		System.out.println(search);
 		MedicamentDTO medicamentDTO = new MedicamentDTO();
 		medicamentDTO.setSearch(search);
-		medicamentDTO.setStore_code(principal.getName());
+		// 세션 store 값 가져옴
+		medicamentDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		MedicamentDAO dao = sqlSession.getMapper(MedicamentDAO.class);
 		List<MedicamentDTO> listAll = dao.selectAll(medicamentDTO);
