@@ -57,15 +57,16 @@ public class ReserveController {
 		System.out.println("reserveListForm2 컨트롤러 진입");
 		System.out.println(request.getParameter("emp_name"));
 		
-		request.getParameter("emp_name");
+		String emp_name = request.getParameter("emp_name");
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		
+		model.addAttribute("emp_name", emp_name);
 		
 //		List<EmpDTO> empList = empDAO.getEmpList();
 		
 		//가능한 시간만 리스트형태로 저장해서 넘기기
 //		List timeList = 
-				
-		
+			
 		return "/reserve/reserveInsertForm2";
 	}
 	
@@ -74,14 +75,20 @@ public class ReserveController {
 	@RequestMapping("/reserveInsertPro.pet")
 	public String reserveInsertPro(ReserveDTO dto, Principal principal){
 		System.out.println("reserveInsertPro 컨트롤러 진입");		
-		System.out.println(dto.toString());		
+		System.out.println(dto.getEmp_name());		
+		System.out.println(dto.getReserve_contents());		
+		System.out.println(dto.getReserve_date());		
+		System.out.println(dto.getReserve_start_time());		
+		System.out.println(dto.getReserve_end_time());	
+		dto.setStore_code(principal.getName());
+		System.out.println(dto.getStore_code());		
 		
 		/*ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 
 		dto.setStore_code(principal.getName());	
 		reserveDAO.insertReserve(dto);*/
 		
-		return "/reserve/reserveInsertPro";
+		return "redirect:reserveListForm.pet";
 	
 	}
 	

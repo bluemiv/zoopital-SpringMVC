@@ -7,13 +7,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+
+
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-
 <script>
-
 	$(function(){
-		$(".datepicker").datepicker();
+		$(".datepicker").datepicker({
+			closeText: '닫기',
+            prevText: '이전달',
+            nextText: '다음달',
+            currentText: '오늘',
+			inline: true,
+		    showOtherMonths: true,
+		    showMonthAfterYear: true,
+			dateFormat: 'yy/mm/dd'});
 	});
 	
 </script>
@@ -25,8 +34,8 @@
 
 <fieldset>
 	<legend>날짜/시간 선택</legend>
-	<div>날짜 입력
-	<input type="text" name="reserve_date" class="datepicker"/>
+	<div id = "datepicker">날짜 입력
+	<input type="text" id="test" name="reserve_date" class="datepicker"/>
 	</div>
 	
 	<br>
@@ -50,7 +59,8 @@
 
 </fieldset>
 	
-	<input type="submit" value="추가">
+	<input type="hidden" name="emp_name" value="${emp_name}">
+	<input type="submit" value="예약 추가">
 	
 </form>
 
