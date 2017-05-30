@@ -18,6 +18,9 @@ public interface EmpDAO {
 	//직원 수정
 	public int updateEmp(EmpDTO dto); 
 	
-	
+	// 모든 정규직 직원 정보 가져옴
+	public List<EmpDTO> getEmpFullTimeInfo() throws Exception;
 
+	// 모든 지점 가져옴
+	public List<String> getStoreAll() throws Exception;
 }

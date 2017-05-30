@@ -36,23 +36,37 @@
 				<form id="form1" action="empUpdateDeletePro.pet" method="post">
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">직원 ID</label>
+							<input type="text" name="emp_code" readonly="readonly" class="form-control"value="${ selectEmp.emp_code }" >
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">(비)정규직</label>
-							<select class="form-control" name = "emp_job">
-							<c:if test="${selectEmp.emp_job == 'full'}">
-								<option value = "full" selected="selected">정규직</option>
-								<option value = "part">비정규직</option>
+							<select class="form-control" name = "emp_role">
+							<c:if test="${selectEmp.emp_role == 'ROLE_FULL' || selectEmp.emp_role == 'ROLE_PART'}">
+								<option value = "ROLE_FULL">정규직</option>
+								<option value = "ROLE_PART">비정규직</option>
 							</c:if>
-							<c:if test="${selectEmp.emp_job == 'part'}">
-								<option value = "full">정규직</option>
-								<option value = "part" selected="selected">비정규직</option>
+							<c:if test="${selectEmp.emp_role == 'ROLE_SUPER_FULL' || selectEmp.emp_role == 'ROLE_SUPER_PART'}">
+								<option value = "ROLE_SUPER_FULL">정규직</option>
+								<option value = "ROLE_SUPER_PART">비정규직</option>
 							</c:if>
 							</select>
-							<!-- emp 코드 -->
-							<input type="hidden" name="emp_code" value="${ selectEmp.emp_code }" >
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">고용일</label>
 							<input type="text" value="${ selectEmp.emp_hiredate }" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">지점 Password</label>
+							<input type = "password" id = "pwd" name = "emp_pwd" required="required" class="form-control" placeholder="비밀번호를 입력해주세요">
+							<p id = "pwd_check_display"></p>
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">Password 확인</label>
+							<input type = "password" id = "pwd_confirm" name = "emp_pwd_confirm" required="required" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
 						</div>
 					</div>
 					
@@ -78,20 +92,6 @@
 					</div>
 					
 					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
-							<label for="name">지점 변경 (이직)</label>
-							<select class="form-control" name = "store_code">
-							<c:forEach items = "${storeCodeList}" var="codeList">
-								<c:if test="${selectEmp.store_code == codeList.store_code}">
-								<option value = "${codeList.store_code}" selected="selected">${codeList.store_name}</option>
-								</c:if>
-								<c:if test="${selectEmp.store_code != codeList.store_code}">
-								<option value = "${codeList.store_code}">${codeList.store_name}</option>
-								</c:if>
-							</c:forEach>
-							</select>
-							<p class="help-block text-danger"></p>
-						</div>
 						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">급여</label>
 							<input type="text" class="form-control" value="${ selectEmp.emp_pay }"

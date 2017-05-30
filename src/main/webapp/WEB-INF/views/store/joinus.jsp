@@ -98,7 +98,7 @@
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">Password 확인</label>
-							<input type = "password" id = "pwd_confirm" name = "store_password" required="required" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
+							<input type = "password" id = "pwd_confirm" name = "store_password_confirm" required="required" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
 						</div>
 					</div>
 					
@@ -106,23 +106,6 @@
 						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">지점 명</label>
 							<input type = "text" name = "store_name" class="form-control" required="required" placeholder="병원이름을 입력해주세요">
-						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">(비)활성화</label>
-							<select name = "store_enabled" class="form-control">
-								<option value = "1">활성화</option>
-								<option value = "0">비활성화</option>
-							</select>
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">권한</label>
-							<select name = "store_role" class="form-control">
-								<option value = "ROLE_SUPER_ADMIN">수퍼 관리자</option>
-								<option value = "ROLE_ADMIN">일반 관리자</option>
-							</select>
 						</div>
 					</div>
 					

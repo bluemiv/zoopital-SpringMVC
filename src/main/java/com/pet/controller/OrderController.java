@@ -3,21 +3,21 @@ package com.pet.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.model.EmpDAO;
+import com.pet.model.EmpDTO;
 import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
 import com.pet.model.OrderDAO;
 import com.pet.model.OrderDTO;
-import com.pet.model.StoreDAO;
-import com.pet.model.StoreDTO;
 
 @Controller
 @RequestMapping("/order/")
@@ -27,20 +27,20 @@ public class OrderController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("orderInfoForm")
-	public String orderInfoForm(Principal principal, Model model) throws Exception{
+	public String orderInfoForm(Principal principal, HttpSession session, Model model) throws Exception{
 		System.out.println("orderInfoForm 접근");
 
 		// 현재 로그인 한 아이디의 권한 가져오기
-		StoreDTO storeDTO = new StoreDTO();
-		storeDTO.setStore_code(principal.getName());
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		storeDTO = storeDAO.adminUpdate(storeDTO);
+		EmpDTO empDTO = new EmpDTO();
+		empDTO.setEmp_code(principal.getName());
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		empDTO = empDAO.selectEmpList(empDTO);
 		
 		// 전체 발주 내역 가져옴
 		OrderDAO orderDAO = sqlSession.getMapper(OrderDAO.class);
 		OrderDTO orderDTO_input = new OrderDTO();
-		orderDTO_input.setStore_code(principal.getName());
-		orderDTO_input.setStore_role(storeDTO.getStore_role());
+		orderDTO_input.setStore_code((String)session.getAttribute("session_store_code"));
+		orderDTO_input.setEmp_role(empDTO.getEmp_role());
 		List<OrderDTO> list = orderDAO.selectAllOfOrder(orderDTO_input);
 		
 		// jsp로 넘겨줌
@@ -50,7 +50,7 @@ public class OrderController {
 	
 	@Transactional
 	@RequestMapping("orderCheckPro")
-	public String orderCheckPro(OrderDTO orderDTO, MedicamentDTO medicamentDTO, Principal principal, Model model) throws Exception{
+	public String orderCheckPro(OrderDTO orderDTO, MedicamentDTO medicamentDTO, HttpSession session, Model model) throws Exception{
 		System.out.println("orderCheckPro 접근");
 		
 		// 승인여부
@@ -64,7 +64,7 @@ public class OrderController {
 		// 개수 업데이트
 		medicamentDTO.setMedicament_name(orderDTO.getOrder_name());
 		medicamentDTO.setMedicament_amount(orderDTO.getOrder_amount());
-		medicamentDTO.setStore_code(principal.getName());
+		medicamentDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		if(medicamentDAO.updateAmountOfMedicamentAboutOrder(medicamentDTO) > 0){
 			check = true;
@@ -76,7 +76,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("orderDeletePro")
-	public String orderDeletePro(Principal principal, OrderDTO orderDTO, Model model) throws Exception{
+	public String orderDeletePro(OrderDTO orderDTO, Model model) throws Exception{
 		System.out.println("orderDeletePro 접근");
 		
 		// 발주 내역 삭제
@@ -100,8 +100,8 @@ public class OrderController {
 		orderDTO = orderDAO.selectDetailOrder(orderDTO);
 		
 		// 본사 리스트  가져오기
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		List<String> order_toList = storeDAO.getStoreCode();
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		List<String> order_toList = empDAO.getStoreAll();
 		
 		model.addAttribute("orderDTO", orderDTO);
 		model.addAttribute("order_toList", order_toList);

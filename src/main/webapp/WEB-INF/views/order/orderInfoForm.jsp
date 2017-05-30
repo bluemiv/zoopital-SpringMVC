@@ -12,7 +12,6 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-	<se:authentication property="name" var="username"/>
 	<div class="container">
 		<div class="row">
 			<!-- 첫째 줄 -->
@@ -49,11 +48,11 @@
 						<c:if test="${var.order_check == 'no'}">
 							거부
 						</c:if>
-						<c:if test="${ username == var.order_to && var.order_check == 'no' && var.order_delivery == 'no'}">
+						<c:if test="${ session_store_code == var.order_to && var.order_check == 'no' && var.order_delivery == 'no'}">
 							<button class = "btn btn-custom btn-md"
 							onclick = "location='orderCheckPro.pet?amountState=down&order_check=yes&order_code=${var.order_code}'">승인</button>
 						</c:if>
-						<c:if test="${ username == var.order_to && var.order_check == 'yes' && var.order_delivery == 'no'}">
+						<c:if test="${ session_store_code == var.order_to && var.order_check == 'yes' && var.order_delivery == 'no'}">
 							<button class = "btn btn-custom btn-md"
 							onclick = "location='orderCheckPro.pet?amountState=up&order_check=no&order_code=${var.order_code}'">거절</button>
 						</c:if>
@@ -66,11 +65,11 @@
 							<c:if test="${var.order_delivery == 'no'}">
 								수령 미완료
 							</c:if>
-							<c:if test="${ username == var.order_from && var.order_delivery == 'no'}">
+							<c:if test="${ session_store_code == var.order_from && var.order_delivery == 'no'}">
 								<button class = "btn btn-custom btn-md"
 								onclick = "location='orderCheckPro.pet?amountState=up&order_delivery=yes&order_code=${var.order_code}'">수령 완료</button>
 							</c:if>
-							<c:if test="${ username == var.order_from && var.order_delivery == 'yes'}">
+							<c:if test="${ session_store_code == var.order_from && var.order_delivery == 'yes'}">
 								<button class = "btn btn-custom btn-md"
 								onclick = "location='orderCheckPro.pet?amountState=down&order_delivery=no&order_code=${var.order_code}'">수령 미완료</button>
 							</c:if>
@@ -79,7 +78,7 @@
 							거부 상태
 						</c:if>
 						</td>
-						<c:if test="${username == var.order_from && var.order_check == 'no'}">
+						<c:if test="${session_store_code == var.order_from && var.order_check == 'no'}">
 						<td>
 							<button class = "btn btn-custom btn-md"
 							onclick = "location='orderUpdateForm.pet?order_code=${var.order_code}'">수정</button>
@@ -89,7 +88,7 @@
 							onclick = "location='orderDeletePro.pet?order_code=${var.order_code}'">삭제</button>
 						</td>
 						</c:if>
-						<c:if test="${username != var.order_from || var.order_check == 'yes'}">
+						<c:if test="${session_store_code != var.order_from || var.order_check == 'yes'}">
 						<td>
 							-
 						</td>
