@@ -11,35 +11,76 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-	<table width="100%" class="table table-striped table-bordered table-hover"
-		id="dataTables-example">
-		<thead>
-			<tr class="info">
-				<th>약품 코드</th>
-				<th>약품 이름</th>
-				<th>개수</th>
-				<th>가격</th>
-				<th>종류</th>
-				<th>제조일자</th>
-				<th>유통기한</th>
-				<th>지점코드</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>${medicamentDTO.medicament_code}</td>
-				<td>${medicamentDTO.medicament_name}</td>
-				<td>${medicamentDTO.medicament_amount}</td>
-				<td class="center">${medicamentDTO.medicament_cost}원</td>
-				<td class="center">${medicamentDTO.medicament_category}</td>
-				<td class="center">${medicamentDTO.medicament_mandate}</td>
-				<td class="center">${medicamentDTO.medicament_exdate}</td>
-				<td class="center">${medicamentDTO.store_code}</td>
-			</tr>
-		</tbody>
-	</table>
-	<input type = "hidden" value = "${medicamentDTO.medicament_cost}" id = "cost">
-	
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2>약품 정보</h2>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form action = "medicamentInsertPro.pet" method = "post">
+				
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">지점 코드</label>
+							<input type = "text" class="form-control" value = "${medicamentDTO.store_code}" readonly="readonly">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">약품 이름</label>
+							<input type = "text" class="form-control" value = "${medicamentDTO.medicament_name}" readonly="readonly">
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">약품 개수</label>
+							<input type = "text" value = "${medicamentDTO.medicament_amount}개" class="form-control" readonly="readonly">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">약품 가격</label>
+							<input type = "text" value = "${medicamentDTO.medicament_cost}원" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">약품 종류</label>
+							<input type = "text" class="form-control" value = "${medicamentDTO.medicament_category}" readonly="readonly">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">약품 주기</label>
+							<input type = "text" class="form-control" value = "${medicamentDTO.medicament_cycle}개월" readonly="readonly">
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+
+					<div class="row control-group">
+						<div
+							class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="message">제조 일자</label>
+							<input type = "date" class="form-control" value = "${medicamentDTO.medicament_mandate}" readonly="readonly">
+							<p class="help-block text-danger"></p>
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="message">유통 기한</label>
+							<input type = "date" class="form-control" value = "${medicamentDTO.medicament_exdate}" readonly="readonly">
+							<p class="help-block text-danger"></p>
+						</div>
+					</div>
+					<br>
+					<div id="success"></div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<input class = "btn btn-custom btn-md" type="button" onclick = "location='medicamentListForm.pet'" value="약품 리스트">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>
 </body>

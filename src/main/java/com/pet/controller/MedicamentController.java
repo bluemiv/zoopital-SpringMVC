@@ -60,6 +60,7 @@ public class MedicamentController {
 		model.addAttribute("list", list);
 		model.addAttribute("storeCodeList", storeCodeList);
 		model.addAttribute("page", medicamentDTO);
+		model.addAttribute("currentPageNum", medicamentDTO.getPageNum());
 		return "/medicament/medicamentListForm";
 	} // 약품 리스트 출력
 	

@@ -4,15 +4,54 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.model.ReportDAO">
 
-	<insert id="reportPro"  parameterType="com.pet.model.ReportDTO">
-	 INSERT INTO REPORT
-	    	(REPORT_STORENAME, REPORT_POSITION, REPORT_DATE,REPORT_WRITER,REPORT_CONTENTS )
+	<insert id="insertReport"  parameterType="com.pet.model.ReportDTO">
+		INSERT INTO REPORT
+	    	(REPORT_CODE, REPORT_READER, REPORT_WRITER,REPORT_POSITION,REPORT_DATE, REPORT_CONTENTS, REPORT_CHECK )
 	    VALUES
-	    	(#{report_storeName},#{report_position},SYSDATE,#{report_writer},#{report_contents})
-	
+	    	(REPORT_NUM.NEXTVAL, #{report_reader}, #{report_writer}, #{report_position}, SYSDATE, #{report_contents}, #{report_check})
 	</insert>
 	
 	<select id="getReportList" resultType="com.pet.model.ReportDTO" parameterType="com.pet.model.ReportDTO">
-	SELECT * FROM REPORT
+		SELECT *
+		FROM REPORT
+		WHERE REPORT_READER = #{report_writer} or REPORT_WRITER = #{report_writer}
 	</select>
-	</mapper>
+	
+	<update id="checkReport" parameterType="com.pet.model.ReportDTO">
+		UPDATE REPORT
+		<set>
+			<if test="report_check != null and report_check != ''">
+				REPORT_CHECK = #{report_check}
+			</if>
+		</set>
+		WHERE REPORT_CODE = #{report_code}
+	</update>
+	
+	<update id="updateReport" parameterType="com.pet.model.ReportDTO">
+		UPDATE REPORT
+		<set>
+			<if test="report_reader != null and report_reader != ''">
+				REPORT_READER = #{report_reader},
+			</if>
+			<if test="report_position != null and report_position != ''">
+				REPORT_POSITION = #{report_position},
+			</if>
+			<if test="report_contents != null and report_contents != ''">
+				REPORT_CONTENTS = #{report_contents},
+			</if>
+			REPORT_DATE = SYSDATE,
+			REPORT_CHECK = 'fail'
+		</set>
+		WHERE REPORT_CODE = #{report_code} AND REPORT_WRITER = #{report_writer}
+	</update>
+	
+	<delete id="deleteReport" parameterType="com.pet.model.ReportDTO">
+		DELETE REPORT
+		WHERE REPORT_CODE = #{report_code} AND REPORT_WRITER = #{report_writer}
+	</delete>
+	<select id="getReportDetail" resultType="com.pet.model.ReportDTO" parameterType="com.pet.model.ReportDTO">
+		SELECT *
+		FROM REPORT
+		WHERE REPORT_CODE = #{report_code} AND REPORT_WRITER = #{report_writer}
+	</select>
+</mapper>

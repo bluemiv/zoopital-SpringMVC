@@ -29,4 +29,7 @@ public interface StoreDAO {
 	
 	// ROLE_SUPER_ADMIN 권한을 가진 store_code 가져오기
 	public List<String> getStoreCode() throws Exception;
+	
+	// 모든 store_code 가져옴
+	public List<StoreDTO> selectAllStoreCode() throws Exception;
 }

@@ -76,6 +76,7 @@
 		WHERE STORE_CODE = #{store_code}
 		</if>
 	</select>
+	
 	<update id="updateAmountOfMedicamentAboutOrder" parameterType="com.pet.model.MedicamentDTO">
 		UPDATE MEDICAMENT
 		<set>
@@ -87,5 +88,23 @@
 			</if>
 		</set>
 		WHERE MEDICAMENT_NAME = #{medicament_name} AND STORE_CODE = #{store_code}
+	</update>
+
+	<select id="getSelectAll" resultType="com.pet.model.MedicamentDTO" parameterType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo'
+	</select>
+	
+	<select id="getSelectChoice" resultType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo' and medicament_name in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</select>
+	
+	<select id="getSelectChoice2" resultType="com.pet.model.MedicamentDTO">
+		select * from medicament where store_code = 'pankyo' and medicament_name = #{m_name}
+	</select>
+	<update id="updateAmountOfHistory" parameterType="com.pet.model.MedicamentDTO">
+	update medicament set medicament_amount = (medicament_amount - #{am_count}) where store_code = 'pankyo' and medicament_name = #{medicament_name}
 	</update>
 </mapper>
