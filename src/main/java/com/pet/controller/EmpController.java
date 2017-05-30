@@ -39,7 +39,7 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empInsertForm.pet")
-	public String empInsertForm(Model model){
+	public String empInsertForm(){
 		System.out.println("empInsertForm 컨트롤러 진입");
 		
 		//

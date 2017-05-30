@@ -5,16 +5,35 @@
    
   <mapper namespace="com.pet.model.ReserveDAO">
   
-  	<insert id="insertReserve" parameterType="com.pet.model.ReserveDTO">
-  		insert into reserve
-  		values( ${})
-  	
-  	</insert>
-  	
   	<select id="selectReserve" resultType="com.pet.model.ReserveDTO">
   		select * from reserve
-  		where store_code = ${store_code}
-  	
+  		where store_code = #{store_code}
+  		order by reserve_date
+  		, reserve_start_time
   	</select>
+  	
+  	<select id="selectReserveTime" resultType="com.pet.model.ReserveDTO">
+  		select reserve_date, 
+  			reserve_start_time,
+  			reserve_end_time,
+  			emp_name 
+  			from RESERVE 
+  			where RESERVE_DATE = '17/05/31'
+  			and emp_name = 'c2';
+
+  	</select>
+  	
+  	<insert id="insertReserve" parameterType="com.pet.model.ReserveDTO">
+  		insert into reserve
+  		values(
+  		reserve_seq.nextval,
+  		#{reserve_date},
+  		#{reserve_start_time},
+  		#{reserve_end_time},
+  		#{emp_name},
+  		#{reserve_contents},
+  		#{store_code},
+  		1)	
+  	</insert>
   
   </mapper>

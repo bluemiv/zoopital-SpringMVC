@@ -5,20 +5,32 @@
 <html>
 <head>
 <title></title>
+
+<script type="text/javascript">
+
+	function test(){
+		var frm = document.getElementById("frm");
+		frm.action = "empInsertpro.pet";
+		document.frm.submit();
+	}
+	
+</script>
+	
 </head>
 <body>
 	<!-- 헤더 파일 -->
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-	<form action="empInsertpro.pet" method="post">
+	<form name="frm" id="frm" method="post">
 		이름: <input type="text" name="emp_name"><br/>
 		코드: <input type="text" name="emp_code"><br/>
 		나이: <input type="text"	name="emp_age"><br/>
 		전화번호: <input type="text" name="emp_tel"><br/>
 		급여: <input type="text" name="emp_pay"><br/>
 		
-		<input type="submit" value="추가">
+		<input type="button" value="추가" onclick="test()">
+		
 	</form>
 	
 	<!-- 푸터 파일 -->

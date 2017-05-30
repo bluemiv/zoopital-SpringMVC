@@ -9,12 +9,25 @@
 <title>예약관리</title>
 </head>
 <body>
+	<h3>예약 내역</h3>
+	<hr>
 	
+	<c:forEach items="${reserveList}" var="reserve">
+		예약 번호: ${reserve.reserve_code}	<br>
+		예약 날짜: ${reserve.reserve_date} <br>
+		담당: ${reserve.emp_name} <br>
+		예약 내용: ${reserve.reserve_contents} <br>
+		<hr>
+	
+	</c:forEach>
+	<br>
 
-
-	<button onclick="location='reserveInsertPro.pet'">예약내역 추가</button>
-	<button onclick="location='reserveUpdatePro.pet'">예약 변경</button>
-	<button onclick="location='reserveDeletePro.pet'">예약 취소</button>
+	<button onclick="location='reserveInsertForm.pet'">예약내역 추가</button>
+	<br>
+	<button onclick="location='reserveUpdateForm.pet'">예약 변경</button>
+	<br>
+	<button onclick="location='reserveDeleteForm.pet'">예약 취소</button>
+	<br>
 	
 
 </body>

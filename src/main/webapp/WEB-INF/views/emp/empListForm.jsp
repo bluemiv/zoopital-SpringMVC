@@ -18,7 +18,7 @@
 직원 이름 / 직원 코드
 
 <hr>
-	<c:forEach items="${emplist }" var="emp">
+	<c:forEach items="${emplist}" var="emp">
 		${emp.emp_name } // ${emp.emp_code }
 		<br>
 	</c:forEach>
