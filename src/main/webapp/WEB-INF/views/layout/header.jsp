@@ -22,11 +22,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+	
+	<!-- custom css -->
+	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<se:authentication property="name" var="username"/>
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -60,33 +63,44 @@
 							<li><a href="${petWriteForm}">동물 등록</a></li>
 						</ul>
 					</li>
-				<se:authorize access="hasRole('ROLE_SUPER_ADMIN')">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
-						<li><a href="${storeSelectAll}">지점 목록</a></li>
-						<c:url value="/store/inputForm.pet" var = "storeInputForm"></c:url>
-						<li><a href="${storeInputForm}">지점 가입</a></li>
-					</ul>
-				</li>
-				</se:authorize>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					보고서 <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<c:url value="/report/report.pet" var = "reportReport"></c:url>
-						<li><a href="${reportReport}">보고서 페이지</a></li>
-						<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
-						<li><a href="${reportGetReportList}">보고서 리스트 보기</a></li>
-					</ul>
-				</li>
-					<c:url value="/j_spring_security_logout" var = "logout"></c:url>
-					<li><a href="${logout}">
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						<se:authorize access="isAuthenticated()">${username}</se:authorize>(로그아웃)
-					</a></li>
+					<se:authorize access="hasRole('ROLE_SUPER_ADMIN')">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
+							<li><a href="${storeSelectAll}">지점 목록</a></li>
+							<c:url value="/store/inputForm.pet" var = "storeInputForm"></c:url>
+							<li><a href="${storeInputForm}">지점 가입</a></li>
+						</ul>
+					</li>
+					</se:authorize>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						보고서 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
+							<li><a href="${reportGetReportList}">보고서 리스트</a></li>
+							<c:url value="/report/reportInsert.pet" var = "reportInsert"></c:url>
+							<li><a href="${reportInsert}">보고서 쓰기</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">계정관리 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
+							<li><a href="${messageListForm}">쪽지함</a></li>
+							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
+							<li>
+							<a href="${logout}">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								<se:authorize access="isAuthenticated()">${username}</se:authorize>(로그아웃)
+							</a>
+							</li>
+						</ul>
+					</li>
+					
+					
 				</ul>
 			</div>
 			</se:authorize>

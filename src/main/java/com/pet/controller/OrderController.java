@@ -50,15 +50,13 @@ public class OrderController {
 	
 	@Transactional
 	@RequestMapping("orderCheckPro")
-	public String orderCheckPro(OrderDTO orderDTO, MedicamentDTO medicamentDTO, Principal principal) throws Exception{
+	public String orderCheckPro(OrderDTO orderDTO, MedicamentDTO medicamentDTO, Principal principal, Model model) throws Exception{
 		System.out.println("orderCheckPro 접근");
 		
 		// 승인여부
 		boolean check = false;
 		OrderDAO orderDAO = sqlSession.getMapper(OrderDAO.class);
-		if(orderDAO.updateOrder(orderDTO) > 0){
-			check = true;
-		}
+		orderDAO.updateOrder(orderDTO);
 		
 		// 세부정보 가져옴
 		orderDTO = orderDAO.selectDetailOrder(orderDTO);
@@ -72,7 +70,9 @@ public class OrderController {
 			check = true;
 		}
 		
-		return "redirect:orderInfoForm.pet";
+		model.addAttribute("check", check);
+		
+		return "order/orderResult";
 	}
 	
 	@RequestMapping("orderDeletePro")
@@ -88,7 +88,7 @@ public class OrderController {
 		
 		// jsp로 넘겨줌
 		model.addAttribute("check", check);
-		return "redirect:orderInfoForm.pet";
+		return "order/orderResult";
 	}
 	
 	@RequestMapping("orderUpdateForm")
@@ -120,7 +120,6 @@ public class OrderController {
 		}
 		
 		model.addAttribute("check", check);
-		return "redirect:orderInfoForm.pet";
+		return "order/orderResult";
 	}
-	
 }

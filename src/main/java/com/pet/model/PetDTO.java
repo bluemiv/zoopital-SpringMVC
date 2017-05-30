@@ -3,11 +3,18 @@ package com.pet.model;
 import java.util.Date;
 
 public class PetDTO {
-	private int pet_code;
-	private String pet_name, pet_type, pet_sex;
-	private int pet_age, pet_phone;
-	private String store_code, pet_owner;
-	private Date pet_date;
+
+	private int pet_code; // number constraint pet_pk primary key, -- 내부 번호(pk)
+	private String pet_name; // varchar2(500) not null, -- 동물 이름
+	private String pet_type; // varchar2(500) not null, -- 동물 종류
+	private String pet_sex; // varchar2(500) not null, -- 종물 성별
+	private int pet_age; // number not null, -- 동물 나이
+	private String pet_phone; // varchar2(500) not null, -- 주인 전화번호
+	private int pet_postCode; // number not null, -- 우편번호
+    private String pet_addr; // varchar2(3000) not null, -- 집주소
+    private String pet_addrDetail; // varchar2(3000) not null, -- 상세 주소
+    private String pet_email; // varchar2(1000) not null, -- 이메일
+    private String store_code; // varchar2(500) -- 지점코드
 	public int getPet_code() {
 		return pet_code;
 	}
@@ -38,11 +45,35 @@ public class PetDTO {
 	public void setPet_age(int pet_age) {
 		this.pet_age = pet_age;
 	}
-	public int getPet_phone() {
+	public String getPet_phone() {
 		return pet_phone;
 	}
-	public void setPet_phone(int pet_phone) {
+	public void setPet_phone(String pet_phone) {
 		this.pet_phone = pet_phone;
+	}
+	public int getPet_postCode() {
+		return pet_postCode;
+	}
+	public void setPet_postCode(int pet_postCode) {
+		this.pet_postCode = pet_postCode;
+	}
+	public String getPet_addr() {
+		return pet_addr;
+	}
+	public void setPet_addr(String pet_addr) {
+		this.pet_addr = pet_addr;
+	}
+	public String getPet_addrDetail() {
+		return pet_addrDetail;
+	}
+	public void setPet_addrDetail(String pet_addrDetail) {
+		this.pet_addrDetail = pet_addrDetail;
+	}
+	public String getPet_email() {
+		return pet_email;
+	}
+	public void setPet_email(String pet_email) {
+		this.pet_email = pet_email;
 	}
 	public String getStore_code() {
 		return store_code;
@@ -50,26 +81,11 @@ public class PetDTO {
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
 	}
-	public String getPet_owner() {
-		return pet_owner;
-	}
-	public void setPet_owner(String pet_owner) {
-		this.pet_owner = pet_owner;
-	}
-	
-	public Date getPet_date() {
-		return pet_date;
-	}
-	public void setPet_date(Date pet_date) {
-		this.pet_date = pet_date;
-	}
 	@Override
 	public String toString() {
 		return "PetDTO [pet_code=" + pet_code + ", pet_name=" + pet_name + ", pet_type=" + pet_type + ", pet_sex="
-				+ pet_sex + ", pet_age=" + pet_age + ", pet_phone=" + pet_phone + ", store_code=" + store_code
-				+ ", pet_owner=" + pet_owner + "]";
+				+ pet_sex + ", pet_age=" + pet_age + ", pet_phone=" + pet_phone + ", pet_postCode=" + pet_postCode
+				+ ", pet_addr=" + pet_addr + ", pet_addrDetail=" + pet_addrDetail + ", pet_email=" + pet_email
+				+ ", store_code=" + store_code + "]";
 	}
-	
-	
-	
 }

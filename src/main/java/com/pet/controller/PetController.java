@@ -29,19 +29,27 @@ public class PetController {
 	}
 	
 	@RequestMapping("writePro.pet")
-	public String writePro(PetDTO dto, Principal principal){
+
+	public String writePro(PetDTO dto, Principal principal) throws Exception{
 		System.out.println("writePro 접근");
-		System.out.println(principal.getName());
+
+		// 세션 값 가져옴
 		dto.setStore_code(principal.getName());
-		
+
+		// 정보 등록
+		boolean check = false;
 		PetDAO dao = sqlSession.getMapper(PetDAO.class);
+		if(dao.insert_pet(dto) > 0){
+			check = true;
+		}
+		System.out.println("등록 여부 : " + check);
 		
-		dao.insert_pet(dto);
+
 		return "redirect:list.pet";
 	}
 	
 	@RequestMapping("list.pet")
-	public String list(Model model){
+	public String list(Model model) throws Exception{
 		PetDAO dao=sqlSession.getMapper(PetDAO.class);
 		
 		List list= dao.list_pet();
@@ -51,37 +59,50 @@ public class PetController {
 	}
 	
 	@RequestMapping("updateForm.pet")
-	public String updateForm(HttpServletRequest request, Model model){
+	public String updateForm(PetDTO petDTO, Model model) throws Exception{
 		
-		int pet_code=Integer.parseInt(request.getParameter("pet_code"));
-		
-		PetDAO dao=sqlSession.getMapper(PetDAO.class);
-		List list=dao.select_code(pet_code);
-		model.addAttribute("list", list);
+		PetDAO dao = sqlSession.getMapper(PetDAO.class);
+		petDTO = dao.select_code(petDTO);
+		model.addAttribute("petDTO", petDTO);
 		
 		return "/pet/update";
 	}
 	
 	@RequestMapping("updatePro.pet")
-	public String updatePro(PetDTO dto){
-		PetDAO dao=sqlSession.getMapper(PetDAO.class);
+	public String updatePro(PetDTO dto, Principal principal) throws Exception{
 		
-		int result = dao.update_pet(dto);
+		// 세션 값 가져옴
+		dto.setStore_code(principal.getName());
+		
+		// 수정
+		PetDAO dao=sqlSession.getMapper(PetDAO.class);
+		boolean check = false;
+		if(dao.update_pet(dto) > 0){
+			check = true;
+		}
+		System.out.println("수정 여부 : " + check);
+		
 		return "redirect:list.pet";
 	}
 	
 	@RequestMapping("delete.pet")
-	public String delete(HttpServletRequest request){
-		int pet_code=Integer.parseInt(request.getParameter("pet_code"));
-		PetDAO dao=sqlSession.getMapper(PetDAO.class);
+	public String delete(PetDTO petDTO) throws Exception{
+		System.out.println("delete 접근");
 		
-		dao.delete_pet(pet_code);
+		// 삭제
+		boolean check = false;
+		PetDAO dao = sqlSession.getMapper(PetDAO.class);
+		if( dao.delete_pet(petDTO) > 0){
+			check = true;
+		}
+		System.out.println("삭제 여부 : " + check);
+		
 		return "redirect:list.pet";
 		
 	}
 	
 	@RequestMapping("search.pet")
-	public ModelAndView search(HttpServletRequest request){
+	public ModelAndView search(HttpServletRequest request) throws Exception{
 		ModelAndView mav= new ModelAndView();
 		String search=request.getParameter("search");
 		
@@ -95,5 +116,19 @@ public class PetController {
 		mav.setViewName("/pet/list");
 		return mav;
 	}
+	
+	@RequestMapping("petDetailForm.pet")
+	public String petDetailForm(PetDTO petDTO, Model model) throws Exception{
+		System.out.println("petDetailForm 접근");
+		
+		// 세부 정보 가져옴
+		PetDAO dao = sqlSession.getMapper(PetDAO.class);
+		petDTO = dao.select_code(petDTO);
+		
+		model.addAttribute("petDTO", petDTO);
+		
+		return "/pet/petDetailForm";
+	}
+	
 
 }

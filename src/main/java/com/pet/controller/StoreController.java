@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.PageDTO;
-import com.pet.model.ReportDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
-import com.pet.model.ReportDAO;
 
 @Controller
 @RequestMapping("/store/")
@@ -44,7 +42,7 @@ public class StoreController {
 		}
 		System.out.println(check);
 		
-		return "redirect:../home.pet";
+		return "redirect:selectAll.pet";
 	}
 
 	@RequestMapping("/selectAll.pet")
@@ -161,5 +159,26 @@ public class StoreController {
 		
 		
 		return a;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/idConfirmAjax.pet")
+	public boolean idConfirmAjax(@RequestBody StoreDTO storeDTO){
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		
+		boolean check = false;
+		try {
+			StoreDTO result_storeDTO = storeDAO.adminUpdate(storeDTO);
+			if(result_storeDTO.getStore_code() != null){
+				// 아이디가 존재함(사용 불가능)
+				check = false;
+			}
+		} catch (Exception e) {
+			// 아이디가 없음 (사용가능)
+			// NullPointException에 걸림
+			check = true;
+		}
+		
+		return check;
 	}
 }

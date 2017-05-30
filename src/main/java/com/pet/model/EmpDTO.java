@@ -10,23 +10,10 @@ public class EmpDTO {
 	private String emp_tel;
 	private Timestamp emp_hiredate;
 	private int emp_pay;
+	private String emp_job; // varchar2(500) not null, -- (비)정규직
 	private String store_code;
-//	private String command;
 	
 	public EmpDTO(){}
-	
-	//Constructor
-	public EmpDTO(String emp_name, String emp_code, int emp_age, String emp_tel, Timestamp emp_hiredate, int emp_pay,
-			String store_code) {
-		super();
-		this.emp_name = emp_name;
-		this.emp_code = emp_code;
-		this.emp_age = emp_age;
-		this.emp_tel = emp_tel;
-		this.emp_hiredate = emp_hiredate;
-		this.emp_pay = emp_pay;
-		this.store_code = store_code;
-	}
 	
 	//getter setter
 	public String getEmp_name() {
@@ -71,25 +58,11 @@ public class EmpDTO {
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
 	}
-
-	@Override
-	public String toString() {
-		return "EmpDTO [emp_name=" + emp_name + ", emp_code=" + emp_code + ", emp_age=" + emp_age + ", emp_tel="
-				+ emp_tel + ", emp_hiredate=" + emp_hiredate + ", emp_pay=" + emp_pay + ", store_code=" + store_code
-				+ "]";
+	public String getEmp_job() {
+		return emp_job;
+	}
+	public void setEmp_job(String emp_job) {
+		this.emp_job = emp_job;
 	}
 
-/*	public String getCommand() {
-		return command;
-	}
-
-	public void setCommand(String command) {
-		this.command = command;
-	}*/
-
-	
-
-
-	
-	
 }

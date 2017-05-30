@@ -18,14 +18,18 @@
 	<h1>업무 보고서</h1>
 	<form action="reportPro.pet">
 		<div>
-			병원명:<input type="text" name="report_storeName">
-			직위:<input type="text" name="report_position">
-		</div><br><hr>
-		<div>
-			<input type="hidden"> 작성자:<input type="text" name="report_writer"> 
-		</div>
-		<hr>
-		<div>
+			결재하는 사람 : 
+			<select name="report_reader">
+				<c:forEach items= "${storeCodeList}" var = "storeList">
+				<option value = "${storeList}">${storeList}</option>
+				</c:forEach>
+			</select>
+			직위:
+			<select name="report_position">
+				<option value = "doctor">의사</option>
+				<option value = "worker">비정규직</option>
+			</select>
+			<hr>
 			보고내용: <textarea rows="5" cols="30" name="report_contents"></textarea><br><hr>
 		</div>
 		<div>
