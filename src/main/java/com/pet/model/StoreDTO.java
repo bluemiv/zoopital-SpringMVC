@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class StoreDTO {
  
     private String store_code;   //지점 코드
-	private String store_password;// 지점 패스워드
 	private String store_name;   //지점 이름
 	private String store_cost;   //지점별 관리비
 	private String store_payment;   //지점별 급여
@@ -21,12 +20,6 @@ public class StoreDTO {
 	}
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
-	}
-	public String getStore_password() {
-		return store_password;
-	}
-	public void setStore_password(String store_password) {
-		this.store_password = store_password;
 	}
 	public String getStore_name() {
 		return store_name;

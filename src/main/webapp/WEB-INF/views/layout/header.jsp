@@ -63,7 +63,7 @@
 							<li><a href="${petWriteForm}">동물 등록</a></li>
 						</ul>
 					</li>
-					<se:authorize access="hasRole('ROLE_SUPER_ADMIN')">
+					<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_SUPER_FULL')">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
