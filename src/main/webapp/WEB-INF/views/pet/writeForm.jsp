@@ -10,21 +10,6 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-
-	<h3>동물 등록</h3>
-	<hr>
-	<form action="writePro.pet" method="post">
-		이름:<input type="text" name="pet_name"><br>
-		종류:<input type="text" name="pet_type"><br>
-		성별:
-		male<input type="radio" name="pet_sex" value="male">
-		female<input type="radio" name="pet_sex" value="female"><br>
-		나이:<input type="text" name="pet_age"><br>
-		주인이름:<input type="text" name="pet_owner"><br>	
-		전화번호:<input type="tel" name="pet_phone"><br>
-		<input type="submit" value="확인"><br>
-	</form>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
