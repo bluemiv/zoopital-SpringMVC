@@ -11,7 +11,6 @@
 		WHERE STORE_CODE = #{store_code}
 	</select>
 	
-	<!-- 직원코드로 검색해서 삭제수정하는 페이지로 갈 때 셀렉 하는 쿼리 -->
 	<select id="selectEmpList" resultType="com.pet.model.EmpDTO">
 		SELECT *
 		FROM EMP
@@ -21,7 +20,7 @@
 	<insert id="insertEmp" parameterType="com.pet.model.EmpDTO">
 		INSERT INTO EMP
 		VALUES 
-			(EMP_NUM.NEXTVAL, #{emp_name}, #{emp_age}, #{emp_tel}, SYSDATE, #{emp_pay}, #{emp_job},#{store_code})
+			(#{emp_code}, #{emp_pwd}, #{emp_name}, #{emp_age}, #{emp_tel}, SYSDATE, #{emp_pay}, #{emp_enabled}, #{emp_role},#{store_code})
 	</insert>
 	
 	<delete id="deleteEmp" parameterType="com.pet.model.EmpDTO">
@@ -35,6 +34,9 @@
 			<if test="emp_name != null and emp_name != ''">
 				EMP_NAME = #{emp_name},
 			</if>
+			<if test="emp_pwd != null and emp_pwd != ''">
+				EMP_PWD = #{emp_pwd},
+			</if>
 			<if test="emp_age != null and emp_age != ''">
 				EMP_AGE = #{emp_age},
 			</if>
@@ -44,8 +46,11 @@
 			<if test="emp_pay != null and emp_pay != ''">
 				EMP_PAY = #{emp_pay},
 			</if>
-			<if test="emp_job != null and emp_job != ''">
-				EMP_JOB = #{emp_job},
+			<if test="emp_enabled != null and emp_enabled != ''">
+				EMP_ENABLED = #{emp_enabled},
+			</if>
+			<if test="emp_role != null and emp_role != ''">
+				EMP_ROLE = #{emp_role},
 			</if>
 			<if test="store_code != null and store_code != ''">
 				STORE_CODE = #{store_code}
@@ -54,6 +59,18 @@
 		WHERE EMP_CODE = #{emp_code}
 	</update>
 	
+	<!-- 모든 정규직 정보 가져옴 -->
+	<select id="getEmpFullTimeInfo" resultType= "com.pet.model.EmpDTO">
+		SELECT *
+		FROM EMP
+		WHERE EMP_ROLE = 'ROLE_SUPER_FULL' OR EMP_ROLE = 'ROLE_FULL'
+		ORDER BY EMP_CODE
+	</select>
 	
-	
+	<!-- 모든 지점을 가져옴 -->
+	<select id="getStoreAll" resultType= "java.lang.String">
+		SELECT STORE_CODE
+		FROM EMP
+		GROUP BY STORE_CODE
+	</select>
 </mapper>

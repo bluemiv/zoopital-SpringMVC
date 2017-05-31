@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class StoreDTO {
  
     private String store_code;   //지점 코드
-	private String store_password;// 지점 패스워드
 	private String store_name;   //지점 이름
 	private String store_cost;   //지점별 관리비
 	private String store_payment;   //지점별 급여
@@ -14,8 +13,6 @@ public class StoreDTO {
 	private String store_doctor; //지점 의사
 	private String store_worker; //지점 직원
 	private Timestamp  store_date=null; // 가입날짜
-	private int store_enabled; // number default 1 not null, -- 활성화(1) 및 비활성화(0) 
-	private String  store_role; // varchar2(500) not null -- 권한
 	
 	// set get method
 	public String getStore_code() {
@@ -23,12 +20,6 @@ public class StoreDTO {
 	}
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
-	}
-	public String getStore_password() {
-		return store_password;
-	}
-	public void setStore_password(String store_password) {
-		this.store_password = store_password;
 	}
 	public String getStore_name() {
 		return store_name;
@@ -77,18 +68,6 @@ public class StoreDTO {
 	}
 	public void setStore_date(Timestamp store_date) {
 		this.store_date = store_date;
-	}
-	public int getStore_enabled() {
-		return store_enabled;
-	}
-	public void setStore_enabled(int store_enabled) {
-		this.store_enabled = store_enabled;
-	}
-	public String getStore_role() {
-		return store_role;
-	}
-	public void setStore_role(String store_role) {
-		this.store_role = store_role;
 	}
 	
 }

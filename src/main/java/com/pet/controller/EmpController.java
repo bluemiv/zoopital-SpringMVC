@@ -1,13 +1,16 @@
 package com.pet.controller;
 
-import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
@@ -22,12 +25,12 @@ public class EmpController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("empListForm.pet")
-	public String empListForm(Model model, Principal principal) throws Exception{
+	public String empListForm(Model model, HttpSession session) throws Exception{
 		System.out.println("empListForm 컨트롤러 진입");
 
 		// 세션값 가져오기
 		EmpDTO dto = new EmpDTO();
-		dto.setStore_code(principal.getName());
+		dto.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		// 직원 목록 모두 띄워주기
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
@@ -44,18 +47,17 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empInsertpro.pet")
-	public String empInsertPro(EmpDTO dto, Model model, Principal principal) throws Exception{
+	public String empInsertPro(EmpDTO dto, Model model, HttpSession session) throws Exception{
 		System.out.println("empInsertPro 컨트롤러 진입");
 		
 		// 직원 추가
 		boolean check = false;
-		dto.setStore_code(principal.getName());
+		dto.setStore_code((String)session.getAttribute("session_store_code"));
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		if(EmpDAO.insertEmp(dto) > 0){
 			check = true;
 		}
 		
-		model.addAttribute("check", check);
 		return "redirect:empListForm.pet";
 	}
 	
@@ -67,11 +69,6 @@ public class EmpController {
 		// 직원 세부 저보 가져옴
 		EmpDTO selectEmp = EmpDAO.selectEmpList(dto);
 		
-		// 모든 지점 코드 가져오기
-		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
-		List<StoreDTO> selectAllStoreCode = storeDAO.selectAllStoreCode();
-		
-		model.addAttribute("storeCodeList", selectAllStoreCode);
 		model.addAttribute("selectEmp",selectEmp);
 		
 		return "/emp/empUpdateDeleteForm";
@@ -82,18 +79,37 @@ public class EmpController {
 		System.out.println("empUpdateDeletePro 컨트롤러 진입");
 		
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
-
 		boolean check = false;
 		if (command.equals("update")) {
+			// 수정
 			EmpDAO.updateEmp(dto);
 			check = true;
 		} else if (command.equals("delete")) {
+			// 삭제
 			EmpDAO.deleteEmp(dto);
 			check = true;
 		}
-
-		model.addAttribute("check", check);
 		return "redirect:empListForm.pet";
 	}
 
+	@ResponseBody
+	@RequestMapping("/idConfirmAjax.pet")
+	public boolean idConfirmAjax(@RequestBody EmpDTO empDTO){
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		
+		boolean check = false;
+		try {
+			EmpDTO result_empDTO = empDAO.selectEmpList(empDTO);
+			if(result_empDTO.getEmp_code() != null){
+				// 아이디가 존재함(사용 불가능)
+				check = false;
+			}
+		} catch (Exception e) {
+			// 아이디가 없음 (사용가능)
+			// NullPointException에 걸림
+			check = true;
+		}
+		
+		return check;
+	}
 }

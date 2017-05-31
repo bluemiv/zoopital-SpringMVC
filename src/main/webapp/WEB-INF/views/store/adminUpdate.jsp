@@ -15,22 +15,14 @@
 	<form class="form-horizontal" action = "adminUpdatPro.pet" method = "post">
 		<div class="form-group has-success has-feedback">
 			<label class="control-label col-sm-2">
-				지점 코드 및 ID
+				지점 코드
 			</label>
 			<div class="col-sm-3 input-group">
 				<input type = "text" name = "store_code" readonly="readonly" value = "${storeDTO.store_code }" class="form-control">
 				<span class="input-group-addon">한/A</span>
 			</div>
 		</div>
-		<div class="form-group has-success has-feedback">
-			<label class="control-label col-sm-2">
-				지점 Password
-			</label>
-			<div class="col-sm-3 input-group">
-				<input type = "password" name = "store_password" required="required" value="${storeDTO.store_password }" class="form-control">
-				<span class="input-group-addon">원</span>
-			</div>
-		</div>
+		
 		<div class="form-group has-success has-feedback">
 			<label class="control-label col-sm-2">
 				지점 명
@@ -94,30 +86,7 @@
 				<span class="input-group-addon">명</span>
 			</div>
 		</div>
-		<div class="form-group has-success has-feedback">
-			<label class="control-label col-sm-2">
-				권한
-			</label>
-			<div class="col-sm-3 input-group">
-				<select name = "store_role" class="form-control">
-					<option value = "ROLE_SUPER_ADMIN">수퍼 관리자</option>
-					<option value = "ROLE_ADMIN" selected="selected">일반 관리자</option>
-				</select>
-				<span class="input-group-addon">권한</span>
-			</div>
-		</div>
-		<div class="form-group has-success has-feedback">
-			<label class="control-label col-sm-2">
-				(비)활성화
-			</label>
-			<div class="col-sm-3 input-group">
-				<select name = "store_enabled" class="form-control">
-					<option value = "1">활성화</option>
-					<option value = "0">비활성화</option>
-				</select>
-				<span class="input-group-addon">권한</span>
-			</div>
-		</div>
+		
 		<div>
 			<div class="col-sm-5 blockquote-reverse">
 				<input type = "submit" class="btn btn-md btn-info" value = "수정 완료">

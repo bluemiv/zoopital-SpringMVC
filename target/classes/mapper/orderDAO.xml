@@ -8,10 +8,10 @@
 		SELECT O.*, M.MEDICAMENT_AMOUNT
 		FROM ORDER_PET O, MEDICAMENT M
 		WHERE
-			<if test="store_role == 'ROLE_SUPER_ADMIN'">
+			<if test="emp_role == 'ROLE_SUPER_FULL' or emp_role == 'ROLE_SUPER_PART'">
 			(M.STORE_CODE = O.ORDER_TO)
 			</if>
-			<if test="store_role == 'ROLE_ADMIN'">
+			<if test="emp_role == 'ROLE_FULL' or emp_role == 'ROLE_PART'">
 			(M.STORE_CODE = O.ORDER_FROM)
 			</if>
 			AND (M.MEDICAMENT_NAME = O.ORDER_NAME)

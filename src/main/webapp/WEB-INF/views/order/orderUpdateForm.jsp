@@ -38,10 +38,12 @@
 					
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">요청받는 곳(목적지 지점)</label>
+							<label for="name">물주</label>
 							<select name = "order_to" class="form-control">
 							<c:forEach items="${order_toList}" var = "list">
-								<option value = "${list}">${list}</option>
+								<c:if test="${session_store_code != list }">
+									<option value = "${list}">${list}</option>
+								</c:if>
 							</c:forEach>
 							</select>
 						</div>
