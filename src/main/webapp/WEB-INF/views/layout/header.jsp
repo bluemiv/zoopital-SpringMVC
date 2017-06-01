@@ -48,6 +48,8 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
+					<li><a href="${noticeListForm}">공지사항</a></li>
 					<c:url value="/medicament/medicamentListForm.pet" var = "medicamentListForm"></c:url>
 					<li><a href="${medicamentListForm}">약품</a></li>
 					<c:url value="/order/orderInfoForm.pet" var = "orderInfoForm"></c:url>

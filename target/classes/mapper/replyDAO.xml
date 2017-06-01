@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pet.model.ReplyDAO">
+	<!-- 전체 댓글 가져오기 -->
+	<select id = "selectAllReply" resultType="com.pet.model.ReplyDTO" parameterType="com.pet.model.ReplyDTO">
+		SELECT *
+		FROM REPLY
+		WHERE STORE_CODE = #{store_code} AND NOTICE_CODE = #{notice_code}
+		ORDER BY REPLY_REGDATE ASC
+	</select>
+	
+	<!-- 자세한 정보 가져오기 -->
+	<select id = "getReplyInfo" resultType="com.pet.model.ReplyDTO" parameterType="com.pet.model.ReplyDTO">
+		SELECT *
+		FROM REPLY
+		WHERE NOTICE_CODE = #{notice_code} 
+	</select>
+	
+	<!-- 수정 -->
+	<update id="updateReply" parameterType="com.pet.model.ReplyDTO">
+		UPDATE REPLY
+		<set>
+			<if test="reply_title != null and reply_title != ''">
+				REPLY_TITLE = #{reply_title},
+			</if>
+			<if test="reply_contents != null and reply_contents != ''">
+				REPLY_CONTENTS = #{reply_contents}
+			</if>
+		</set>
+		WHERE REPLY_CODE = #{reply_code} AND REPLY_WRITER = #{reply_writer}
+	</update>
+	
+	<!-- 삽입 -->
+	<insert id="insertReply" parameterType="com.pet.model.ReplyDTO">
+		INSERT INTO REPLY
+		VALUES
+			(REPLY_NUM.NEXTVAL, #{reply_title}, #{reply_writer},
+			(SELECT TO_CHAR(SYSDATE,'yy-mm-dd hh24:mi:ss') FROM DUAL),
+			#{reply_contents}, #{notice_code}, #{store_code})
+	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="deleteReply" parameterType="com.pet.model.ReplyDTO">
+		DELETE REPLY
+		WHERE REPLY_CODE = #{reply_code} AND REPLY_WRITER = #{reply_writer}
+	</delete>
+	
+</mapper>

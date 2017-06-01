@@ -15,14 +15,24 @@
 	background-color: transparent
 }
 
+.btn-calculator{
+	width: 50px;
+	height: 50px;
+}
 .btn-custom:focus, .btn-custom:hover {
 	border: 1px solid #4da6ff;
 	outline: 0;
 	color: #fff;
 	background-color: #4da6ff
 }
+.mouse-pointer{
+	cursor: pointer;
+}
 .board-custom:focus, .board-custom:hover{
 	color: #4da6ff;
+}
+.background-white{
+	background-color: rgba(255,255,255,0.5);
 }
 /* Global Styles */
 html,
