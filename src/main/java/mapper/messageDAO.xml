@@ -7,13 +7,36 @@
 	<select id="selectAllMessage" parameterType = "com.pet.model.MessageDTO" resultType = "com.pet.model.MessageDTO">
 		SELECT *
 		FROM MESSAGE
-		<where>
-			<if test="message_reader != null and message_reader != ''">
-			MESSAGE_READER = #{message_writer}
-			</if>
-			<if test="message_writer != null and message_writer != ''">
-			MESSAGE_WRITER = #{message_writer} 
-			</if>
-		</where>
+		WHERE MESSAGE_READER = #{message_writer} OR MESSAGE_WRITER = #{message_writer}
+		ORDER BY MESSAGE_DATE DESC
 	</select>
+	
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType = "com.pet.model.MessageDTO">
+		INSERT INTO MESSAGE
+		VALUES(MESSAGE_NUM.NEXTVAL, #{message_title}, #{message_body}, SYSDATE, #{message_writer}, #{message_reader}, 'n', 'n', 'n')
+	</insert>
+	
+	<!-- 쪽지 작성자 또는 받는사람 한명만 삭제한 경우 -->
+	<update id="updateMessage" parameterType = "com.pet.model.MessageDTO">
+		UPDATE MESSAGE
+		<set>
+			<if test="message_delete_writer != null and message_delete_writer != ''">
+				MESSAGE_DELETE_WRITER = 'y'
+			</if>
+			<if test="message_delete_reader != null and message_delete_reader != ''">
+				MESSAGE_DELETE_READER = 'y'
+			</if>
+			<if test="message_read != null and message_read != ''">
+				MESSAGE_READ = #{message_read}
+			</if>
+		</set>
+		WHERE MESSAGE_CODE = #{message_code}
+	</update>
+	
+	<!-- DB에서 쪽지 삭제 -->
+	<delete id="deleteMessage" parameterType = "com.pet.model.MessageDTO">
+		DELETE MESSAGE
+		WHERE MESSAGE_CODE = #{message_code} AND MESSAGE_DELETE_WRITER = 'y' AND MESSAGE_DELETE_READER = 'y'
+	</delete>
 </mapper>

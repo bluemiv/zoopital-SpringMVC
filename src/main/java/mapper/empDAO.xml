@@ -73,4 +73,10 @@
 		FROM EMP
 		GROUP BY STORE_CODE
 	</select>
+	
+	<select id="selectAllEmp" resultType= "com.pet.model.EmpDTO">
+		SELECT *
+		FROM EMP
+		ORDER BY STORE_CODE
+	</select>
 </mapper>

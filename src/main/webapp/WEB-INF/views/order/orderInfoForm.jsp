@@ -21,6 +21,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div role="tabpanel">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
