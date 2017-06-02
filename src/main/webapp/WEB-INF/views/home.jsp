@@ -221,6 +221,7 @@
 						<div class="form-group col-xs-3 floating-label-form-group controls board-custom">
 							<label for="name">보내는 사람</label>
 							<input type = "text" name="send_email" class="form-control">
+							<input type = "hidden" name="state" value="home" class="form-control">
 						</div>
 						<div class="form-group col-xs-1 floating-label-form-group controls">
 							<br><label for="name">@</label>

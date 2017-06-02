@@ -56,30 +56,30 @@
 						<td>${ list.shot_must }</td>
 						<td>${ list.pet_phone }</td>
 						<td>
-							<form action="../sendMail.pet" type ="post">
-							<input type = "hidden" name="state" value="shot"/>
-							<label for="name">보내는 사람</label>
-							<input type = "text" name="send_email" class="form-control">
-							<select name = "email_host" class="form-control">
-								<option value = "naver.com">네이버(naver.com)</option>
-								<option value = "hanmail.net">다음(hanmail.net)</option>
-							</select>
-							<label for="name">이메일 비밀번호</label>
-							<input type = "password" name="send_pwd" class="form-control">
-						
-							<label for="name">받는 사람</label>
-							<input type = "hidden" value="${ list.pet_email }" class="form-control" name="receive_email">
-						
-							<label for="name">제목</label>
-							<input type = "hidden" value="${list.shot_name} 주인님 예방접종 맞아야합니다!" name="title">
-						
-							<label for="name">내용</label>
-							<input type ="hidden" value="
-							안녕하세요. ${ list.shot_name }님! ^^
-							${ list.shot_petName }(이)가 ${ list.shot_date }에 ${list.shot_name}을 맞았습니다.
-							${ list.shot_cycle }개월마다 맞아야하기 때문에 다시 한번 찾아와 주세요!"
-							name="contents" rows="13"/>
-							<input class = "btn btn-custom btn-md" type="submit" value="보내기">
+							<form action="../sendMail.pet" method ="post">
+								<input type = "hidden" name="state" value="shot"/>
+								<label for="name">보내는 사람</label>
+								<input type = "text" name="send_email" class="form-control">
+								<select name = "email_host" class="form-control">
+									<option value = "naver.com">네이버(naver.com)</option>
+									<option value = "hanmail.net">다음(hanmail.net)</option>
+								</select>
+								<label for="name">이메일 비밀번호</label>
+								<input type = "password" name="send_pwd" class="form-control">
+							
+								<label for="name">받는 사람</label>
+								<input type = "hidden" value="${ list.pet_email }" class="form-control" name="receive_email">
+							
+								<label for="name">제목</label>
+								<input type = "hidden" value="${list.shot_name} 주인님 예방접종 맞아야합니다!" name="title">
+							
+								<label for="name">내용</label>
+								<input type ="hidden" value="
+								안녕하세요. ${ list.shot_name }님! ^^
+								${ list.shot_petName }(이)가 ${ list.shot_date }에 ${list.shot_name}을 맞았습니다.
+								${ list.shot_cycle }개월마다 맞아야하기 때문에 다시 한번 찾아와 주세요!"
+								name="contents" rows="13"/>
+								<input class = "btn btn-custom btn-md" type="submit" value="보내기">
 							</form>
 						</td>
 						

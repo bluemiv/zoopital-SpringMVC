@@ -63,10 +63,12 @@ public class MailController {
 		mimeMessage.setText(body);
 		Transport.send(mimeMessage);
 
+		String view="";
 		if(state.equals("shot")){
-			return "redirect:shot/shotList.pet";
+			view = "redirect:shot/shotList.pet";
 		} else {
-			return "redirect:home.pet";
+			view = "redirect:home.pet";
 		}
+		return view;
 	}
 }
