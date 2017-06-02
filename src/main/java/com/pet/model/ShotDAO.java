@@ -4,11 +4,8 @@ import java.util.List;
 
 public interface ShotDAO {
 	
-	public List<ShotDTO> todayList();
+	public List selectAll(String store_code);
+	public List selectShot(String store_code);
+	public int insertShot(ShotDTO shotDTO) throws Exception;
 	
-	public List<MedicamentDTO> categoryList();
-
-	public List detailList(int pet_code);
-	
-	public String selectCycle();
 }

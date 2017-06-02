@@ -1,8 +1,12 @@
 package com.pet.controller;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,62 +17,113 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pet.model.ShotDAO;
 import com.pet.model.ShotDTO;
 
+import javafx.scene.input.DataFormat;
+
 @Controller
 @RequestMapping("/shot/")
 public class ShotController {
+	
 	@Autowired
 	SqlSession sqlSession;
 	
-	
-	@RequestMapping("shotListForm.pet")
-	public ModelAndView listForm(ShotDTO dto){
+	@RequestMapping("shotList.pet")
+	public ModelAndView listForm(ShotDTO dto, HttpSession session){
 		ModelAndView mav= new ModelAndView();
-		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
+		System.out.println("shotList 접근");
+		
+		DateFormat simple= new SimpleDateFormat("yyyy-MM-dd");
+		long time = System.currentTimeMillis();
+		Date Time = new Date(time);
+		String currentTime=simple.format(Time);
+
+		String d = String.valueOf(currentTime);
+		String year_str = d.split("-")[0];
+		String month_str = d.split("-")[1];
+		String day_str = d.split("-")[2];
+
+		day_str="31";
+		
+		String lastDay1 = year_str + "-" + month_str + "-" + day_str;
+
+		Date lastDay = Date.valueOf(lastDay1);
+		System.out.println("lastDay: " + lastDay);
+		
+		System.out.println("session: "+session.getAttribute("session_store_code"));
+		String store_code = (String) session.getAttribute("session_store_code");
+		
+		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
+		List list= shotDAO.selectAll(store_code);
 		
 		
-		List list= dao.categoryList();
-		/*String medicament_cycle=dao.selectCycle();*/
-		
-		mav.addObject("list", list);
-		mav.setViewName("/shot/shotListForm");
-		return mav;
-	}
-	
-	@RequestMapping("shotListPro.pet")
-	public ModelAndView test(ShotDTO dto){
-		ModelAndView mav= new ModelAndView();
-		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
-		
-	
-	
+	    mav.addObject("list", list);
+	    mav.addObject("lastDay", lastDay);
+	    mav.addObject("currentTime", currentTime);
 		mav.setViewName("/shot/shotList");
 		return mav;
+	
 	}
-	@RequestMapping("vaccination.pet")
-	public ModelAndView detailList(HttpServletRequest request, ShotDTO dto){
+	
+	
+	@RequestMapping("insertShot.pet")
+	public ModelAndView insert_shot(ShotDTO dto, HttpSession session){
 		ModelAndView mav= new ModelAndView();
-		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
-		int pet_code=Integer.parseInt(request.getParameter("pet_code"));
 		
-		System.out.println("pet_code: "+ pet_code);
+		String store_code = (String) session.getAttribute("session_store_code");
 		
-		List list= dao.detailList(pet_code);
+		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
+		List list= shotDAO.selectShot(store_code);
+	
 		mav.addObject("list", list);
-		mav.setViewName("/shot/shotList");
+		mav.setViewName("/shot/insertShotForm");
 		return mav;
 	}
 	
-	@RequestMapping("todayList.pet")
-	public ModelAndView listToday(HttpServletRequest request, ShotDTO dto){
-		ModelAndView mav= new ModelAndView();
-/*		ShotDAO dao=sqlSession.getMapper(ShotDAO.class);
+	@RequestMapping("insertShotPro.pet")
+	public String insert_shotPro(ShotDTO dto) throws Exception{
 		
-		List list= dao.todayList();
-		mav.addObject("list", list);*/
-		mav.setViewName("/shot/listToday");
-		return mav;
+		System.out.println("insertShotPro 접근");
+		
+		System.out.println("insertShotPro: "+dto.toString());
+		//시간 계산
+		long time = System.currentTimeMillis();
+		Date shot_date = new Date(time);
+		System.out.println("shot_date: "+ shot_date);
+		
+		Date shot_must=calMustDate(shot_date, dto.getShot_cycle());
+		System.out.println("shot_must: "+ shot_must);
+		
+		dto.setShot_date(shot_date);
+		dto.setShot_must(shot_must);
+		
+		System.out.println(dto.toString());
+
+		
+		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
+		shotDAO.insertShot(dto);
+		
+		return "redirect:shotList.pet";
 	}
 	
-	
-	
+
+	//날짜 더하기 계산
+	private Date calMustDate (Date startDate, int cycle) throws Exception {
+	       
+	       // java.sql.Date -> String 형변환
+	       String d1 = String.valueOf(startDate);
+	       
+	       int year_int = Integer.parseInt(d1.split("-")[0]);
+	       int month_int = Integer.parseInt(d1.split("-")[1]);
+	       int day_int = Integer.parseInt(d1.split("-")[2]);
+	       
+	       int cal_year_int = year_int;
+	       int cal_month_int = (month_int + cycle);
+	       if(cal_month_int > 12){
+	          cal_year_int++;
+	          cal_month_int -= 12;
+	       }
+	       String mustDate_str = String.valueOf(cal_year_int+"-"+cal_month_int+"-"+day_int);
+	       Date mustDate = Date.valueOf(mustDate_str);
+	       
+	       return mustDate;
+	    }
 }

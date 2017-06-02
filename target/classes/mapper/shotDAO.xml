@@ -3,22 +3,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.model.ShotDAO">
-
-<select id="detailList" resultType="com.pet.model.ShotDTO">
-	select * from shot where pet_code=#{pet_code}
+<select id="selectAll" resultType = "com.pet.model.ShotDTO" parameterType="com.pet.model.PetDTO">
+	SELECT S.*
+	FROM SHOT S, PET P
+	WHERE S.PET_CODE = P.PET_CODE AND P.STORE_CODE = #{store_code}
 </select>
 
-<select id="todayList" resultType="com.pet.model.ShotDTO">
-	select * from shot where shot_must=${shot_must}
+<select id="selectShot" resultType="com.pet.model.ShotDTO" parameterType="com.pet.model.PetDTO">
+  select a.pethistory_name shot_petName, a.pethistory_medicine shot_name, a.pethistory_petcode pet_code, m.MEDICAMENT_CYCLE shot_cycle
+from (select p.* from pethistory p, petaccept pa 
+      where p.pethistory_petcode = pa.petaccept_petcode) a, medicament m
+where a.pethistory_medicine=m.medicament_name  and store_code = #{store_code}
 </select>
 
-<select id="categoryList" resultType="com.pet.model.MedicamentDTO">
-select medicament_name from medicament where medicament_category='주사' group by medicament_name
-</select>
-
-<select id="selectCycle" resultType="com.pet.model.MedicamentDTO">
-select medicament_cycle from medicament m join shot on m.MEDICAMENT_NAME=${MEDICAMENT_NAME}
-</select>
-
+<insert id="insertShot" parameterType="com.pet.model.ShotDTO" >
+	INSERT INTO
+	SHOT VALUES(
+		#{shot_name},
+		#{shot_cycle},
+		#{pet_code},
+		#{shot_petName},
+		#{shot_date},
+		#{shot_must}
+	)
+</insert>
 
 </mapper>

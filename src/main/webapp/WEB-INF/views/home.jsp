@@ -89,6 +89,14 @@
 	<jsp:include page="layout/header.jsp"/>
 	
 	<!-- 컨텐츠 -->
+	
+	<button onclick="location='history/selectallhistory.pet'">히스토리 보기</button>
+	<br>
+	<button onclick="location='history/serarchview.pet'">히스토리 작성</button>
+	<br>
+	<button onclick="location='shot/shotList.pet'">이번달 맞아야할 강아지</button>
+	<button onclick="location='shot/insertShot.pet'">주사insert</button>
+	
 	<div class="container">
 		<div class = "row">
 			<div class = "col-md-4">
@@ -265,9 +273,6 @@
 	<!-- 푸터 파일 -->
 	<jsp:include page="layout/footer.jsp"/>
 	
-	<button onclick="location='history/selectallhistory.pet'">히스토리 보기</button>
-	<br>
-	<button onclick="location='history/serarchview.pet'">히스토리 작성</button>
 	
 </body>
 </html>
