@@ -49,7 +49,6 @@
 		}
 	}
 	function add_submit(){
-		alert("test동작");
 		var listname = document.getElementsByName("test");
 		if(listname[0].value != ""){
 		var frm = document.getElementById("frm");
@@ -75,6 +74,9 @@
 </script>
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+	
 	<h3>처방전 입력구간!!!!!!!!!</h3>
 	<!-- <form action="inserthistoryend.pet" id="mcheck" name="mcheck"> -->
 	<form  id="frm" name="frm" method="post">
@@ -84,6 +86,7 @@
 	강아지 성별 --- <input type="text" name="pet_sex" id="pet_sex" value="${pdto.pet_sex }" readonly="readonly"><br>
 	강아지 나이 --- <input type="text" name="pet_age" id="pet_age" value="${pdto.pet_age }" readonly="readonly"><br>
 	약품 선택  ---- <input type="text" list="mlist" name="test"/>
+	<input type="hidden" name="petaccept_code" value="${cdto.petaccept_code }" />
 	<datalist id="mlist">
 		<c:forEach items="${mdto }" var="m">
 			<option value="${m.medicament_name }">가격 : ${m.medicament_cost } || 재고 : ${m.medicament_amount }</option>
@@ -97,13 +100,13 @@
 		<input type="hidden" value="${am.medicament_cost }" name="am_cost">
 		<input type="hidden" value="${am.medicament_amount }" name="am_amount">
 		<input type="button" value="-" onclick="minus(${i.count})"/>
-		<input type="text" name="am_count" value="0" size="5" readonly="readonly"/>
+		<input type="text" name="am_count" value="${am.am_count }" size="5" readonly="readonly"/>
 		<input type="button" value="+" onclick="plus(${i.count})"/>
 		<input type="button" value="삭제" onclick="del_submit(${i.count})"/>
 	</c:forEach>
 		<input type="hidden" value="0" name="del_num" id="del_num"/>
 	<br>
-	<input type="text" value="0" id="amtotal_cost" name="m_total_cost" readonly="readonly"/>
+	약품 가격 - <input type="text" value="${cdto.m_total_cost }" id="amtotal_cost" name="m_total_cost" readonly="readonly"/>
 	<!-- forEach 돌린 후 name 을 넘겨주는데.. 아마 배열처럼 넘어가겠지?? 그럼 Controller에서 Token해주자......그럼 될 듯..? -->
 	<!-- <input type="button" value=" 추가 " onclick="add_item()"/><br>
 	<div id="field"></div> -->
@@ -112,5 +115,7 @@
 	<!-- <input type="submit" value="입력완료"/> -->
 	<input type="button" value="입력완료" onclick="ins_submit()">
 	</form>
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

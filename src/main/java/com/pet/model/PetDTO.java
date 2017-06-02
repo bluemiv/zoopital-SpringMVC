@@ -80,5 +80,12 @@ public class PetDTO {
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
 	}
+	@Override
+	public String toString() {
+		return "PetDTO [pet_code=" + pet_code + ", pet_name=" + pet_name + ", pet_type=" + pet_type + ", pet_sex="
+				+ pet_sex + ", pet_age=" + pet_age + ", pet_phone=" + pet_phone + ", pet_postCode=" + pet_postCode
+				+ ", pet_addr=" + pet_addr + ", pet_addrDetail=" + pet_addrDetail + ", pet_email=" + pet_email
+				+ ", store_code=" + store_code + "]\n";
+	}
 	
 }

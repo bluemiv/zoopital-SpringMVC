@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class PetController {
 	}
 	
 	@RequestMapping("writePro.pet")
-	public String writePro(PetDTO dto, Principal principal) throws Exception{
+	public String writePro(PetDTO dto, HttpSession session) throws Exception{
 		System.out.println("writePro 접근");
 
 		// 세션 값 가져옴
-		dto.setStore_code(principal.getName());
+		dto.setStore_code((String)session.getAttribute("session_store_code"));
 
 		// 정보 등록
 		boolean check = false;
@@ -67,10 +68,10 @@ public class PetController {
 	}
 	
 	@RequestMapping("updatePro.pet")
-	public String updatePro(PetDTO dto, Principal principal) throws Exception{
+	public String updatePro(PetDTO dto, HttpSession session) throws Exception{
 		
 		// 세션 값 가져옴
-		dto.setStore_code(principal.getName());
+		dto.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		// 수정
 		PetDAO dao=sqlSession.getMapper(PetDAO.class);
