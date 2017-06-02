@@ -30,7 +30,6 @@ public class PetController {
 	}
 	
 	@RequestMapping("writePro.pet")
-
 	public String writePro(PetDTO dto, HttpSession session) throws Exception{
 		System.out.println("writePro 접근");
 

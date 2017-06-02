@@ -50,6 +50,25 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">접수 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/counter/list.pet" var = "counterList"></c:url>
+							<li><a href="${counterList }">진료 접수</a></li>
+							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
+							<li><a href="${counterWaiting}">대기 명단</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">진료 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/history/treatList.pet" var = "treatList"></c:url>
+							<li><a href="${treatList }">진료 보기</a></li>
+							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
+							<li><a href="${counterWaiting}">처방전</a></li>
+						</ul>
+					</li>
 					<c:url value="/medicament/medicamentListForm.pet" var = "medicamentListForm"></c:url>
 					<li><a href="${medicamentListForm}">약품</a></li>
 					<c:url value="/order/orderInfoForm.pet" var = "orderInfoForm"></c:url>

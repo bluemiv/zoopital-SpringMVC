@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pet.model.CounterDAO;
+import com.pet.model.CounterDTO;
 import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
 import com.pet.model.PetDAO;
@@ -46,18 +50,30 @@ public class PetHistoryController {
 		return "/history/historyInsert";
 	}
 	@RequestMapping("historyinsert.pet")
-	public String historyinsert(int pet_code, String test, Model model) throws Exception{
+	public String historyinsert(int pet_code, String test, int petaccept_code,String am_count,int m_total_cost, Model model) throws Exception{
 		System.out.println("넘어올 데이터 넘어오나? " + test);
 		System.out.println("코드도 넘어오지? " + pet_code);
+		System.out.println("접수코드도 넘어오지? " + petaccept_code);
+		System.out.println("am_count : " + am_count);
 		PetHistoryDAO petHistroyDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		PetDAO petDAO = sqlSession.getMapper(PetDAO.class);
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		PetDTO petDTO = petDAO.getHistoryInfo(pet_code);
+		CounterDTO counterDTO = new CounterDTO();
+		counterDTO.setPetaccept_code(petaccept_code);
+		counterDTO.setM_total_cost(m_total_cost);
 		List<MedicamentDTO> mlist = medicamentDAO.getSelectAll(); 
-		//약 추가를 눌렀을때 하는 기능(넘어오는 파라미터가 널이면 실행아 되면 안됨)
+		//약 추가를 눌렀을때 하는 기능(넘어오는 파라미터가 널이면 실행이 되면 안됨)
 		if(test != null){
 			List<String> list = new ArrayList<String>();
+			List<String> c_list = new ArrayList<String>();
 			StringTokenizer stk = new StringTokenizer(test, ",");
+			if(am_count != null){
+				StringTokenizer c_stk = new StringTokenizer(am_count, ",");
+				while(c_stk.hasMoreElements()){
+					c_list.add(c_stk.nextToken());
+				}
+			}
 			int ii =0;
 			while(stk.hasMoreElements()){
 				list.add(stk.nextToken());
@@ -65,6 +81,7 @@ public class PetHistoryController {
 				System.out.println("list size = " + list.size());
 				ii++;
 			}
+			
 		List<MedicamentDTO> add_mlist = new ArrayList<MedicamentDTO>();
 		if(list.size()==1){
 			MedicamentDTO mdto = new MedicamentDTO();
@@ -74,6 +91,9 @@ public class PetHistoryController {
 			for(int i=1; i<list.size(); i++){
 				MedicamentDTO mdto = new MedicamentDTO();
 				mdto = (MedicamentDTO) medicamentDAO.getSelectChoice2(list.get(i));
+				if(c_list.size()>0){
+				mdto.setAm_count(Integer.parseInt(c_list.get(i-1)));
+				}
 				add_mlist.add(mdto);
 			}
 			MedicamentDTO mdto = new MedicamentDTO();
@@ -86,12 +106,13 @@ public class PetHistoryController {
 		}
 		model.addAttribute("pdto", petDTO);
 		model.addAttribute("mdto", mlist);
+		model.addAttribute("cdto", counterDTO);
 		
 		return "/history/historyInsertForm";
 	}
 	
 	@RequestMapping("dhistoryinsert.pet")
-	public String dhistoryinsert(int pet_code, String test, String del_num, Model model) throws Exception{
+	public String dhistoryinsert(int pet_code, String test, String del_num, int petaccept_code,String am_count, Model model) throws Exception{
 		System.out.println("넘어올 데이터 넘어오나? " + test);
 		System.out.println("코드도 넘어오지? " + pet_code);
 		System.out.println("지울 넘버? " + del_num);
@@ -99,11 +120,20 @@ public class PetHistoryController {
 		PetDAO petDAO = sqlSession.getMapper(PetDAO.class);
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		PetDTO petDTO = petDAO.getHistoryInfo(pet_code);
+		CounterDTO counterDTO = new CounterDTO();
+		counterDTO.setPetaccept_code(petaccept_code);
 		List<MedicamentDTO> mlist = medicamentDAO.getSelectAll(); 
 		//약 추가를 눌렀을때 하는 기능(넘어오는 파라미터가 널이면 실행아 되면 안됨)
 		if(test != null){
 			List<String> list = new ArrayList<String>();
+			List<String> c_list = new ArrayList<String>();
 			StringTokenizer stk = new StringTokenizer(test, ",");
+			if(am_count != null){
+				StringTokenizer c_stk = new StringTokenizer(am_count, ",");
+				while(c_stk.hasMoreElements()){
+					c_list.add(c_stk.nextToken());
+				}
+			}
 			int ii =0;
 			while(stk.hasMoreElements()){
 				list.add(stk.nextToken());
@@ -112,12 +142,19 @@ public class PetHistoryController {
 				ii++;
 			}
 			list.remove(Integer.parseInt(del_num)-1);
-		List<MedicamentDTO> add_mlist = new ArrayList<MedicamentDTO>();
+			c_list.remove(Integer.parseInt(del_num)-1);
+			int m_total_cost = 0;
+			List<MedicamentDTO> add_mlist = new ArrayList<MedicamentDTO>();
 			for(int i=0; i<list.size(); i++){
 				MedicamentDTO mdto = new MedicamentDTO();
 				mdto = (MedicamentDTO) medicamentDAO.getSelectChoice2(list.get(i));
+				if(c_list.size()>0){
+					mdto.setAm_count(Integer.parseInt(c_list.get(i)));
+					m_total_cost += (mdto.getMedicament_cost()*Integer.parseInt(c_list.get(i)));
+					}
 				add_mlist.add(mdto);
 			}
+			counterDTO.setM_total_cost(m_total_cost);
 			/*MedicamentDTO mdto = new MedicamentDTO();
 			mdto = (MedicamentDTO) medicamentDAO.getSelectChoice2(list.get(0));
 			add_mlist.add(mdto);*/
@@ -127,15 +164,16 @@ public class PetHistoryController {
 		}
 		model.addAttribute("pdto", petDTO);
 		model.addAttribute("mdto", mlist);
-		
+		model.addAttribute("cdto", counterDTO);
 		return "/history/historyInsertForm";
 	}
 	@RequestMapping("inserthistoryend.pet")
-	public String inserthistoryend(PetHistoryDTO petHistoryDTO, String test, String pet_name, String am_count){
+	public String inserthistoryend(PetHistoryDTO petHistoryDTO, String test, String pet_name, String am_count, int petaccept_code) throws Exception{
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		System.out.println("coments = " + petHistoryDTO.getPethistory_coments());
 		System.out.println("code = " + petHistoryDTO.getPethistory_petcode());
 		System.out.println("command = " + test);
+		petHistoryDAO.deleteWaiting(petaccept_code);
 		medicamentUpdate(test,am_count);
 		if(test.equals("")){
 			test = "해당없음";
@@ -203,5 +241,21 @@ public class PetHistoryController {
 		System.out.println("am_count : " + am_count);
 		System.out.println("pet_code : " + pet_code);
 		return "/history/script2";
+	}
+	
+	@RequestMapping("treatList.pet")
+	public String getTreatList(HttpSession session, Model model) throws Exception{
+		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		List<CounterDTO> clist = petHistoryDAO.getTreatList(store_code);
+		model.addAttribute("clist", clist);
+		return "/history/waitingView";
+	}
+	public String getListWaiting(HttpSession session, Model model) throws Exception{
+		CounterDAO counterDAO = sqlSession.getMapper(CounterDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		List<CounterDTO> clist = counterDAO.getListWaiting(store_code);
+		model.addAttribute("clist", clist);
+		return "/counter/counterAcceptView";
 	}
 }
