@@ -28,8 +28,9 @@ public class ShotController {
 	
 	@RequestMapping("shotList.pet")
 	public ModelAndView listForm(ShotDTO dto, HttpSession session){
-		ModelAndView mav= new ModelAndView();
 		System.out.println("shotList 접근");
+		
+		ModelAndView mav= new ModelAndView();
 		
 		DateFormat simple= new SimpleDateFormat("yyyy-MM-dd");
 		long time = System.currentTimeMillis();
@@ -41,19 +42,16 @@ public class ShotController {
 		String month_str = d.split("-")[1];
 		String day_str = d.split("-")[2];
 
-		day_str="31";
+		day_str="30";
 		
 		String lastDay1 = year_str + "-" + month_str + "-" + day_str;
 
 		Date lastDay = Date.valueOf(lastDay1);
-		System.out.println("lastDay: " + lastDay);
 		
-		System.out.println("session: "+session.getAttribute("session_store_code"));
 		String store_code = (String) session.getAttribute("session_store_code");
 		
 		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
 		List list= shotDAO.selectAll(store_code);
-		
 		
 	    mav.addObject("list", list);
 	    mav.addObject("lastDay", lastDay);
