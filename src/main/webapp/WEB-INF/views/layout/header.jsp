@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -50,7 +47,8 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
-
+					<c:url value="/calendar/calendarForm.pet" var = "calendarForm"></c:url>
+					<li><a href="${calendarForm}">예약현황</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">접수 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
