@@ -7,22 +7,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<script type="text/javascript">
 
-
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script>
 	$(function(){
-		$(".datepicker").datepicker({
-			closeText: '닫기',
-            prevText: '이전달',
-            nextText: '다음달',
-            currentText: '오늘',
-			inline: true,
-		    showOtherMonths: true,
-		    showMonthAfterYear: true,
-			dateFormat: 'yy/mm/dd'});
+		$("#end_time").hide();		
+		$("#start_reselect").hide();
+		
+		//시작시간 선택 버튼 클릭하면
+		$("#start_select").click(function(){
+			
+			var test = $("#start_select option:selected").val();
+
+			//시작시간 선택 버튼 없애고
+			$("#start_select").hide();
+			
+			//끝시간 셀렉트박스&시작시간 다시선택 버튼 나타내고 시작시간 셀렉박스 비활성화
+			$("#end_time").show();
+			$("#start_reselect").show();
+			$("#start_time option").attr("disabled", "disabled");
+		});
+		
+		//시작 시간 다시선택 버튼 클릭하면
+		$("#start_reselect").click(function(){
+			//시작시간 셀렉박스 활성화&선택버튼 나타내고 다시선택버튼/끝시간 셀렉박스 또 없애기
+			$("#start_time option").attr("disabled", false);
+			$("#start_select").show();
+			$("#end_time").hide();
+			$("#start_reselect").hide();
+		});		
 	});
 	
 </script>
@@ -31,34 +45,35 @@
 <body>
 
 <form action="reserveInsertPro.pet" method="post">
-
 <fieldset>
-	<legend>날짜/시간 선택</legend>
-	<div id = "datepicker">날짜 입력
-	<input type="text" id="test" name="reserve_date" class="datepicker"/>
-	</div>
+	<legend>시간 선택</legend>
 	
-	<br>
-	<select name="reserve_start_time">
-		<c:forEach var="num" begin="9" end="18" step="1">
-			<option value="${num}">${num}시</option>
+	<select id="start_time"  name="reserve_start_time" >
+		<c:forEach items="${available_list}" var="list" >
+			<option value="${list}">${list}시</option>
 		</c:forEach>
+		
 	</select>
+	<input type="button" id="start_select" value="선택"> 
 	~
-	<select name="reserve_end_time" >
+	<select id="end_time" name="reserve_end_time" onchange="" >
+	
 		<c:forEach var="num" begin="10" end="19" step="1">
 			<option value="${num}">${num}시</option>
 		</c:forEach>
 	</select>
-	
+	<input type="button" id="start_reselect" value="시작시간 다시 선택"> 
 </fieldset>
 
 <fieldset>
 	<legend>예약 내용</legend>
-	<input type="text" name="reserve_contents">
+	<!-- <input type="text" name = "reserve_contents">
+ -->	 
+	<textarea name="reserve_contents"></textarea>
 
 </fieldset>
 	
+	<input type="hidden" name="reserve_date" value="${reserve_date}">
 	<input type="hidden" name="emp_name" value="${emp_name}">
 	<input type="submit" value="예약 추가">
 	

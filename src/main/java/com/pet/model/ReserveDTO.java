@@ -1,27 +1,28 @@
 package com.pet.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class ReserveDTO {
 	
 	private String reserve_code;
-	private Timestamp reserve_date;
+	private Date reserve_date;
 	private int reserve_start_time;
 	private int reserve_end_time;
 	private String emp_name;
 	private String reserve_contents;
 	private String store_code;
-	private int reserve_status;
+	private String reserve_status;
+	
 	public String getReserve_code() {
 		return reserve_code;
 	}
 	public void setReserve_code(String reserve_code) {
 		this.reserve_code = reserve_code;
 	}
-	public Timestamp getReserve_date() {
+	public Date getReserve_date() {
 		return reserve_date;
 	}
-	public void setReserve_date(Timestamp reserve_date) {
+	public void setReserve_date(Date reserve_date) {
 		this.reserve_date = reserve_date;
 	}
 	public int getReserve_start_time() {
@@ -54,10 +55,10 @@ public class ReserveDTO {
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
 	}
-	public int getReserve_status() {
+	public String getReserve_status() {
 		return reserve_status;
 	}
-	public void setReserve_status(int reserve_status) {
+	public void setReserve_status(String reserve_status) {
 		this.reserve_status = reserve_status;
 	}
 	@Override
