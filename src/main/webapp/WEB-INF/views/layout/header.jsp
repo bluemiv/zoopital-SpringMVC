@@ -75,6 +75,8 @@
 					<li><a href="${orderInfoForm}">발주</a></li>
 					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
 					<li><a href="${empListForm}">직원</a></li>
+					<c:url value="/reserve/reserveListForm.pet" var = "reserveListForm"></c:url>
+					<li><a href="${reserveListForm}">예약관리</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">동물 <b class="caret"></b></a>
 						<ul class="dropdown-menu">

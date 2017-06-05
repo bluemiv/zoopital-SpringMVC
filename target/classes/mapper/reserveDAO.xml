@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  <mapper namespace="com.pet.model.ReserveDAO">
+  
+  	<!-- 전체 예약 리스트 보기 -->
+  	<select id="selectReserve" resultType="com.pet.model.ReserveDTO">
+  		select * from reserve
+  		where store_code = #{store_code}
+  		and reserve_status = 'Reserved'
+  		order by reserve_date
+  		, reserve_start_time
+  	</select>
+  	
+  	<!-- 방문완료상태로 만들기 -->
+  	<update id="changeStatusVisited">
+  	
+  		update reserve
+  			set reserve_status = 'Visited'
+  			where reserve_code = #{reserve_code}
+  	
+  	</update>
+  	
+  	<!-- 미방문 처리하기 -->
+  	<update id="changeStatusNotVisited">
+  	
+  		update reserve
+  			set reserve_status = 'NotVisited'
+  			where reserve_code = #{reserve_code}
+  	
+  	</update>
+  	<!-- 특정 날짜 예약 리스트 보기 -->
+  	<select id="dateSelectedReserve" resultType="com.pet.model.ReserveDTO">
+  		select * from reserve
+  		where store_code = #{store_code}
+  		and reserve_date = #{reserve_date}
+  		and reserve_status = 'Reserved'
+  		order by reserve_start_time
+  	</select>
+  	
+  	<!-- 전체 예약 리스트 보기
+  	<select id="selectReserveTime" resultType="com.pet.model.ReserveDTO">
+  		select reserve_date, 
+  			reserve_start_time,
+  			reserve_end_time,
+  			emp_name 
+  			from RESERVE 
+  			where RESERVE_DATE = '17/05/31'
+  			and emp_name = 'c2';
+
+  	</select> -->
+  	
+  	<!-- 예약 추가하기 -->
+  	<insert id="insertReserve" parameterType="com.pet.model.ReserveDTO">
+  		insert into reserve
+  		values(
+  		reserve_seq.nextval,
+  		#{reserve_date},
+  		#{reserve_start_time},
+  		#{reserve_end_time},
+  		#{emp_name},
+  		#{reserve_contents},
+  		#{store_code},
+  		'Reserved')	
+  	</insert>
+  	
+  	<!-- 직원별/날짜별로 예약 시간 불러오기 -->
+  	<select id="select_available_time" parameterType="com.pet.model.ReserveDTO" resultType="com.pet.model.ReserveDTO">
+  		
+  		select reserve_start_time,
+  				reserve_end_time
+  		from reserve
+  		where emp_name = #{emp_name}
+  		and reserve_date = #{reserve_date}
+  		and store_code = #{store_code}
+  		
+  	</select>
+  
+  	<!--예약 취소(삭제)하기 -->
+  	<delete id="deleteReserve" parameterType="com.pet.model.ReserveDTO" >
+  		
+  		delete from reserve
+  		where reserve_code = #{reserve_code}
+  		
+  	</delete>
+  </mapper>
