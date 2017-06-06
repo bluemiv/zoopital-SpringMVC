@@ -4,58 +4,77 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
   <mapper namespace="com.pet.model.ReserveDAO">
-  
-  	<!-- 전체 예약 리스트 보기 -->
+   
+  	<!-- 전체 예약 리스트 보기  -->
   	<select id="selectReserve" resultType="com.pet.model.ReserveDTO">
-  		select * from reserve
-  		where store_code = #{store_code}
-  		and reserve_status = 'Reserved'
-  		order by reserve_date
-  		, reserve_start_time
+  		SELECT * FROM RESERVE, PET
+ 			WHERE RESERVE.STORE_CODE = #{store_code}
+ 			 AND RESERVE.RESERVE_STATUS = 'Reserved'
+  				AND RESERVE.PET_CODE = PET.PET_CODE
+  			ORDER BY RESERVE.RESERVE_DATE,
+				 RESERVE.RESERVE_START_TIME
   	</select>
+  	
+  	<!-- 예약 수정 시 해당 예약에 대한 정보 받아오기 -->
+  	<select id="getReserveInfo" resultType="com.pet.model.ReserveDTO">
+		SELECT *
+		FROM RESERVE, PET
+		WHERE RESERVE.RESERVE_CODE = #{reserve_code}
+		AND RESERVE.PET_CODE = PET.PET_CODE
+	</select>
+	
+	<!-- 예약 수정 -->
+	<update id ="updateReserve" >
+		UPDATE RESERVE
+			<set>
+				<if test="emp_name != null and emp_name != ''">
+					EMP_NAME = #{emp_name},
+				</if>
+				<if test="reserve_date != null and reserve_date != ''">
+					reserve_date = #{reserve_date},
+				</if>
+				<if test="reserve_start_time != null and reserve_start_time != ''">
+					reserve_start_time = #{reserve_start_time},
+				</if>
+				<if test="reserve_end_time != null and reserve_end_time != ''">
+					reserve_end_time = #{reserve_end_time},
+				</if>
+				<if test="reserve_contents != null and reserve_contents != ''">
+					reserve_contents = #{reserve_contents},
+				</if>
+			</set> 
+			WHERE RESERVE_CODE = #{reserve_code}
+	
+	</update>
+	
   	
   	<!-- 방문완료상태로 만들기 -->
   	<update id="changeStatusVisited">
-  	
-  		update reserve
-  			set reserve_status = 'Visited'
-  			where reserve_code = #{reserve_code}
-  	
+  		UPDATE RESERVE
+  			SET RESERVE_STATUS = 'Visited'
+  			WHERE RESERVE_CODE = #{reserve_code}	
   	</update>
   	
   	<!-- 미방문 처리하기 -->
   	<update id="changeStatusNotVisited">
-  	
-  		update reserve
-  			set reserve_status = 'NotVisited'
-  			where reserve_code = #{reserve_code}
-  	
+  		UPDATE RESERVE
+  			SET RESERVE_STATUS = 'NotVisited'
+  			WHERE RESERVE_CODE = #{reserve_code}
   	</update>
+  	
   	<!-- 특정 날짜 예약 리스트 보기 -->
   	<select id="dateSelectedReserve" resultType="com.pet.model.ReserveDTO">
-  		select * from reserve
-  		where store_code = #{store_code}
-  		and reserve_date = #{reserve_date}
-  		and reserve_status = 'Reserved'
-  		order by reserve_start_time
+  		SELECT * FROM RESERVE
+  		WHERE STORE_CODE = #{store_code}
+  		AND RESERVE_DATE = #{reserve_date}
+  		AND RESERVE_STATUS = 'Reserved'
+  		ORDER BY RESERVE_START_TIME
   	</select>
-  	
-  	<!-- 전체 예약 리스트 보기
-  	<select id="selectReserveTime" resultType="com.pet.model.ReserveDTO">
-  		select reserve_date, 
-  			reserve_start_time,
-  			reserve_end_time,
-  			emp_name 
-  			from RESERVE 
-  			where RESERVE_DATE = '17/05/31'
-  			and emp_name = 'c2';
-
-  	</select> -->
   	
   	<!-- 예약 추가하기 -->
   	<insert id="insertReserve" parameterType="com.pet.model.ReserveDTO">
-  		insert into reserve
-  		values(
+  		INSERT INTO RESERVE
+  		VALUES(
   		reserve_seq.nextval,
   		#{reserve_date},
   		#{reserve_start_time},
@@ -69,33 +88,28 @@
   	
   	<!-- 직원별/날짜별로 예약 시간 불러오기 -->
   	<select id="select_available_time" parameterType="com.pet.model.ReserveDTO" resultType="com.pet.model.ReserveDTO">
-  		
-  		select reserve_start_time,
-  				reserve_end_time
-  		from reserve
-  		where emp_name = #{emp_name}
-  		and reserve_date = #{reserve_date}
-  		and store_code = #{store_code}
-  		
+  		SELECT RESERVE_START_TIME,
+  				RESERVE_END_TIME
+  		FROM RESERVE
+  		WHERE EMP_NAME = #{emp_name}
+  		AND RESERVE_DATE = #{reserve_date}
+  		AND STORE_CODE = #{store_code}
   	</select>
   
   	<!--예약 취소(삭제)하기 -->
   	<delete id="deleteReserve" parameterType="com.pet.model.ReserveDTO" >
-  		
-  		delete from reserve
-  		where reserve_code = #{reserve_code}
-  		
+  		DELETE FROM RESERVE
+  		WHERE RESERVE_CODE = #{reserve_code}
   	</delete>
   	
   	<!--지난 예약 보기 -->
-  	
   	<select id = "passReservationList" resultType="com.pet.model.ReserveDTO">
-  		select * from reserve
-  		where store_code = #{store_code}
-  		and reserve_status = 'Visited'
-  		or reserve_status = 'NotVisited'
-  		order by reserve_date
-  		, reserve_start_time
+  		SELECT * FROM RESERVE
+  		WHERE STORE_CODE = #{store_code}
+  		AND RESERVE_STATUS = 'Visited'
+  		OR RESERVE_STATUS = 'NotVisited'
+  		ORDER BY RESERVE_DATE
+  		, RESERVE_START_TIME
   	</select>
   	
   </mapper>

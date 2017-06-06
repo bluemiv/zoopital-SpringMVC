@@ -54,25 +54,26 @@
 	
 	<c:forEach items="${reserveList}" var="reserve">
 		예약 번호: ${reserve.reserve_code}	<br>
+		예약 동물명: ${reserve.pet_name}<br>
+		보호자 연락처: ${reserve.pet_phone }<br>
 		예약 날짜: ${reserve.reserve_date}<br>
 		예약 시간: ${reserve.reserve_start_time}:00 ~
 				${reserve.reserve_end_time}:00<br>
 		담당: ${reserve.emp_name} <br>
 		예약 내용: ${reserve.reserve_contents} <br>
-		<button name="visited" onclick = "location='reserveVisited.pet?visited=${reserve.reserve_code}'">방문 확인</button>
-		<button name = "notvisited" onclick = "location='reserveVisited.pet?notvisited=${reserve.reserve_code}'">미방문</button>
-		<button id = "deleteReservation" name = "deleteReservation" onclick = "location='reserveDeletePro.pet?reserve_code=${reserve.reserve_code}'">예약 취소</button>
-		<hr>
 		
-	
+		<button class = "btn btn-custom btn-md" name="visited" onclick = "location='reserveVisited.pet?visited=${reserve.reserve_code}'">방문 확인</button>
+		<button class = "btn btn-custom btn-md" name = "notvisited" onclick = "location='reserveVisited.pet?notvisited=${reserve.reserve_code}'">미방문</button>
+		<button class = "btn btn-custom btn-md" id = "deleteReservation" name = "deleteReservation" onclick = "location='reserveDeletePro.pet?reserve_code=${reserve.reserve_code}'">예약 취소</button>
+		<form action="reserveUpdateForm.pet" method="post">
+			<input type="hidden" name="reserve_code" value="${reserve.reserve_code}">
+			<input type="submit" class = "btn btn-custom btn-md" value="예약 변경">
+		</form>
+		<br>
+		<hr>
 	</c:forEach>
 	<br>
-	<button onclick="location='reserveInsertForm.pet'">예약내역 추가</button>
-	<br>
-	<button onclick="location='passReservationList.pet'">지난 예약 보기</button>
-	<br>
-	<button onclick="location='reserveUpdateForm.pet'">예약 변경</button>
-	<br>
+	<button class = "btn btn-custom btn-md" onclick="location='passReservationList.pet'">지난 예약 보기</button>
 
 </body>
 </html>

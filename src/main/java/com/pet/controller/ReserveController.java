@@ -36,9 +36,10 @@ public class ReserveController {
 		
 		ReserveDTO reserveDTO = new ReserveDTO();
 		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
-
+		
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 		List<ReserveDTO> reserveList = reserveDAO.selectReserve(reserveDTO);
+		
 		model.addAttribute("reserveList", reserveList);
 
 		return "/reserve/reserveListForm";
@@ -50,12 +51,10 @@ public class ReserveController {
 			System.out.println("reserveDeletePro 컨트롤러 진입");
 			System.out.println(dto.getReserve_code());
 			
-			
 			ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 			reserveDAO.deleteReserve(dto.getReserve_code());
 			
 			return "redirect:reserveListForm.pet";
-
 		}
 	
 	//날짜별로 선택해서 예약리스트 볼때 사용하는 컨트롤러
@@ -73,32 +72,39 @@ public class ReserveController {
 		}
 	
 
-	//예약 추가 시 직원선택하는 폼으로 연결되는 컨트롤러
+	//동물리스트에서 예약 추가 버튼 클릭 시 연결되는 컨트롤러
 	@RequestMapping("/reserveInsertForm.pet")
-	public String reserveInsertForm(HttpSession session, Model model){
+	public String reserveInsertForm(HttpServletRequest request,HttpSession session, Model model) throws Exception{
 		System.out.println("reserveListForm 컨트롤러 진입");
 		
-		EmpDTO dto = new EmpDTO();
-		dto.setStore_code((String)session.getAttribute("session_store_code"));
+		//세션값 얻기 위해 직원 DTO 생성
+		EmpDTO empDTO = new EmpDTO();
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
-		List<EmpDTO> empList = empDAO.getEmpList(dto);
+		empDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
+		//해당 지점에 대한 직원 리스트 뽑아오기
+		List<EmpDTO> empList = empDAO.getEmpList(empDTO);
+		
+		//개별 동물에 대한 예약목록 작성 위해 펫DTO 생성 후 DB에서 해당 동물 정보 얻어서
+		PetDTO petDTO = new PetDTO();
+		petDTO.setPet_code(Integer.parseInt(request.getParameter("pet_code")));
+		PetDAO petDAO = sqlSession.getMapper(PetDAO.class);
+		petDTO = petDAO.select_code(petDTO);
+		
+		//해당 지점 직원 리스트와, 예약 대상 동물 정보 보내기!
 		model.addAttribute("empList", empList);
+		model.addAttribute("petInfo", petDTO);
 		
 		return "/reserve/reserveInsertForm";
 	}
 	
 	//예약 추가 시 직원선택 후 날짜/시간 선택하는 폼으로 연결되는 컨트롤러
 	@RequestMapping("/reserveInsertForm2.pet")
-	public String reserveInsertForm2(ReserveDTO dto, HttpSession session, Model model){
-		System.out.println("reserveListForm2 컨트롤러 진입");
-		System.out.println(dto.getReserve_date());
-		System.out.println(dto.getEmp_name());
+	public String reserveInsertForm2(ReserveDTO dto, HttpSession session,HttpServletRequest request, Model model) throws Exception{
+		System.out.println("reserveInsertForm2 컨트롤러 진입");
 		
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
-		
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
-
 		dto.setStore_code((String)session.getAttribute("session_store_code"));	
 		
 		List<ReserveDTO> reservedList = reserveDAO.select_available_time(dto);
@@ -106,12 +112,18 @@ public class ReserveController {
 		//해당 일에 가능한 시간만 리스트형태로 저장해서 넘기기
 		List available_list = time(reservedList);
 		
-		System.out.println("-------------------");
-		System.out.println(available_list.toString());
+		
+		//개별 동물에 대한 예약목록 작성 위해 펫DTO 생성 후 DB에서 해당 동물 정보 얻어서
+		PetDTO petDTO = new PetDTO();
+		petDTO.setPet_code(Integer.parseInt(request.getParameter("pet_code")));
+		PetDAO petDAO = sqlSession.getMapper(PetDAO.class);
+		petDTO = petDAO.select_code(petDTO);
+
 		
 		model.addAttribute("available_list", available_list);
 		model.addAttribute("emp_name", dto.getEmp_name());
 		model.addAttribute("reserve_date", dto.getReserve_date());
+		model.addAttribute("petInfo", petDTO);
 		
 		return "/reserve/reserveInsertForm2";
 	}	
@@ -126,7 +138,9 @@ public class ReserveController {
 		
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 
-		dto.setStore_code((String)session.getAttribute("session_store_code"));	
+		dto.setStore_code((String)session.getAttribute("session_store_code"));
+		dto.toString();
+		
 		reserveDAO.insertReserve(dto);
 		
 		return "redirect:reserveListForm.pet";
@@ -178,18 +192,46 @@ public class ReserveController {
 	       return output_list;
 	    }
 	
+	
+	//예약 변경 폼컨트롤러
 	@RequestMapping("/reserveUpdateForm.pet")
-	public String reserveUpdateForm(Model model, HttpSession session){
+	public String reserveUpdateForm(ReserveDTO dto, Model model, HttpSession session){
 		System.out.println("reserveUpdateForm 컨트롤러 진입");
 		
-		ReserveDTO reserveDTO = new ReserveDTO();
-		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
-
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
-		List<ReserveDTO> reserveList = reserveDAO.selectReserve(reserveDTO);
-		model.addAttribute("reserveList", reserveList);
+		dto = reserveDAO.getReserveInfo(dto);
+		System.out.println(dto.toString());
+//		dto.setStore_code((String)session.getAttribute("session_store_code"));
+		
+		//직원 변경 위해 해당 지점 직원 모두 불러와서 드롭박스에 띄워줘야 함
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		EmpDTO empDTO = new EmpDTO();
+		empDTO.setStore_code((String)session.getAttribute("session_store_code"));
+		List<EmpDTO> empList = empDAO.getEmpList(empDTO);
+		
+		//변경 시 선택된 날짜에 따라.. 다시 가능 시간 띄워줘야 하는뎅...?Ajax?
+		List<ReserveDTO> reservedList = reserveDAO.select_available_time(dto);
+		
+		//해당 일에 가능한 시간만 리스트형태로 저장해서 넘기기
+		List available_list = time(reservedList);
+
+		
+		model.addAttribute("reservation", dto);
+		model.addAttribute("empList", empList);
+		model.addAttribute("available_list", available_list);
 
 		return "/reserve/reserveUpdateForm";
+	}
+	
+	//예약 변경 실행 컨트롤러
+	@RequestMapping("/reserveUpdatePro.pet")
+	public String reserveUpdatePro(ReserveDTO dto, HttpSession session){
+		System.out.println("reserveUpdatePro 컨트롤러 진입");
+				
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		reserveDAO.updateReserve(dto);
+		
+		return "redirect:reserveListForm.pet";
 	}
 	
 	//지난 예약 보기 위해 실행되는 컨트롤러!
@@ -207,23 +249,6 @@ public class ReserveController {
 		return "/reserve/passReservationList";
 	}
 	
-	
-	//예약할 때 동물 검색하는..?
-	@RequestMapping("reservesearch.pet")
-	public ModelAndView search(HttpServletRequest request) throws Exception{
-		ModelAndView mav= new ModelAndView();
-		String search=request.getParameter("search");
-		
-		PetDAO dao=sqlSession.getMapper(PetDAO.class);
-		
-		PetDTO dto=new PetDTO();
-		dto.setPet_name(search);
-		List list= dao.searchList(dto);
-
-		mav.addObject("serchlist", list);
-		mav.setViewName("/reserve/reserveInsertForm2");
-		return mav;
-	}
 	
 	
 	/*private List<Integer> end_time(List<ReserveDTO> reserveDTOList){
