@@ -19,7 +19,6 @@
 </form>
 <c:forEach items="${searchList}" var="search">
 지점 코드 및 ID: ${search.store_code}<br>
-지점 패스워드: ${search.store_password}<br>
 지점 이름: ${search.store_name}<br>
 지점별 관리비: ${search.store_cost}<br>
 지점별 급여: ${search.store_payment}<br>
@@ -35,7 +34,6 @@
 
 <c:forEach  items="${adminList}" var="list">
 지점 코드 및 ID: ${list.store_code}<br>
-지점 패스워드: ${list.store_password}<br>
 지점 이름: ${list.store_name}<br>
 지점별 관리비: ${list.store_cost}<br>
 지점별 급여: ${list.store_payment}<br>
@@ -44,8 +42,6 @@
 지점 의사: ${list.store_doctor}<br>
 지점 직원: ${list.store_worker}<br>
 가입날짜: ${list.store_date }<br>
-권한: ${list.store_role }<br>
-활성화: ${list.store_enabled }<br>
 <button onclick = "location='adminUpdate.pet?store_code=${list.store_code}'">수정</button>
 <button onclick = "location='deletePro.pet?store_code=${list.store_code}'">삭제</button>
 <hr>

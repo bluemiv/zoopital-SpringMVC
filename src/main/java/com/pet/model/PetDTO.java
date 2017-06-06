@@ -1,6 +1,9 @@
 package com.pet.model;
 
+import java.util.Date;
+
 public class PetDTO {
+
 	private int pet_code; // number constraint pet_pk primary key, -- 내부 번호(pk)
 	private String pet_name; // varchar2(500) not null, -- 동물 이름
 	private String pet_type; // varchar2(500) not null, -- 동물 종류
@@ -12,9 +15,7 @@ public class PetDTO {
     private String pet_addrDetail; // varchar2(3000) not null, -- 상세 주소
     private String pet_email; // varchar2(1000) not null, -- 이메일
     private String store_code; // varchar2(500) -- 지점코드
-	
-    // set get method
-    public int getPet_code() {
+	public int getPet_code() {
 		return pet_code;
 	}
 	public void setPet_code(int pet_code) {
@@ -80,5 +81,4 @@ public class PetDTO {
 	public void setStore_code(String store_code) {
 		this.store_code = store_code;
 	}
-	
 }

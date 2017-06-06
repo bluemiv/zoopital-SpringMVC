@@ -14,23 +14,10 @@
 			/* 초기 가입 버튼 비활성화 */
 			$("#join_us_btn").prop("disabled", true);
 			
-			/* 비밀번호 확인 */
-			window.setInterval(function(){
-				if($("#pwd").val() != '' && $("#pwd_confirm").val() != ''){
-					if($("#pwd").val() == $("#pwd_confirm").val()){
-						$("#pwd_check_display").html("<font color = 'green'>사용가능합니다.</font>");
-					} else if ($("#pwd").val() != $("#pwd_confirm").val()){
-						$("#pwd_check_display").html("<font color = 'red'>사용 불가능합니다.</font>");
-					}
-				} else {
-					$("#pwd_check_display").text("");
-				}
-			}, 100);
-			
 			/* 아이디 중복체크 Ajax */
 			$("#id_check").click(function() {
 				var dataForm = {
-					store_code : $("#store_id").val()
+					store_code : $("#store_code").val()
 				};
 				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
 					url : "idConfirmAjax.pet",
@@ -39,7 +26,7 @@
 					data : JSON.stringify(dataForm),
 					contentType : "application/json",
 					success : function(result) {
-						if(result == true && $("#store_id").val() != ""){
+						if(result == true && $("#store_code").val() != ""){
 							$("#id_check_display").html("<font color = 'green'>사용가능합니다!</font>");
 							idCheck = true;
 						} else{
@@ -54,7 +41,7 @@
 			});
 			
 			window.setInterval(function(){
-				if($("#pwd").val() != '' && $("#pwd_confirm").val() != '' && $("#pwd").val() == $("#pwd_confirm").val() && idCheck == true){
+				if(idCheck == true){
 					$("#join_us_btn").attr("disabled", false);
 				} else {
 					$("#join_us_btn").attr("disabled", true);
@@ -71,7 +58,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<h2>약품 등록</h2>
+				<h2>지점 등록</h2>
 				<hr>
 			</div>
 		</div>
@@ -81,24 +68,12 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">지점 ID</label>
-							<input type = "text" class="form-control" id = "store_id" name = "store_code" required="required" placeholder="지점 ID">
+							<input type = "text" class="form-control" id = "store_code" name = "store_code" required="required" placeholder="지점 코드를 입력해주세요">
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<br>
 							<input type = "button" value="중복확인" id = "id_check" class = "btn btn-custom btn-md"/>
 							<p id = "id_check_display"></p>
-						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">지점 Password</label>
-							<input type = "password" id = "pwd" name = "store_password" required="required" class="form-control" placeholder="비밀번호를 입력해주세요">
-							<p id = "pwd_check_display"></p>
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">Password 확인</label>
-							<input type = "password" id = "pwd_confirm" name = "store_password_confirm" required="required" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
 						</div>
 					</div>
 					

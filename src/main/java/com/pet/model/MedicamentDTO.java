@@ -20,8 +20,8 @@ public class MedicamentDTO {
 	private int pageTotalNum; // 전체 페이지 개수
 	private String search; // 검색어
 	private String amountState; // 개수 감소 혹은 증가 (up 또는 down)
-	private int am_count;
-	private int amtotal_count;
+	private int am_count = 0;
+	private int amtotal_count = 0;
 
 	// constructor
 	public MedicamentDTO() {

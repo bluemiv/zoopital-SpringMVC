@@ -74,6 +74,7 @@
 			</table>
 		</div>
 	</div>
+
 	
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>

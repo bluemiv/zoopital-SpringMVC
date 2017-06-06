@@ -23,4 +23,7 @@ public interface EmpDAO {
 
 	// 모든 지점 가져옴
 	public List<String> getStoreAll() throws Exception;
+	
+	// 모든 직원 List 가져옴
+	public List<EmpDTO> selectAllEmp() throws Exception;
 }

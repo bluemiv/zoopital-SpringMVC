@@ -9,6 +9,7 @@
 	    	(PET_CODE, PET_NAME, PET_TYPE, PET_SEX, PET_AGE, PET_PHONE, PET_POSTCODE, PET_ADDR, PET_ADDRDETAIL, PET_EMAIL, STORE_CODE)
 	    VALUES
 	    	(PET_NUM.NEXTVAL, #{pet_name}, #{pet_type}, #{pet_sex}, #{pet_age}, #{pet_phone}, #{pet_postCode}, #{pet_addr}, #{pet_addrDetail}, #{pet_email}, #{store_code} )
+
     </insert>
     <select id="list_pet" resultType="com.pet.model.PetDTO">
     	SELECT *

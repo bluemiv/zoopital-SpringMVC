@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pet.model.CounterDAO">
+	<select id="getListAll" resultType="com.pet.model.PetDTO">
+		SELECT *
+    	FROM PET
+    	WHERE STORE_CODE = #{store_code}
+	</select>
+	
+	<select id="searchList" resultType="com.pet.model.PetDTO" parameterType="com.pet.model.PetDTO">
+    	SELECT *
+    	FROM PET
+    	WHERE PET_NAME LIKE '%${pet_name}%'
+    </select>
+    <select id="getListWaiting" resultType="com.pet.model.CounterDTO">
+		SELECT *
+		FROM (
+			SELECT ROWNUM WAITING_NUM, A.*
+			FROM(
+				SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, A.*
+				FROM PET P, PETACCEPT A
+				WHERE P.PET_CODE = A.PETACCEPT_PETCODE
+				AND A.STORE_CODE = #{STORE_CODE}
+				ORDER BY A.PETACCEPT_DATE
+		) A)
+    </select>
+    
+    <select id="getPetInfo" resultType="com.pet.model.PetDTO">
+    	SELECT *
+    	FROM PET
+    	WHERE PET_CODE = #{pet_code}
+    </select>
+    
+    <insert id="insertAccept" parameterType="com.pet.model.CounterDTO">
+    	INSERT INTO PETACCEPT
+    	VALUES (PETACCEPT_SEQ.NEXTVAL, #{petaccept_petcode}, sysdate, #{petaccept_coments}, #{store_code})
+    </insert>
+</mapper>

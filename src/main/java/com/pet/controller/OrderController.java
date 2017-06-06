@@ -26,6 +26,7 @@ public class OrderController {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@Transactional
 	@RequestMapping("orderInfoForm")
 	public String orderInfoForm(Principal principal, HttpSession session, Model model) throws Exception{
 		System.out.println("orderInfoForm 접근");
@@ -69,8 +70,7 @@ public class OrderController {
 		if(medicamentDAO.updateAmountOfMedicamentAboutOrder(medicamentDTO) > 0){
 			check = true;
 		}
-		
-		model.addAttribute("check", check);
+		System.out.println(check);
 		
 		return "order/orderResult";
 	}

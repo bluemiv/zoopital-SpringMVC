@@ -20,7 +20,7 @@ public class MailController {
 	
 	// 메일발송 테스트
 	@RequestMapping("/sendMail.pet")
-	public String navermailtest(MailDTO mailDTO) throws Exception {
+	public String navermailtest(MailDTO mailDTO, String state) throws Exception {
 
 		// 메일 관련 정보
 		String host = "";
@@ -63,7 +63,12 @@ public class MailController {
 		mimeMessage.setText(body);
 		Transport.send(mimeMessage);
 
-		return "redirect:home.pet";
+		String view="";
+		if(state.equals("shot")){
+			view = "redirect:shot/shotList.pet";
+		} else {
+			view = "redirect:home.pet";
+		}
+		return view;
 	}
-
 }

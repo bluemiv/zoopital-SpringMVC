@@ -13,4 +13,23 @@
 <delete id="deleteHistory">
 	delete pethistory where pethistory_key = #{key}
 </delete>
+
+<select id="getTreatList" resultType="com.pet.model.CounterDTO">
+		SELECT *
+		FROM (
+			SELECT ROWNUM WAITING_NUM, A.*
+			FROM(
+				SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, A.*
+				FROM PET P, PETACCEPT A
+				WHERE P.PET_CODE = A.PETACCEPT_PETCODE
+				AND A.STORE_CODE = #{STORE_CODE}
+				ORDER BY A.PETACCEPT_DATE
+		) A)
+</select>
+
+<delete id="deleteWaiting">
+	DELETE PETACCEPT
+	WHERE PETACCEPT_CODE = #{PETACCEPT_CODE}
+</delete>
+
 </mapper>

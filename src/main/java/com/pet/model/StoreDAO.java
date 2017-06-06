@@ -29,4 +29,5 @@ public interface StoreDAO {
 	
 	// 모든 store_code 가져옴
 	public List<StoreDTO> selectAllStoreCode() throws Exception;
+	
 }
