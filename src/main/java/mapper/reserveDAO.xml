@@ -63,7 +63,8 @@
   		#{emp_name},
   		#{reserve_contents},
   		#{store_code},
-  		'Reserved')	
+  		'Reserved',
+  		#{pet_code})	
   	</insert>
   	
   	<!-- 직원별/날짜별로 예약 시간 불러오기 -->
@@ -85,4 +86,16 @@
   		where reserve_code = #{reserve_code}
   		
   	</delete>
+  	
+  	<!--지난 예약 보기 -->
+  	
+  	<select id = "passReservationList" resultType="com.pet.model.ReserveDTO">
+  		select * from reserve
+  		where store_code = #{store_code}
+  		and reserve_status = 'Visited'
+  		or reserve_status = 'NotVisited'
+  		order by reserve_date
+  		, reserve_start_time
+  	</select>
+  	
   </mapper>

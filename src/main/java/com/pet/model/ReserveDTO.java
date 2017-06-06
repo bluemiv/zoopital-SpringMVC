@@ -12,7 +12,14 @@ public class ReserveDTO {
 	private String reserve_contents;
 	private String store_code;
 	private String reserve_status;
+	private int pet_code;
 	
+	public int getPet_code() {
+		return pet_code;
+	}
+	public void setPet_code(int pet_code) {
+		this.pet_code = pet_code;
+	}
 	public String getReserve_code() {
 		return reserve_code;
 	}
@@ -61,12 +68,14 @@ public class ReserveDTO {
 	public void setReserve_status(String reserve_status) {
 		this.reserve_status = reserve_status;
 	}
+	
 	@Override
 	public String toString() {
 		return "ReserveDTO [reserve_code=" + reserve_code + ", reserve_date=" + reserve_date + ", reserve_start_time="
 				+ reserve_start_time + ", reserve_end_time=" + reserve_end_time + ", emp_name=" + emp_name
 				+ ", reserve_contents=" + reserve_contents + ", store_code=" + store_code + ", reserve_status="
-				+ reserve_status + "]";
+				+ reserve_status + ", pet_code=" + pet_code + "]";
 	}
+	
 	
 }

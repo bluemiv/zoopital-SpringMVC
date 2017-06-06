@@ -8,30 +8,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예약관리</title>
 <script type="text/javascript">
+
+
+	//자바스크립트로 해야 컨펌창을 띄우고 넘길 수 있는데....
+	//자바스크립트로 하면 value값이 제대로 안넘어가서 안된다 ㅠㅠㅠ 왜지???????????
 	function response(){
-		var response = confirm("방문 확인하시겠습니까? ")
+		var response = confirm("방문 확인하시겠습니까? ");
 		var value = document.getElementById("visited").value;
-		alert("value");
-		/* if(response){	
-			window.location = "reserveVisited.pet?reserve_code="+value;
-		} */		
+		alert(value);
+		 if(response){	
+			document.frm2.submit();
+		} 
 	}
 	function response2(){
 		var response2 = confirm("해당 예약 미방문 처리 하시겠습니까? ")
 		if(response){
-			window.location = "reserveVisited.pet"
+			window.location = "reserveVisited.pet?reserve_code="+document.getElementById("notvisited").value;
 		}		
 	}
 
+	function delreserve(){
+		var delreserve = confirm("해당 예약 취소 처리 하시겠습니까? ")
+		if(response){
+			window.location = "reserveDeletePro.pet?reserve_code="+document.getElementById("deleteReservation").value;
+			
+		}		
+	}
 </script>
 
 </head>
 <body>
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+	
+	<!-- 콘텐츠 -->
 	<h3>예약 내역</h3>
 	<hr>
 	
 	날짜 선택:
-	<form action ="dateSelectedList.pet" method="post">
+	<form action ="passReservationList.pet" method="post">
 		<input type="date" name = "reserve_date"> 	
 		<input type="submit" value="날짜선택 완료">
 	</form><br><hr><br>
@@ -44,14 +59,17 @@
 				${reserve.reserve_end_time}:00<br>
 		담당: ${reserve.emp_name} <br>
 		예약 내용: ${reserve.reserve_contents} <br>
-		<button id = "visited" name="visited" onclick = "response()" value = "${reserve.reserve_code}">방문 확인</button>
-		<button id = "notvisited" name = "notvisited" onclick = "response2()" value = "${reserve.reserve_code}">미방문</button>
-		<button id = "deleteReservation" name = "deleteReservation" value = "${reserve.reserve_code}">예약 취소</button>
+		<button name="visited" onclick = "location='reserveVisited.pet?visited=${reserve.reserve_code}'">방문 확인</button>
+		<button name = "notvisited" onclick = "location='reserveVisited.pet?notvisited=${reserve.reserve_code}'">미방문</button>
+		<button id = "deleteReservation" name = "deleteReservation" onclick = "location='reserveDeletePro.pet?reserve_code=${reserve.reserve_code}'">예약 취소</button>
 		<hr>
+		
 	
 	</c:forEach>
 	<br>
 	<button onclick="location='reserveInsertForm.pet'">예약내역 추가</button>
+	<br>
+	<button onclick="location='passReservationList.pet'">지난 예약 보기</button>
 	<br>
 	<button onclick="location='reserveUpdateForm.pet'">예약 변경</button>
 	<br>

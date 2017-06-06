@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
+import com.pet.model.PetDAO;
+import com.pet.model.PetDTO;
 import com.pet.model.ReserveDAO;
 import com.pet.model.ReserveDTO;
 
@@ -40,6 +43,20 @@ public class ReserveController {
 
 		return "/reserve/reserveListForm";
 	}
+	
+	//예약 삭제
+		@RequestMapping("/reserveDeletePro.pet")
+		public String reserveDeletePro(ReserveDTO dto, HttpSession session){
+			System.out.println("reserveDeletePro 컨트롤러 진입");
+			System.out.println(dto.getReserve_code());
+			
+			
+			ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+			reserveDAO.deleteReserve(dto.getReserve_code());
+			
+			return "redirect:reserveListForm.pet";
+
+		}
 	
 	//날짜별로 선택해서 예약리스트 볼때 사용하는 컨트롤러
 		@RequestMapping("/dateSelectedList.pet")
@@ -99,7 +116,7 @@ public class ReserveController {
 		return "/reserve/reserveInsertForm2";
 	}	
 	
-	//예
+	//예약 추가
 	@RequestMapping("/reserveInsertPro.pet")
 	public String reserveInsertPro(ReserveDTO dto, HttpSession session){
 		System.out.println("reserveInsertPro 컨트롤러 진입");
@@ -124,14 +141,14 @@ public class ReserveController {
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 		
 		if (request.getParameter("visited") != null) {
-
-			String reserve_code = request.getParameter("reserve_code");
+			System.out.println(request.getParameter("visited"));
+			String reserve_code = request.getParameter("visited");
 			reserveDAO.changeStatusVisited(reserve_code);
 		}
 		
 		if (request.getParameter("notvisited") != null) {
 			
-			String reserve_code = request.getParameter("reserve_code");
+			String reserve_code = request.getParameter("notvisited");
 			reserveDAO.changeStatusNotVisited(reserve_code);
 		}
 		
@@ -161,15 +178,62 @@ public class ReserveController {
 	       return output_list;
 	    }
 	
+	@RequestMapping("/reserveUpdateForm.pet")
+	public String reserveUpdateForm(Model model, HttpSession session){
+		System.out.println("reserveUpdateForm 컨트롤러 진입");
+		
+		ReserveDTO reserveDTO = new ReserveDTO();
+		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
+
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		List<ReserveDTO> reserveList = reserveDAO.selectReserve(reserveDTO);
+		model.addAttribute("reserveList", reserveList);
+
+		return "/reserve/reserveUpdateForm";
+	}
 	
-	private List<Integer> end_time(List<ReserveDTO> reserveDTOList){
+	//지난 예약 보기 위해 실행되는 컨트롤러!
+	@RequestMapping("/passReservationList.pet")
+	public String passReservationList(Model model, HttpSession session){
+		System.out.println("passReservationList 컨트롤러 진입");
+		
+		ReserveDTO reserveDTO = new ReserveDTO();
+		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
+		
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		List<ReserveDTO> passReservationList = reserveDAO.passReservationList(reserveDTO);
+		model.addAttribute("passReservationList", passReservationList);
+		
+		return "/reserve/passReservationList";
+	}
+	
+	
+	//예약할 때 동물 검색하는..?
+	@RequestMapping("reservesearch.pet")
+	public ModelAndView search(HttpServletRequest request) throws Exception{
+		ModelAndView mav= new ModelAndView();
+		String search=request.getParameter("search");
+		
+		PetDAO dao=sqlSession.getMapper(PetDAO.class);
+		
+		PetDTO dto=new PetDTO();
+		dto.setPet_name(search);
+		List list= dao.searchList(dto);
+
+		mav.addObject("serchlist", list);
+		mav.setViewName("/reserve/reserveInsertForm2");
+		return mav;
+	}
+	
+	
+	/*private List<Integer> end_time(List<ReserveDTO> reserveDTOList){
 		final int INPUT_SIZE = reserveDTOList.size();
 		
 		int[] arr = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
 		
 		for(int i=0; i < INPUT_SIZE; i++){
 			for(int j = 0; j < arr.length; j++){
-				if((reserveDTOList.get(i).getReserve_end_time()<= arr[j]) && (reserveDTOList.get(i).getReserve_end_time() > arr[j])){
+				if((reserveDTOList.get(i).getReserve_start_time()<= arr[j]) && (reserveDTOList.get(i).getReserve_end_time() > arr[j])){
 					arr[j] = 0;
 				}
 			}
@@ -177,10 +241,17 @@ public class ReserveController {
 		List<Integer> output_list= new ArrayList<Integer>();
 		for(int i=0; i < arr.length; i++){
 			if(arr[i] != 0){
-				output_list.add(arr[i]);
+				output_list.add(arr[i]+1);
 			}
 		}
+		
+		for(int i = 0 ; i < output_list.size(); i++){
+			if(output_list.indexOf(i+1)-output_list.indexOf(i)>2){
+				
+			}
+			
+		}
 		return output_list;
-	}
+	}*/
 	
 }

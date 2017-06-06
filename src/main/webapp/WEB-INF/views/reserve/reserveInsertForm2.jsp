@@ -7,6 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function submitFunc(){
+		
+	}
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <script type="text/javascript">
@@ -16,26 +21,23 @@
 		$("#start_reselect").hide();
 		
 		//시작시간 선택 버튼 클릭하면
-		$("#start_select").click(function(){
+		 $("#start_select").click(function(){
 			
 			var test = $("#start_select option:selected").val();
-
+			alert(test);
 			//시작시간 선택 버튼 없애고
 			$("#start_select").hide();
 			
 			//끝시간 셀렉트박스&시작시간 다시선택 버튼 나타내고 시작시간 셀렉박스 비활성화
 			$("#end_time").show();
-			$("#start_reselect").show();
-			$("#start_time option").attr("disabled", "disabled");
 		});
 		
 		//시작 시간 다시선택 버튼 클릭하면
 		$("#start_reselect").click(function(){
 			//시작시간 셀렉박스 활성화&선택버튼 나타내고 다시선택버튼/끝시간 셀렉박스 또 없애기
-			$("#start_time option").attr("disabled", false);
+			
 			$("#start_select").show();
 			$("#end_time").hide();
-			$("#start_reselect").hide();
 		});		
 	});
 	
@@ -44,17 +46,66 @@
 </head>
 <body>
 
+	<!-- 헤더 파일 -->
+	<jsp:include page="../layout/header.jsp"/>
+	
+	<!-- 콘텐츠 -->
+
 <form action="reserveInsertPro.pet" method="post">
+
+<fieldset>
+	<legend>동물 정보</legend>
+	
+	<!-- 두번째 줄 -->
+			<div class="col-lg-9 text-center">
+			</div>
+			<div class="col-lg-3 text-center">
+				<div class="input-group">
+					<form action="search.pet" method="get">
+						<span class="input-group-btn">
+							<input class = "form-control" type="text" size="30" name="search" placeholder="이름으로 검색">
+							<button class="btn btn-custom" type="button">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</span>
+					</form>
+				</div>
+			</div>
+			
+			<div class="row">
+			<table width="100%" class="table table-stripedtable-hover" id="dataTables-example">
+				<thead>
+					<tr>
+						<th>동물 이름</th>
+						<th>동물 종류</th>
+						<th>동물 성별</th>
+						<th>전화번호</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${ serchlist }" var="list">
+					<tr class = "board-custom">
+						<td>${ list.pet_name }</td>
+						<td>${ list.pet_type }</td>
+						<td>${ list.pet_sex }</td>
+						<td>${ list.pet_phone }</td>
+					</tr>
+				</c:forEach>
+	 
+	<textarea name="reserve_contents"></textarea>
+
+</fieldset>
+
 <fieldset>
 	<legend>시간 선택</legend>
 	
-	<select id="start_time"  name="reserve_start_time" >
-		<c:forEach items="${available_list}" var="list" >
+	<select id="start_time"  name="reserve_start_time">
+		<c:forEach items="${available_list}" var="list">
 			<option value="${list}">${list}시</option>
 		</c:forEach>
 		
 	</select>
-	<input type="button" id="start_select" value="선택"> 
+	<input type="button" id="start_select" value="선택" onclick="click2()"> 
 	~
 	<select id="end_time" name="reserve_end_time" onchange="" >
 	
@@ -67,8 +118,7 @@
 
 <fieldset>
 	<legend>예약 내용</legend>
-	<!-- <input type="text" name = "reserve_contents">
- -->	 
+	 
 	<textarea name="reserve_contents"></textarea>
 
 </fieldset>
