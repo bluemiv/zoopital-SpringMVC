@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.pet.model.CalendarDTO;
 
 @Controller
 @RequestMapping("/calendar/")
@@ -28,6 +32,44 @@ public class CalendarController {
 	public String callback(){
 		System.out.println("callback 접근");
 		return "calendar/callback";
+	}
+	
+	@RequestMapping("calendarForm.pet")
+	public String calendarForm(){
+		System.out.println("calendarForm 접근");
+		return "calendar/calendarForm";
+	}
+	
+	@RequestMapping("calendarInsertForm.pet")
+	public String calendarInsertForm(String start, String end){
+		System.out.println("calendarInsertForm 접근");
+		System.out.println(start + end);
+		
+		return "calendar/calendarInsertForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping("calendarFormAjax.pet")
+	public List<CalendarDTO> calendarFormAjax() {
+		System.out.println("calendarFormAjax");
+		
+		// DB에서 모든 일정을 불러온다
+		List<CalendarDTO> data = new ArrayList<CalendarDTO>();
+		CalendarDTO data1 = new CalendarDTO();
+		data1.setReserve_code(1);
+		data1.setTitle("Long Event1");
+		data1.setStart("2017-06-01");
+		data1.setEnd("2017-06-03");
+		
+		CalendarDTO data2 = new CalendarDTO();
+		data2.setReserve_code(2);
+		data2.setTitle("Long Event2");
+		data2.setStart("2017-06-05 03:13:30");
+		data2.setEnd("2017-06-07 03:13:35");
+		
+		data.add(data1);
+		data.add(data2);
+		return data;
 	}
 	
 	@ResponseBody

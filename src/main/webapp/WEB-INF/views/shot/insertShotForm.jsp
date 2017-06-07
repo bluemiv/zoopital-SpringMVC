@@ -13,8 +13,8 @@
 	<input type="hidden" value="${ list.shot_cycle }" name="shot_cycle" >
 	<input type="hidden" value="${ list.pet_code }" name="pet_code" >
 	<input type="hidden" value="${ list.shot_petName }" name="shot_petName">
-	<input type="submit" value="확인">
 	</c:forEach>
+	<input type="submit" value="확인">
 	</form>
 </body>
 </html>
