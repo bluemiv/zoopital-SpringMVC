@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.CounterDAO;
 import com.pet.model.CounterDTO;
@@ -18,6 +20,8 @@ import com.pet.model.PetDTO;
 import com.pet.model.PetHistoryDAO;
 import com.pet.model.PetHistoryDTO;
 import com.pet.model.SalesLogDAO;
+import com.pet.model.ShotDAO;
+import com.pet.model.ShotDTO;
 
 @Controller
 @RequestMapping("/counter/")
@@ -108,7 +112,17 @@ public class CounterController {
 	public String payingEnd(HttpSession session, PetHistoryDTO petHistoryDTO) throws Exception{
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		SalesLogDAO salesLogDAO = sqlSession.getMapper(SalesLogDAO.class);
+		ShotDAO shotDAO=sqlSession.getMapper(ShotDAO.class);
+		
 		String store_code = (String)session.getAttribute("session_store_code");
+		
+		ShotDTO shotDTO=shotDAO.selectShot(petHistoryDTO.getPetaccept_code());
+	
+		
+		
+		insert_shotPro(shotDTO);
+		
+		System.out.println(shotDTO.toString());
 		SalesLogController sc = new SalesLogController();
 		String today = sc.checkSalesDB(store_code,salesLogDAO);
 		petHistoryDTO.setToday(today);
@@ -117,5 +131,51 @@ public class CounterController {
 		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());
 		return "redirect:payingList.pet";
 	}
+	
+
+	public void insert_shotPro(ShotDTO dto) throws Exception{
+		
+		System.out.println("insertShotPro 접근");
+		
+		System.out.println("insertShotPro: "+dto.toString());
+		//시간 계산
+		long time = System.currentTimeMillis();
+		Date shot_date = new Date(time);
+		System.out.println("shot_date: "+ shot_date);
+		
+		Date shot_must=calMustDate(shot_date, dto.getShot_cycle());
+		System.out.println("shot_must: "+ shot_must);
+		
+		dto.setShot_date(shot_date);
+		dto.setShot_must(shot_must);
+		
+		System.out.println(dto.toString());
+
+		
+		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
+		shotDAO.insertShot(dto);
+		
+	}
+	//날짜 더하기 계산
+	private Date calMustDate (Date startDate, int cycle) throws Exception {
+	       
+	       // java.sql.Date -> String 형변환
+	       String d1 = String.valueOf(startDate);
+	       
+	       int year_int = Integer.parseInt(d1.split("-")[0]);
+	       int month_int = Integer.parseInt(d1.split("-")[1]);
+	       int day_int = Integer.parseInt(d1.split("-")[2]);
+	       
+	       int cal_year_int = year_int;
+	       int cal_month_int = (month_int + cycle);
+	       if(cal_month_int > 12){
+	          cal_year_int++;
+	          cal_month_int -= 12;
+	       }
+	       String mustDate_str = String.valueOf(cal_year_int+"-"+cal_month_int+"-"+day_int);
+	       Date mustDate = Date.valueOf(mustDate_str);
+	       
+	       return mustDate;
+	    }
 }
 

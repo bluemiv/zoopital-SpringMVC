@@ -14,10 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.CounterDTO;
 import com.pet.model.ShotDAO;
 import com.pet.model.ShotDTO;
-
-import javafx.scene.input.DataFormat;
 
 @Controller
 @RequestMapping("/shot/")
@@ -75,13 +74,12 @@ public class ShotController {
 	}
 	
 	
-	@RequestMapping("insertShot.pet")
+	/*@RequestMapping("insertShot.pet")
 	public ModelAndView insert_shot(ShotDTO dto, HttpSession session){
 		ModelAndView mav= new ModelAndView();
-		
 		String store_code = (String) session.getAttribute("session_store_code");
-		dto.setPet_code(4);
-		System.out.println(dto.toString());
+	
+		System.out.println("dto: "+dto.toString());
 		
 		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
 		List list= shotDAO.selectShot(store_code);
@@ -138,5 +136,5 @@ public class ShotController {
 	       Date mustDate = Date.valueOf(mustDate_str);
 	       
 	       return mustDate;
-	    }
+	    }*/
 }
