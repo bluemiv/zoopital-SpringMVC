@@ -10,35 +10,65 @@
 <title>Insert title here</title>
 <link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
+		<script type="text/javascript">
 		$(function() {
-			$("#reserve_date").on("change", function() {
-				$.ajax({ // Ajax 요청을 작성하고 POST 방식으로 전송함.
-					url : "available_timeSearchAjax.pet",
-					method : 'POST',
+			$("#start_select").click(function() {
+				$.ajax({
+					url : "end_timeSearchAjax.pet",
+					method : 'post',
 					type : 'json',
-					contentType: "application/json",
 					data : {
-						date : $(this).val(),
-						emp_name : $("#emp_name option:selected").val()
+						reserve_start_time : $("#start_time").val()
 					},
-					success : function(result) {
-						alert("성공?"+result);
-						var contents = '';
-						for (var i = 0; i < result.length; i++) {
-							contents = contents + result[i] + "<br>";
+					success : function(test) {
+						$('#end_time option').remove();
+						for(var i=0; i< test.length; i++){
+							var option = $("<option>"+test[i]+"</option>");
+			                $('#end_time').append(option);
 						}
-						$("#available_time").html(contents);
 					},
 					error : function(result, status, er) {
-						alert("실패?"+result + status + er);
-						$("#available_time").text(er);
+						alert("error : " + result + "/" + status + "/" + er);
 					}
-				}); // Ajax 응답을 정상적으로 받으면 실행됨.
+				});
 			});
 		});
 	</script>
+	<script type="text/javascript">
+		$(function(){
+			$("#end_time").hide();		
+			$("#start_reselect").hide();
+			$("#start_time_result").hide();
+			
+			//시작시간 선택 버튼 클릭하면
+			 $("#start_select").click(function(){
+				var test = $("#start_select option:selected").val();
 
+				//끝시간 셀렉트박스
+				$("#end_time").show();
+				$("#start_reselect").show();
+				
+				//시작시간 선택 버튼 없앰
+				$("#start_select").hide();
+				$("#start_time").hide();
+				$("#start_time_result").show();
+				$("#start_time_result").val($("#start_time").val());
+			 });
+			
+			//시작 시간 다시선택 버튼 클릭하면
+			$("#start_reselect").click(function(){
+				
+				// 시작시간 셀렉박스 활성화
+				$("#start_select").show();
+				$("#start_time").show();
+				
+				// 다시선택버튼, 끝시간 셀렉박스 없애기
+				$("#end_time").hide();
+				$("#start_reselect").hide();
+				$("#start_time_result").hide();
+			});		
+		});
+	</script>
 <script type="text/javascript">
 function change(){
 	alert("바뀜");
@@ -73,37 +103,51 @@ function change(){
 							<input type="text" value="${ reservation.pet_phone }" class="form-control" readonly="readonly">
 						</div>
 					</div>
-					
-					 <div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="name">담당 직원: ${reservation.emp_name }</label>
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">담당 직원:</label>
 							<select id="emp_name" class="form-control" name = "emp_name">
-								<option value = "${reservation.emp_name}" selected="selected">${reservation.emp_name}</option>
-								
 								<c:forEach items="${empList }" var="empList">
-					 					<option value = ${empList.emp_name }>${empList.emp_name }</option>
+									<c:if test="${reservation.emp_name == empList.emp_name}">
+					 				<option value = ${empList.emp_name } selected="selected">${empList.emp_name }</option>
+					 				</c:if>
+					 				<c:if test="${reservation.emp_name != empList.emp_name}">
+					 				<option value = ${empList.emp_name }>${empList.emp_name }</option>
+					 				</c:if>
 						 		</c:forEach>
 							</select>
-					</div>
-					<div class="row control-group">
+						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">날짜</label>
 							<input type="date" value="${reservation.reserve_date }" class="form-control" 
 							id = "reserve_date" name="reserve_date">
 						</div>
-						
 					</div>
 					
 					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
-							<label for="name">시간</label>
-							<div id ="available_time"></div>
-							<%-- <select id="available_time" name="reserve_start_time">
-								<option value=""></option>
-							</select> --%>
-							<select name="reserve_end_time">
-								<option value=""></option>
-							</select>
-							<p class="help-block text-danger"></p>
+						<div class="form-group col-xs-5 floating-label-form-group controls board-custom">
+							<label for="name">시간 설정</label>
+							<div class = "form-inline">
+								<select id="start_time"  name="reserve_start_time" class = "form-control">
+									<c:forEach begin="9" end="18" var="list">
+										<option value="${list}">${list}시</option>
+									</c:forEach>
+								</select>
+								<input type="text" id="start_time_result" class="form-control" readonly="readonly"/>
+								<input type="button" id="start_select" value="선택" onclick="click2()" class = "btn btn-custom btn-md">
+							</div>
+						</div>
+						<div class="form-group col-xs-2 floating-label-form-group controls board-custom"> 
+							<br>
+							<label for="name">~</label>
+						</div>
+						<div class="form-group col-xs-5 floating-label-form-group controls board-custom form-inline">
+							<br>
+							<div class = "form-inline">
+								<select id="end_time" name="reserve_end_time" class = "form-control">
+								</select>
+								<input type="button" id="start_reselect" value="시작시간 다시 선택" class = "btn btn-custom btn-md">
+							</div>
 						</div>
 					</div>
 	
@@ -111,12 +155,11 @@ function change(){
 						<div
 							class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="message">진료 예약 내용</label>
-							<textarea rows="5" class="form-control" >${reservation.reserve_contents }</textarea>
+							<textarea rows="5" name ="reserve_contents" class="form-control" >${reservation.reserve_contents }</textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
 					<br>
-					<div id="success"></div>
 					<div class="row">
 						<div class="form-group col-xs-12">
 							<input type="hidden" value="${reservation.reserve_code }" name="reserve_code">

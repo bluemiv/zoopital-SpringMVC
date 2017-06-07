@@ -95,4 +95,10 @@ public class HomeController {
 		return list;
 	}
 	
+	// 클라이언트 웹 화면
+	@RequestMapping("/webHome.pet")
+	public String webHome() throws Exception{
+		System.out.println("webHome 접근");
+		return "webHome";
+	}
 }
