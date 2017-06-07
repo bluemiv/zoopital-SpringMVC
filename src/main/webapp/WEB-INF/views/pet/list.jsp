@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>동물 리스트</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->

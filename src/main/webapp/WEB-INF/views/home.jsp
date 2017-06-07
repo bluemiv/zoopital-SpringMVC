@@ -93,6 +93,7 @@
 	<br>
 	<button onclick="location='shot/shotList.pet'">이번달 맞아야할 강아지</button>
 	<button onclick="location='shot/insertShot.pet'">주사insert</button>
+	<button onclick="location='client/member/kakaoLoginForm.pet'">카카오 로그인</button>
 	
 	<div class="container">
 		<div class = "row">
