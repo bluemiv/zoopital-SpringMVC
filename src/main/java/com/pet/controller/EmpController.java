@@ -66,7 +66,7 @@ public class EmpController {
 		System.out.println("empUpdateDeleteForm 컨트롤러 진입");
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		
-		// 직원 세부 저보 가져옴
+		// 직원 세부 정보 가져옴
 		EmpDTO selectEmp = EmpDAO.selectEmpList(dto);
 		
 		model.addAttribute("selectEmp",selectEmp);
@@ -96,6 +96,8 @@ public class EmpController {
 	@RequestMapping("/idConfirmAjax.pet")
 	public boolean idConfirmAjax(@RequestBody EmpDTO empDTO){
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		System.out.println(empDTO.getEmp_code());
+
 		
 		boolean check = false;
 		try {

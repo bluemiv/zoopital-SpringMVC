@@ -72,11 +72,17 @@ create table reserve (
   emp_name varchar2(500),
   reserve_contents varchar2(4000),
   store_code varchar2(500),
-  reserve_status varchar2(500) --reserved는 예약완료, visited는 방문완료, notvisited는 미방문
+  reserve_status varchar2(500) --Reserved는 예약완료, Visited는 방문완료, NotVisited는 미방문
   );
   drop sequence reserve_seq;
   create SEQUENCE reserve_seq;
   commit;
+  
+  alter table reserve
+  add (pet_code number);
+  
+  select* from pet;
+  desc pet;
   
   select * from reserve
   		where store_code = 'pankyo'
@@ -85,3 +91,48 @@ create table reserve (
   		, reserve_start_time;
       
   select * from reserve;
+  
+  update reserve
+  set pet_code=1
+  where emp_name='김지호';
+  
+  commit;
+  desc reserve;
+  
+  select * from reserve
+  		where store_code = 'pankyo'
+  		and reserve_status = 'Visited'
+  		or reserve_status = 'NotVisited'
+  		order by reserve_date
+  		, reserve_start_time;
+      
+      select * from reserve, pet 
+ 			where reserve.store_code = 'pankyo'
+  				and reserve.reserve_status = 'Visited'
+  				and reserve.pet_code = pet.pet_code
+  			order by reserve_date,
+				 reserve_start_time;
+         
+         	select * from reserve, pet
+ 			where reserve.store_code = 'pankyo'
+  				and reserve.reserve_status = 'Visited'
+  				and reserve.pet_code = pet.pet_code
+  			order by reserve.reserve_date,
+				 reserve.reserve_start_time;
+         
+         
+         
+         select * from reserve, pet    
+         where reserve.store_code = 'pankyo'   
+         
+         and reserve.reserve_status = 'Visited'    
+         and reserve.pet_code = pet.pet_code  
+         order by reserve.reserve_date,    
+         reserve.reserve_start_time;
+
+
+update reserve
+set reserve_status='Reserved'
+where reserve_status = 'NotVisited';
+
+commit;

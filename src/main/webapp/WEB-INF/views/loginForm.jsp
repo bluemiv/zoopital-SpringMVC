@@ -15,6 +15,7 @@
 		<jsp:include page="layout/header.jsp"/>
 		
 		<!-- 컨텐츠 -->
+		<button onclick="location='join/joinForm.pet'">클라이언트 회원가입하기</button>
 		<div class="text-vertical-center">
 			<h1>동물병원</h1>
 			<h3>관리자 로그인 바랍니다</h3>
