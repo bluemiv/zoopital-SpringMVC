@@ -4,12 +4,10 @@ import java.sql.Date;
 
 public class ClientDTO {
 	
-	//11개 값
+	//10개 값
 	private String client_id;
 	private String client_pw;
 	private String client_name;
-	private String Client_nickname;
-	private int client_age;
 	private String client_tel;
 	private String client_email;
 	private Date client_join_date;
@@ -36,23 +34,17 @@ public class ClientDTO {
 	public void setClient_name(String client_name) {
 		this.client_name = client_name;
 	}
-	public String getClient_nickname() {
-		return Client_nickname;
-	}
-	public void setClient_nickname(String client_nickname) {
-		Client_nickname = client_nickname;
-	}
-	public int getClient_age() {
-		return client_age;
-	}
-	public void setClient_age(int client_age) {
-		this.client_age = client_age;
-	}
 	public String getClient_tel() {
 		return client_tel;
 	}
 	public void setClient_tel(String client_tel) {
 		this.client_tel = client_tel;
+	}
+	public String getClient_email() {
+		return client_email;
+	}
+	public void setClient_email(String client_email) {
+		this.client_email = client_email;
 	}
 	public Date getClient_join_date() {
 		return client_join_date;
@@ -83,21 +75,15 @@ public class ClientDTO {
 	}
 	public void setClient_postcode(String client_postcode) {
 		this.client_postcode = client_postcode;
-	}	
-	public String getClient_email() {
-		return client_email;
 	}
-	public void setClient_email(String client_email) {
-		this.client_email = client_email;
-	}
-	
 	@Override
 	public String toString() {
 		return "ClientDTO [client_id=" + client_id + ", client_pw=" + client_pw + ", client_name=" + client_name
-				+ ", Client_nickname=" + Client_nickname + ", client_age=" + client_age + ", client_tel=" + client_tel
-				+ ", client_email=" + client_email + ", client_join_date=" + client_join_date + ", client_enabled="
-				+ client_enabled + ", client_add=" + client_add + ", client_add_detail=" + client_add_detail
-				+ ", client_postcode=" + client_postcode + "]";
+				+ ", client_tel=" + client_tel + ", client_email=" + client_email + ", client_join_date="
+				+ client_join_date + ", client_enabled=" + client_enabled + ", client_add=" + client_add
+				+ ", client_add_detail=" + client_add_detail + ", client_postcode=" + client_postcode + "]";
 	}
-
+	
+	
+	
 }

@@ -1,6 +1,6 @@
 package com.pet.client.controller;
 
-import java.util.StringTokenizer;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,50 +10,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.client.model.ClientDAO;
 import com.pet.client.model.ClientDTO;
-import com.pet.client.model.JoinDAO;
 
 @Controller
-@RequestMapping("/join/")
+@RequestMapping("/client/")
 
-public class JoinController {
+public class ClientController {
 	
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping("joinForm.pet")
+	@RequestMapping("clientJoinForm.pet")
 	public String joinForm(ClientDTO dto, Model model){
 		
 		return "/client/join/joinForm";
 	}
 	
-	@RequestMapping("joinPro.pet")
+	@RequestMapping("clientJoinPro.pet")
 	public String joinPro(ClientDTO dto, Model model){
 		
-		JoinDAO joinDAO = sqlSession.getMapper(JoinDAO.class);
+		ClientDAO joinDAO = sqlSession.getMapper(ClientDAO.class);
 		System.out.println(dto.toString());
 		joinDAO.insertClient(dto);
 
-		return "redirect:../../home.pet";
+		return "redirect:clientJoinForm.pet";
 	}
 	
 	
-	///////////////////Ajax////////////////////////////////////////
+	//////////////////////////Ajax////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("/clientIdConfirmAjax.pet")
 	public boolean clientIdConfirmAjax(@RequestBody ClientDTO clientDTO){
 		
-		
 		System.out.println("Ajax실행");
 		System.out.println(clientDTO.getClient_id());
 		
-		JoinDAO joinDAO = sqlSession.getMapper(JoinDAO.class);
+		ClientDAO joinDAO = sqlSession.getMapper(ClientDAO.class);
 		
 		boolean check = false;
 		
 		try {
-			ClientDTO result_clientDTO = joinDAO.selectClientList(clientDTO);
-			if(result_clientDTO.getClient_id() != null){
+			List<ClientDTO> result = joinDAO.selectClient(clientDTO);
+			System.out.println("----------------");
+			System.out.println(result);
+			System.out.println("----------------");
+		
+			if(result != null){
 				// 아이디가 존재함(사용 불가능)
 				check = false;
 			}

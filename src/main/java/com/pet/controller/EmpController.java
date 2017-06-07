@@ -96,7 +96,6 @@ public class EmpController {
 	@RequestMapping("/idConfirmAjax.pet")
 	public boolean idConfirmAjax(@RequestBody EmpDTO empDTO){
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
-		System.out.println(empDTO.getEmp_code());
 
 		
 		boolean check = false;

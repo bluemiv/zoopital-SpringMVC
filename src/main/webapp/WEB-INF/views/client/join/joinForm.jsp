@@ -30,7 +30,7 @@
 			/* 아이디 중복체크 Ajax */
 			$("#id_check").click(function() {
 				var dataForm = {
-						client_id : $("#client_id").val()
+					client_id: $("#client_id").val()
 				};
 				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
 					url : "clientIdConfirmAjax.pet",
@@ -79,11 +79,11 @@
 		<!-- 둘째 줄 -->
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2">
-					<form action="joinPro.pet" method="post">
+					<form action="clientJoinPro.pet" method="post">
 						<div class="row control-group">
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 								<label for="name">ID</label>
-								<input class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">
+								<input id = "client_id" class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">						
 							</div>
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<br>
@@ -154,7 +154,6 @@
 			</div>
 		</div>
 		
-
 <!-- 푸터 파일 -->
 <jsp:include page="../../layout/footer.jsp"/>
 
