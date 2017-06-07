@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,9 +24,12 @@
 			<!-- 두번째 줄 -->
 			<div class="col-lg-10 text-center">
 			</div>
+			
+			<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')">
 			<div class="col-lg-2 text-center">
 				<button class = "btn btn-custom btn-md" onclick="location='empInsertForm.pet'">직원추가</button>
 			</div>
+			</se:authorize>
 		</div>
 		
 		<div class="row">

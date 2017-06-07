@@ -57,7 +57,6 @@ public class ReserveController {
 		@RequestMapping("/reserveDeletePro.pet")
 		public String reserveDeletePro(ReserveDTO dto, HttpSession session){
 			System.out.println("reserveDeletePro 컨트롤러 진입");
-			System.out.println(dto.getReserve_code());
 			
 			ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 			reserveDAO.deleteReserve(dto.getReserve_code());
@@ -69,7 +68,6 @@ public class ReserveController {
 		@RequestMapping("/dateSelectedList.pet")
 		public String dateSelectedList(ReserveDTO reserveDTO,HttpSession session, Model model){
 			System.out.println("날짜선택 리스트 컨트롤러 진입");
-			System.out.println(reserveDTO.getReserve_date());
 			reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
 			
 			ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
@@ -103,7 +101,6 @@ public class ReserveController {
 		model.addAttribute("empList", empList);
 		model.addAttribute("petInfo", petDTO);
 		
-//		return "/reserve/reserveInsertForm";
 		return "/reserve/reserveCalendarForm";
 	}
 	
@@ -141,9 +138,6 @@ public class ReserveController {
 	@RequestMapping("/reserveInsertPro.pet")
 	public String reserveInsertPro(ReserveDTO dto, HttpSession session){
 		System.out.println("reserveInsertPro 컨트롤러 진입");
-		System.out.println(dto.getReserve_start_time());
-		System.out.println(dto.getReserve_end_time());
-		
 		
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 
@@ -164,7 +158,6 @@ public class ReserveController {
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 		
 		if (request.getParameter("visited") != null) {
-			System.out.println(request.getParameter("visited"));
 			String reserve_code = request.getParameter("visited");
 			reserveDAO.changeStatusVisited(reserve_code);
 		}
@@ -209,8 +202,6 @@ public class ReserveController {
 		
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
 		dto = reserveDAO.getReserveInfo(dto);
-		System.out.println(dto.toString());
-//		dto.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		//직원 변경 위해 해당 지점 직원 모두 불러와서 드롭박스에 띄워줘야 함
 		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
@@ -224,7 +215,6 @@ public class ReserveController {
 		//해당 일에 가능한 시간만 리스트형태로 저장해서 넘기기
 		List available_list = time(reservedList);
 
-		
 		model.addAttribute("reservation", dto);
 		model.addAttribute("empList", empList);
 		model.addAttribute("available_list", available_list);

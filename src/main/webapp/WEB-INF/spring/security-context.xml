@@ -17,6 +17,8 @@
 		<security:intercept-url pattern="/home.pet" access="hasAnyRole('ROLE_PART', 'ROLE_FULL', 'ROLE_SUPER_PART','ROLE_SUPER_FULL')" />
 		<security:intercept-url pattern="/medicament/**" access="hasAnyRole('ROLE_PART', 'ROLE_FULL', 'ROLE_SUPER_PART','ROLE_SUPER_FULL')" />
 		<security:intercept-url pattern="/store/**" access="hasRole('ROLE_SUPER_FULL')" />
+		<security:intercept-url pattern="/notice/noticeWriteForm.pet" access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')" />
+		<security:intercept-url pattern="/emp/empInsertForm.pet" access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')" />
 		
 		<security:logout logout-success-url="/loginForm.pet" logout-url="/j_spring_security_logout"/>
 	</security:http>

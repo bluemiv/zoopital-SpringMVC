@@ -36,9 +36,11 @@
 					</form>
 				</div>
 			</div>
+			<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')">
 			<div class="col-lg-2 text-center">
 				<button onclick = "location='noticeWriteForm.pet'" class="btn btn-md btn-custom">글 쓰기</button>
 			</div>
+			</se:authorize>
 		</div>
 		
 		<div class="row">

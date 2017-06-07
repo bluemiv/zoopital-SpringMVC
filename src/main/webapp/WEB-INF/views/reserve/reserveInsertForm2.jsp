@@ -21,6 +21,7 @@
 						reserve_start_time : $("#start_time").val()
 					},
 					success : function(test) {
+						$('#end_time option').remove();
 						for(var i=0; i< test.length; i++){
 							var option = $("<option>"+test[i]+"</option>");
 			                $('#end_time').append(option);
@@ -37,6 +38,7 @@
 		$(function(){
 			$("#end_time").hide();		
 			$("#start_reselect").hide();
+			$("#start_time_result").hide();
 			
 			//시작시간 선택 버튼 클릭하면
 			 $("#start_select").click(function(){
@@ -48,7 +50,9 @@
 				
 				//시작시간 선택 버튼 없앰
 				$("#start_select").hide();
-				$("#start_time").attr('disabled', 'true');
+				$("#start_time").hide();
+				$("#start_time_result").show();
+				$("#start_time_result").val($("#start_time").val());
 			 });
 			
 			//시작 시간 다시선택 버튼 클릭하면
@@ -56,11 +60,12 @@
 				
 				// 시작시간 셀렉박스 활성화
 				$("#start_select").show();
+				$("#start_time").show();
 				
 				// 다시선택버튼, 끝시간 셀렉박스 없애기
 				$("#end_time").hide();
 				$("#start_reselect").hide();
-				$("#start_time").removeAttr('disabled'); 
+				$("#start_time_result").hide();
 			});		
 		});
 	</script>
@@ -105,6 +110,7 @@
 										<option value="${list}">${list}시</option>
 									</c:forEach>
 								</select>
+								<input type="text" id="start_time_result" class="form-control" readonly="readonly"/>
 								<input type="button" id="start_select" value="선택" onclick="click2()" class = "btn btn-custom btn-md">
 							</div>
 						</div>
