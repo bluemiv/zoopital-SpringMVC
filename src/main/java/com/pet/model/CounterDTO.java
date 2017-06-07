@@ -12,11 +12,15 @@ public class CounterDTO {
 	private Timestamp petaccept_date;
 	private String petaccept_coments;
 	private String store_code; //세션값 받기 위해서
+	private int treat_cost; //진료비 받아오기
+	private String petaccept_view;
 	//join문에 활용 하기 위한 dto
 	private int waiting_num;
 	private String pet_name;
 	private String pet_type;
 	private String pet_sex;
+	private Timestamp pethistory_today;
+	private int pethistory_key;
 	private int pet_age;
 	private int m_total_cost;
 	
@@ -85,6 +89,30 @@ public class CounterDTO {
 	}
 	public void setM_total_cost(int m_total_cost) {
 		this.m_total_cost = m_total_cost;
+	}
+	public int getTreat_cost() {
+		return treat_cost;
+	}
+	public void setTreat_cost(int treat_cost) {
+		this.treat_cost = treat_cost;
+	}
+	public String getPetaccept_view() {
+		return petaccept_view;
+	}
+	public void setPetaccept_view(String petaccept_view) {
+		this.petaccept_view = petaccept_view;
+	}
+	public Timestamp getPethistory_today() {
+		return pethistory_today;
+	}
+	public void setPethistory_today(Timestamp pethistory_today) {
+		this.pethistory_today = pethistory_today;
+	}
+	public int getPethistory_key() {
+		return pethistory_key;
+	}
+	public void setPethistory_key(int pethistory_key) {
+		this.pethistory_key = pethistory_key;
 	}
 	
 	

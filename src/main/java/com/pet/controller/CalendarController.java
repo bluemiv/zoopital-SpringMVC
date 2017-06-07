@@ -6,22 +6,30 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.CalendarDTO;
+import com.pet.model.ReserveDAO;
+import com.pet.model.ReserveDTO;
 
 @Controller
 @RequestMapping("/calendar/")
 public class CalendarController {
   
+	@Autowired
+	SqlSession sqlSession;
+	
 	@RequestMapping("naverLoginForm.pet")
 	public String naverLoginForm(){
 		System.out.println("naverLoginForm 접근");
@@ -40,36 +48,28 @@ public class CalendarController {
 		return "calendar/calendarForm";
 	}
 	
-	@RequestMapping("calendarInsertForm.pet")
-	public String calendarInsertForm(String start, String end){
-		System.out.println("calendarInsertForm 접근");
-		System.out.println(start + end);
-		
-		return "calendar/calendarInsertForm";
-	}
-	
 	@ResponseBody
 	@RequestMapping("calendarFormAjax.pet")
-	public List<CalendarDTO> calendarFormAjax() {
+	public List<ReserveDTO> calendarFormAjax(HttpSession session) throws Exception {
 		System.out.println("calendarFormAjax");
-		
+
 		// DB에서 모든 일정을 불러온다
-		List<CalendarDTO> data = new ArrayList<CalendarDTO>();
-		CalendarDTO data1 = new CalendarDTO();
-		data1.setReserve_code(1);
-		data1.setTitle("Long Event1");
-		data1.setStart("2017-06-01");
-		data1.setEnd("2017-06-03");
+		ReserveDTO reserveDTO = new ReserveDTO();
+		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		List<ReserveDTO> passReservationList = reserveDAO.reservationListAll(reserveDTO);
 		
-		CalendarDTO data2 = new CalendarDTO();
-		data2.setReserve_code(2);
-		data2.setTitle("Long Event2");
-		data2.setStart("2017-06-05 03:13:30");
-		data2.setEnd("2017-06-07 03:13:35");
+		// 시작 시간, 시작 날짜 가져오기
+		for(int i=0; i < passReservationList.size(); i++){
+			String start = String.valueOf(passReservationList.get(i).getReserve_date()) + " " + passReservationList.get(i).getReserve_start_time() + ":00:00";
+			String end = String.valueOf(passReservationList.get(i).getReserve_date()) + " " + passReservationList.get(i).getReserve_end_time() + ":00:00";
+			passReservationList.get(i).setStart(start);
+			passReservationList.get(i).setEnd(end);
+			System.out.println(passReservationList.get(i).getStart());
+			System.out.println(passReservationList.get(i).getEnd());
+		}
 		
-		data.add(data1);
-		data.add(data2);
-		return data;
+		return passReservationList;
 	}
 	
 	@ResponseBody

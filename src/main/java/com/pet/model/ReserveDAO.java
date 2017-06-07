@@ -33,5 +33,8 @@ public interface ReserveDAO {
 	
 	//예약 수정
 	public void updateReserve(ReserveDTO dto);
+
+	// 전체 리스트 가져옴
+	public List<ReserveDTO> reservationListAll(ReserveDTO reserveDTO) throws Exception;
 	
 }

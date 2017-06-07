@@ -47,8 +47,6 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
-					<c:url value="/calendar/calendarForm.pet" var = "calendarForm"></c:url>
-					<li><a href="${calendarForm}">예약현황</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">접수 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -56,6 +54,8 @@
 							<li><a href="${counterList }">진료 접수</a></li>
 							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
 							<li><a href="${counterWaiting}">대기 명단</a></li>
+							<c:url value="/counter/payingList.pet" var = "payingView"></c:url>
+							<li><a href="${payingView}">수납</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -63,8 +63,8 @@
 						<ul class="dropdown-menu">
 							<c:url value="/history/treatList.pet" var = "treatList"></c:url>
 							<li><a href="${treatList }">진료 보기</a></li>
-							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
-							<li><a href="${counterWaiting}">처방전</a></li>
+							<c:url value="/history/selectallhistory.pet" var = "selectAll"></c:url>
+							<li><a href="${selectAll}">처방전</a></li>
 						</ul>
 					</li>
 					<c:url value="/medicament/medicamentListForm.pet" var = "medicamentListForm"></c:url>
@@ -73,8 +73,17 @@
 					<li><a href="${orderInfoForm}">발주</a></li>
 					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
 					<li><a href="${empListForm}">직원</a></li>
-					<c:url value="/reserve/reserveListForm.pet" var = "reserveListForm"></c:url>
-					<li><a href="${reserveListForm}">예약관리</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">예약관리 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/reserve/reserveListForm.pet" var = "reserveListForm"></c:url>
+							<li><a href="${reserveListForm}">예약 내역</a></li>
+							<c:url value="/calendar/calendarForm.pet" var = "calendarForm"></c:url>
+							<li><a href="${calendarForm}">달력</a></li>
+							<c:url value="/reserve/passReservationList.pet" var = "passReservationList"></c:url>
+							<li><a href="${passReservationList}">지난예약내역</a></li>
+						</ul>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">동물 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -95,6 +104,15 @@
 						</ul>
 					</li>
 					</se:authorize>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">매출현황 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/saleslog/dailylog.pet" var = "dailylog"></c:url>
+							<li><a href="${dailylog}">일일매출</a></li>
+							<c:url value="/saleslog/logchart.pet" var = "logchart"></c:url>
+							<li><a href="${logchart}">매출차트</a></li>
+						</ul>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

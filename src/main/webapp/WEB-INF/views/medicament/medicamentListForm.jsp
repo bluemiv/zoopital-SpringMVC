@@ -9,30 +9,6 @@
 <title>약품 리스트</title>
 	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$("#search_box").keyup(function() {
-				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-					url : "medicamentSearchAjax.pet",
-					method : 'POST',
-					type : 'json',
-					data : {
-						search : $(this).val()
-					},
-					success : function(result) {
-						var contents = '';
-						for (var i = 0; i < result.length; i++) {
-							contents = contents + result[i] + "<br>";
-						}
-						$("#search_display").html(contents);
-					},
-					error : function(result, status, er) {
-						$("#search_display").text(er);
-					}
-				}); // Ajax 응답을 정상적으로 받으면 실행됨.
-			});
-		});
-	</script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -58,7 +34,6 @@
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
 						</span>
-						<div id="search_display"></div>
 					</form>
 				</div>
 			</div>

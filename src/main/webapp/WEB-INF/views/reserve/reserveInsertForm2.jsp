@@ -5,69 +5,70 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<script type="text/javascript">
 		$(function() {
-			$("#start_time").on("change", function() {
-				alert("start_time : "+$(this).val());
-				
-				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+			$("#start_select").click(function() {
+				$.ajax({
 					url : "end_timeSearchAjax.pet",
-					method : 'GET',
+					method : 'post',
 					type : 'json',
 					data : {
-						reserve_start_time: $(this).val()
+						reserve_start_time : $("#start_time").val()
 					},
 					success : function(test) {
-						alert("성공?"+test);
-						
-						$("#available_time").html(test[0]);
+						$('#end_time option').remove();
+						for(var i=0; i< test.length; i++){
+							var option = $("<option>"+test[i]+"</option>");
+			                $('#end_time').append(option);
+						}
 					},
 					error : function(result, status, er) {
-						alert("실패?"+result);
-						$("#available_time").text(er);
+						alert("error : " + result + "/" + status + "/" + er);
 					}
-				}); // Ajax 응답을 정상적으로 받으면 실행됨.
+				});
 			});
 		});
 	</script>
-
-
-<script type="text/javascript">
-
-	$(function(){
-		$("#end_time").hide();		
-		$("#start_reselect").hide();
-		
-		//시작시간 선택 버튼 클릭하면
-		 $("#start_select").click(function(){
+	<script type="text/javascript">
+		$(function(){
+			$("#end_time").hide();		
+			$("#start_reselect").hide();
+			$("#start_time_result").hide();
 			
-			var test = $("#start_select option:selected").val();
-			alert(test);
-			//시작시간 선택 버튼 없애고
-			$("#start_select").hide();
-			
-			//끝시간 셀렉트박스&시작시간 다시선택 버튼 나타내고 시작시간 셀렉박스 비활성화
-			$("#end_time").show();
-			
-		
-		 });
-		
-		//시작 시간 다시선택 버튼 클릭하면
-		$("#start_reselect").click(function(){
-			//시작시간 셀렉박스 활성화&선택버튼 나타내고 다시선택버튼/끝시간 셀렉박스 또 없애기
-			
-			$("#start_select").show();
-			$("#end_time").hide();
-		});		
-	});
-	
-</script>
+			//시작시간 선택 버튼 클릭하면
+			 $("#start_select").click(function(){
+				var test = $("#start_select option:selected").val();
 
+				//끝시간 셀렉트박스
+				$("#end_time").show();
+				$("#start_reselect").show();
+				
+				//시작시간 선택 버튼 없앰
+				$("#start_select").hide();
+				$("#start_time").hide();
+				$("#start_time_result").show();
+				$("#start_time_result").val($("#start_time").val());
+			 });
+			
+			//시작 시간 다시선택 버튼 클릭하면
+			$("#start_reselect").click(function(){
+				
+				// 시작시간 셀렉박스 활성화
+				$("#start_select").show();
+				$("#start_time").show();
+				
+				// 다시선택버튼, 끝시간 셀렉박스 없애기
+				$("#end_time").hide();
+				$("#start_reselect").hide();
+				$("#start_time_result").hide();
+			});		
+		});
+	</script>
 </head>
 <body>
 
@@ -75,50 +76,80 @@
 	<jsp:include page="../layout/header.jsp"/>
 	
 	<!-- 콘텐츠 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2>동물 등록</h2>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form action="reserveInsertPro.pet" method="post">
+					<input type="hidden" name="reserve_date" value="${reserve_date}">
+					<input type="hidden" name="emp_name" value="${emp_name}">
+					<input type="hidden" name="pet_code" value="${petInfo.pet_code}">
+					<input type="hidden" name="pet_phone" value="${petInfo.pet_phone}">
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">동물 이름</label>
+							<input class="form-control" type="text" readonly="readonly" value="${petInfo.pet_name}">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">보호자 연락처</label>
+							<input class="form-control" type="text" readonly="readonly" value="${petInfo.pet_phone}">
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-5 floating-label-form-group controls board-custom">
+							<label for="name">시간 설정</label>
+							<div class = "form-inline">
+								<select id="start_time"  name="reserve_start_time" class = "form-control">
+									<c:forEach items="${available_list}" var="list">
+										<option value="${list}">${list}시</option>
+									</c:forEach>
+								</select>
+								<input type="text" id="start_time_result" class="form-control" readonly="readonly"/>
+								<input type="button" id="start_select" value="선택" onclick="click2()" class = "btn btn-custom btn-md">
+							</div>
+						</div>
+						<div class="form-group col-xs-2 floating-label-form-group controls board-custom"> 
+							<br>
+							<label for="name">~</label>
+						</div>
+						<div class="form-group col-xs-5 floating-label-form-group controls board-custom form-inline">
+							<br>
+							<div class = "form-inline">
+								<select id="end_time" name="reserve_end_time" class = "form-control">
+								</select>
+								<input type="button" id="start_reselect" value="시작시간 다시 선택" class = "btn btn-custom btn-md">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row control-group">
+						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+							<label for="name">예약 내용</label>
+							<textarea class="form-control" name="reserve_contents"></textarea>
+						</div>
+					</div>
+					
+					<br>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<input class = "btn btn-custom btn-md" type="submit" value="등록">
+							<input class = "btn btn-custom btn-md" type="reset" value="다시쓰기">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-
-<form action="reserveInsertPro.pet" method="post">
-
-<h3>동물 이름: ${petInfo.pet_name}</h3>
-<br>
-보호자 연락처: ${petInfo.pet_phone}
-<br><br>
-
-<fieldset>
-	<legend>시간 선택</legend>
 	
-	<select id="start_time"  name="reserve_start_time">
-		<c:forEach items="${available_list}" var="list">
-			<option value="${list}">${list}시</option>
-		</c:forEach>
-		
-	</select>
-	<input type="button" id="start_select" value="선택" onclick="click2()"> 
-	~
-	<select id="end_time" name="reserve_end_time" onchange="" >
+	<!-- 푸터 파일 -->
+	<jsp:include page="../layout/footer.jsp"/>
 	
-	<div id="available_time"></div>
-		<c:forEach var="num" begin="10" end="19" step="1">
-			<option value="${num}">${num}시</option>
-		</c:forEach>
-	</select>
-	<input type="button" id="start_reselect" value="시작시간 다시 선택"> 
-</fieldset>
-
-<fieldset>
-	<legend>예약 내용</legend>
-	 
-	<textarea name="reserve_contents"></textarea>
-
-</fieldset>
-	
-	<input type="hidden" name="reserve_date" value="${reserve_date}">
-	<input type="hidden" name="emp_name" value="${emp_name}">
-	<input type="hidden" name="pet_code" value="${petInfo.pet_code}">
-	<input type="hidden" name="pet_phone" value="${petInfo.pet_phone}">
-	<input type="submit" value="예약 추가">
-	
-</form>
-
 </body>
 </html>

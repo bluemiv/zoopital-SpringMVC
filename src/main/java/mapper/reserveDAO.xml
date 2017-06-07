@@ -106,10 +106,15 @@
   	<select id = "passReservationList" resultType="com.pet.model.ReserveDTO">
   		SELECT * FROM RESERVE
   		WHERE STORE_CODE = #{store_code}
-  		AND RESERVE_STATUS = 'Visited'
-  		OR RESERVE_STATUS = 'NotVisited'
-  		ORDER BY RESERVE_DATE
-  		, RESERVE_START_TIME
+	  		AND RESERVE_STATUS = 'Visited'
+	  		OR RESERVE_STATUS = 'NotVisited'
+  		ORDER BY RESERVE_DATE, RESERVE_START_TIME
   	</select>
   	
+  	<!-- 전체 예약 가져오기 -->
+  	<select id="reservationListAll" resultType="com.pet.model.ReserveDTO">
+  		SELECT * FROM RESERVE
+  		WHERE STORE_CODE = #{store_code}
+  		ORDER BY RESERVE_DATE, RESERVE_START_TIME
+  	</select>
   </mapper>

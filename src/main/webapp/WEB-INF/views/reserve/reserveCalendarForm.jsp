@@ -15,10 +15,9 @@
 	<script src='<c:url value="/resources/js/gcal.min.js" />'></script>
 	<script>
 		$(document).ready(function() {
-			
 			// 예약 날짜 리스트 가져옴
 			$.ajax({
-				url : "calendarFormAjax.pet",
+				url : "reserveCalendarFormAjax.pet",
 				method : 'POST',
 				type : 'json',
 				error : function(request, status, error) {
@@ -26,7 +25,7 @@
 				},
 				success : function(data) {
 					for(var i=0; i< data.length;i++){
-						var event = {id : data[i].reserve_code, title: '내용 : '+data[i].reserve_contents, start: data[i].start, end: data[i].end};
+						var event = {id : data[i].reserve_code, title: data[i].reserve_contents, start: data[i].start, end: data[i].end};
 						$('#calendar').fullCalendar( 'renderEvent', event, true);
 					}
 				}
@@ -41,11 +40,11 @@
 					right: 'month,agendaWeek,agendaDay,listMonth'
 				},
 				navLinks: true, // can click day/week names to navigate views
-				editable: false,
-				selectable: false,
-				selectHelper: false,
+				editable: true,
+				selectable: true,
+				selectHelper: true,
 				select: function(start, end) {
-					window.location='calendarInsertForm.pet?start='+start.format()+'&end='+end.format()+'';
+					window.location='reserveInsertForm2.pet?reserve_date='+start.format()+'&end='+end.format()+'&pet_code='+$("#pet_code").val()+'&emp_name='+$("#emp_name").val();
 				},/* 
 				googleCalendarApiKey:'AIzaSyDng0LARq8nivICK9a0AvP26FtgKcYxcoM',
 				events:'ko.south_korea#holiday@group.v.calendar.google.com', */
@@ -93,6 +92,19 @@
 				<label for="name">언어</label>
 				<select id='locale-selector' class = "form-control"></select>
 			</div>
+		</div>
+		<div class = "row">
+			<p>동물 이름: ${petInfo.pet_name}</p>
+			<p>보호자 연락처: ${petInfo.pet_phone}</p>
+			<p>직원 선택</p>
+			<select id="emp_name">
+				<c:forEach items="${empList}" var="emp">
+				<option value="${emp.emp_name}">${emp.emp_name}</option>
+				</c:forEach>
+			</select>
+			<hr>
+			<input type="hidden" id=pet_code value="${petInfo.pet_code}">
+			<input type = "submit" value="다음>">
 		</div>
 		<div class = "row">
 			<div id='calendar' class= "col-lg-12"></div>
