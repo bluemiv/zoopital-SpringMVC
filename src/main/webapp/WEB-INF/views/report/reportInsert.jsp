@@ -16,36 +16,52 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-	<se:authentication property="name" var="username"/>
-	<h1>업무 보고서</h1>
-	<form action="reportPro.pet">
-		<div>
-			보고받는 사람 : 
-			<select name="report_reader">
-				<c:forEach items= "${empFullList}" var = "empList">
-				<c:if test="${username != empList.emp_code}">
-				<option value = "${empList.emp_code}">${empList.emp_code}</option>
-				</c:if>
-				</c:forEach>
-			</select>
-			작성자 직급:
-			<select name="report_position">
-			<se:authorize access="hasAnyRole('ROLE_FULL', 'ROLE_PART')">
-				<option value = "ROLE_FULL">정규직</option>
-				<option value = "ROLE_PART">비정규직</option>
-			</se:authorize>
-			<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_SUPER_PART')">
-				<option value = "ROLE_SUPER_FULL">정규직</option>
-				<option value = "ROLE_SUPER_PART">비정규직</option>
-			</se:authorize>
-			</select>
-			<hr>
-			보고내용: <textarea rows="5" cols="30" name="report_contents"></textarea><br><hr>
+	<div class="container">
+		<se:authentication property="name" var="username"/>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2>업무 보고서</h2>
+				<hr>
+			</div>
 		</div>
-		<div>
-			<input type="submit"  value="작성완료">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form action="reportPro.pet">
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">보고받는 사람</label>
+								<select class="form-control" name="report_reader">
+									<c:forEach items= "${empFullList}" var = "empList">
+									<c:if test="${username != empList.emp_code}">
+									<option value = "${empList.emp_code}">${empList.emp_code}</option>
+									</c:if>
+									</c:forEach>
+								</select>
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">작성자 직급</label>
+							<se:authorize access="hasAnyRole('ROLE_FULL', 'ROLE_SUPER_FULL')">
+								<input type="text" value="정규직" class="form-control" name="report_position" readonly ="readonly">
+							</se:authorize>
+							<se:authorize access="hasAnyRole('ROLE_PART', 'ROLE_SUPER_PART')">
+								<input type="text" value="비정규직" class="form-control" name="report_position" readonly ="readonly">
+							</se:authorize>	
+						</div>
+					</div>
+					<hr> 
+					<div class="row control-group">
+						<label for="message">보고내용</label>
+							<textarea class="form-control" rows="10" name="report_contents"></textarea>
+						<p class="help-block text-danger"></p>
+					</div>
+					<div>
+						<input type="submit" class = "btn btn-custom btn-md"  value="작성완료">
+					</div>
+				</form>
+			</div>
 		</div>
-	</form>
+	</div>
+			
 
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>
