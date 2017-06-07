@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>동물 리스트</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -67,6 +68,9 @@
 							<button class = "btn btn-custom btn-md"
 							onclick="location='petDetailForm.pet?pet_code=${list.pet_code}'">
 							상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
+							<button class = "btn btn-custom btn-md"
+							onclick="location='../reserve/reserveInsertForm.pet?pet_code=${list.pet_code}'">
+							진료 예약하기<span class="glyphicon glyphicon-calendar"></span></button>
 						</td>
 					</tr>
 				</c:forEach>

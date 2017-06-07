@@ -63,11 +63,25 @@ create table pet (
   );
   create SEQUENCE pet_seq;
   
+  drop table reserve;
 create table reserve (
   reserve_code varchar2(500) constraint reserve_pk primary key,
   reserve_date date,
-  emp_code varchar2(500),
-  reserve_contents varchar2(500)
+  reserve_start_time number,
+  reserve_end_time number,
+  emp_name varchar2(500),
+  reserve_contents varchar2(4000),
+  store_code varchar2(500),
+  reserve_status varchar2(500) --reserved는 예약완료, visited는 방문완료, notvisited는 미방문
   );
+  drop sequence reserve_seq;
   create SEQUENCE reserve_seq;
   commit;
+  
+  select * from reserve
+  		where store_code = 'pankyo'
+  		and reserve_status = 'Reserved'
+  		order by reserve_date
+  		, reserve_start_time;
+      
+  select * from reserve;

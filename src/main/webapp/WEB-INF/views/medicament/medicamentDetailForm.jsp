@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>${medicamentDTO.medicament_name}</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->

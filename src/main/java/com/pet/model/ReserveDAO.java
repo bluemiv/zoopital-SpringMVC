@@ -25,4 +25,13 @@ public interface ReserveDAO {
 	//예약 취소(삭제)하기
 	public void deleteReserve(String reserve_code);
 	
+	//지난 예약 보기
+	public List<ReserveDTO> passReservationList(ReserveDTO dto);
+	
+	//예약 수정 시 해당 예약 정보 뽑기
+	public ReserveDTO getReserveInfo(ReserveDTO dto);
+	
+	//예약 수정
+	public void updateReserve(ReserveDTO dto);
+	
 }
