@@ -6,6 +6,7 @@
 <html>
 <head>
 <title>직원정보</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	function test(action){
 		if(action == 1){

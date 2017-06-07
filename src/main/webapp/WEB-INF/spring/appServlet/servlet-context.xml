@@ -24,6 +24,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.pet.controller" />
+	<context:component-scan base-package="com.pet.client.controller" />
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 </beans:beans>
