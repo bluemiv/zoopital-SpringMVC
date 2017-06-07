@@ -31,7 +31,7 @@ public class HomeController {
 	// 기본 홈 화면
 	@RequestMapping("/home.pet")
 	public String home(Principal principal, HttpSession session, Model model, String access_token) throws Exception{
-		
+		System.out.println("home 접근");
 		// 세션 아이디 값 가져옴
 		EmpDTO empDTO = new EmpDTO();
 		empDTO.setEmp_code(principal.getName());
@@ -47,7 +47,7 @@ public class HomeController {
 	// 로그인
 	@RequestMapping("loginForm.pet")
 	public String loginForm() {
-		
+		System.out.println("loginForm 접근");
 		return "loginForm";
 	}
 	
@@ -99,6 +99,24 @@ public class HomeController {
 	@RequestMapping("/webHome.pet")
 	public String webHome() throws Exception{
 		System.out.println("webHome 접근");
+		
 		return "webHome";
+	}
+	
+	// 로그인 성공
+	@RequestMapping("/loginSuccess.pet")
+	public String loginSuccess(Principal principal, HttpSession session) throws Exception{
+		System.out.println("loginSuccess 접근");
+		
+		// 세션 아이디 값 가져옴
+		EmpDTO empDTO = new EmpDTO();
+		empDTO.setEmp_code(principal.getName());
+		// 세션 아이디 정보 가져옴 (store_code)
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		empDTO = empDAO.selectEmpList(empDTO);
+		// 현재 접속자의 store_code(지점명) 세션값에 설정
+		session.setAttribute("session_store_code", empDTO.getStore_code());
+
+		return "loginSuccess";
 	}
 }

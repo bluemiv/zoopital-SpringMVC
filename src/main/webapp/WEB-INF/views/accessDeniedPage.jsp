@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>접근거부</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
