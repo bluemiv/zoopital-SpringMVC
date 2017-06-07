@@ -26,13 +26,13 @@ public interface MedicamentDAO {
 	public int updateAmountOfMedicamentAboutOrder(MedicamentDTO medicamentDTO);
 
 	// 약품 정보 다 가져오기(history용)
-	public List<MedicamentDTO> getSelectAll() throws Exception;
+	public List<MedicamentDTO> getSelectAll(String store_code) throws Exception;
 
 	// 약품 정보 이름값 넣어서 가져오기(history용)
 	public List<MedicamentDTO> getSelectChoice(List<String> list) throws Exception;
 
 	// 약품 정보 이름값 넣어서 가져오기(history용)
-	public MedicamentDTO getSelectChoice2(String m_name) throws Exception;
+	public MedicamentDTO getSelectChoice2(String store_code, String m_name) throws Exception;
 	// 약품 재고 업데이트 (history용)
 	public int updateAmountOfHistory(MedicamentDTO medicamentDTO);
 

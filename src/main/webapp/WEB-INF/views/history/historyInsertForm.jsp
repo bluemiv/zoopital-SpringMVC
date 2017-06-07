@@ -106,7 +106,8 @@
 	</c:forEach>
 		<input type="hidden" value="0" name="del_num" id="del_num"/>
 	<br>
-	약품 가격 - <input type="text" value="${cdto.m_total_cost }" id="amtotal_cost" name="m_total_cost" readonly="readonly"/>
+	약품 가격 - <input type="text" value="${cdto.m_total_cost }" id="amtotal_cost" name="m_total_cost" readonly="readonly"/><br>
+	진료 가격 - <input type="text" value="${cdto.treat_cost }" name="treat_cost">
 	<!-- forEach 돌린 후 name 을 넘겨주는데.. 아마 배열처럼 넘어가겠지?? 그럼 Controller에서 Token해주자......그럼 될 듯..? -->
 	<!-- <input type="button" value=" 추가 " onclick="add_item()"/><br>
 	<div id="field"></div> -->

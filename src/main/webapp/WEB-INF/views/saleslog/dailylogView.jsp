@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>진료 대기 동물</title>
+<title>일일매출</title>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -16,7 +16,7 @@
 		<div class="row">
 			<!-- 첫째 줄 -->
 			<div class="col-lg-12 text-center">
-				<h2>진료대기 리스트</h2>
+				<h2>일일 매출</h2>
 				<hr>
 			</div>
 			<!-- 두번째 줄 -->
@@ -30,32 +30,27 @@
 			<table width="100%" class="table table-stripedtable-hover" id="dataTables-example">
 				<thead>
 					<tr>
-						<th>대기 번호</th>
-						<th>동물 이름</th>
-						<th>동물 종류</th>
-						<th>동물 성별</th>
-						<th>나이(개월)</th>
-						<th>접수 시간</th>
-						<th>접수 내용</th>
+						<th>No.</th>
+						<th>날짜</th>
+						<th>약품 수익</th>
+						<th>진료 수익</th>
+						<th>총 수익</th>
+						<th>지출</th>
+						<th>순 수익</th>
 						<th>지점</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach  items="${clist }" var="c">
+				<c:forEach  items="${slist }" var="s">
 					<tr class = "board-custom">
-						<td>${c.waiting_num }</td>
-						<td>${c.pet_name }</td>
-						<td>${c.pet_type }</td>
-						<td>${c.pet_sex }</td>
-						<td>${c.pet_age }</td>
-						<td>${c.petaccept_date }</td>
-						<td>${c.petaccept_coments }</td>
-						<td>${c.store_code }</td>
-						<td>
-							<button class = "btn btn-custom btn-md"
-							onclick="location='historyinsert.pet?pet_code=${c.petaccept_petcode}&petaccept_code=${c.petaccept_code }&m_total_cost=0&treat_cost=0'">
-							진료보기 <span class="glyphicon glyphicon-random"></span></button>
-						</td>
+						<td>${s.saleslog_key }</td>
+						<td>${s.saleslog_date }</td>
+						<td>${s.saleslog_m_income }</td>
+						<td>${s.saleslog_t_income }</td>
+						<td>${s.saleslog_income }</td>
+						<td>${s.saleslog_spending }</td>
+						<td>${s.saleslog_net_income }</td>
+						<td>${s.store_code }</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -65,6 +60,5 @@
 	
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>
-
 </body>
 </html>

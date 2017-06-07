@@ -17,4 +17,13 @@ public interface CounterDAO {
 	
 	//접수 대기자 명단 list
 	public List<CounterDTO> getListWaiting(String store_code) throws Exception; 
+	
+	//history에 방문시간을 담기위해 가져오는 메소드
+	public CounterDTO getTime(int petaccept_code) throws Exception;
+	
+	//수납리스트를 뽑기위한 메소드
+	public List<CounterDTO> getPayingList(String store_code) throws Exception;
+	
+	//상세정보를 보기 위해 key값을 이용해 DTO정보를 가져오는 메소드(수납 상세보기)
+	public PetHistoryDTO getPayingInfo(int pethistory_key) throws Exception;
 }

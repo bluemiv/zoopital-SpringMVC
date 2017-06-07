@@ -58,6 +58,8 @@
 							<li><a href="${counterList }">진료 접수</a></li>
 							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
 							<li><a href="${counterWaiting}">대기 명단</a></li>
+							<c:url value="/counter/payingList.pet" var = "payingView"></c:url>
+							<li><a href="${payingView}">수납</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -65,8 +67,8 @@
 						<ul class="dropdown-menu">
 							<c:url value="/history/treatList.pet" var = "treatList"></c:url>
 							<li><a href="${treatList }">진료 보기</a></li>
-							<c:url value="/counter/waitingList.pet" var = "counterWaiting"></c:url>
-							<li><a href="${counterWaiting}">처방전</a></li>
+							<c:url value="/history/selectallhistory.pet" var = "selectAll"></c:url>
+							<li><a href="${selectAll}">처방전</a></li>
 						</ul>
 					</li>
 					<c:url value="/medicament/medicamentListForm.pet" var = "medicamentListForm"></c:url>
@@ -95,6 +97,15 @@
 						</ul>
 					</li>
 					</se:authorize>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">매출현황 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:url value="/saleslog/dailylog.pet" var = "dailylog"></c:url>
+							<li><a href="${dailylog}">일일매출</a></li>
+							<c:url value="/saleslog/logchart.pet" var = "logchart"></c:url>
+							<li><a href="${logchart}">매출차트</a></li>
+						</ul>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

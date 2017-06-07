@@ -24,6 +24,7 @@
 				FROM PET P, PETACCEPT A
 				WHERE P.PET_CODE = A.PETACCEPT_PETCODE
 				AND A.STORE_CODE = #{STORE_CODE}
+				AND A.PETACCEPT_VIEW = 'N'
 				ORDER BY A.PETACCEPT_DATE
 		) A)
     </select>
@@ -36,6 +37,31 @@
     
     <insert id="insertAccept" parameterType="com.pet.model.CounterDTO">
     	INSERT INTO PETACCEPT
-    	VALUES (PETACCEPT_SEQ.NEXTVAL, #{petaccept_petcode}, sysdate, #{petaccept_coments}, #{store_code})
+    	VALUES (PETACCEPT_SEQ.NEXTVAL, #{petaccept_petcode}, sysdate, #{petaccept_coments}, #{store_code},'N')
     </insert>
+    <select id="getTime" resultType="com.pet.model.CounterDTO">
+		SELECT *
+		FROM PETACCEPT
+		WHERE PETACCEPT_CODE = #{PETACCEPT_CODE}
+	</select>
+	<select id="getPayingList" resultType="com.pet.model.CounterDTO">
+		SELECT *
+		FROM (
+			SELECT ROWNUM WAITING_NUM, A.*
+			FROM(
+				SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, A.*, H.PETHISTORY_TODAY, H.PETHISTORY_KEY
+				FROM PET P, PETACCEPT A, PETHISTORY H
+				WHERE A.PETACCEPT_CODE = H.PETACCEPT_CODE
+				AND P.PET_CODE = A.PETACCEPT_PETCODE
+				AND A.STORE_CODE = #{STORE_CODE}
+				AND A.PETACCEPT_VIEW = 'Y'
+				ORDER BY H.PETHISTORY_TODAY
+		) A)
+	</select>
+	<select id="getPayingInfo" resultType="com.pet.model.PetHistoryDTO">
+		select h.*, p.pet_name, p.pet_type, p.pet_sex, p.pet_age
+		from pethistory h, pet p
+		where h.pethistory_key = #{pethistory_key}
+		and h.pethistory_petcode = p.pet_code
+	</select>
 </mapper>
