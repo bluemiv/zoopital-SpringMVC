@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +41,7 @@
 							<a href="productDetailForm.pet?product_code=${product.product_code}" class="btn btn-custom btn-md">살펴보기</a>
 							<a href="" class="btn btn-custom btn-md">장바구니 담기</a>
 						</p>
+						<se:authorize access="hasAnyRole('ROLE_SUPER_PART', 'ROLE_SUPER_FULL')">
 						<p class="form-inline"> <!-- 관리자만 볼 수 있게.. -->
 							<a href="productUpdateForm.pet?product_code=${product.product_code}" class="btn btn-custom btn-md">수정</a>
 							<!-- 방문 -->
@@ -63,6 +65,7 @@
 								</div>
 							</div><!-- 모달 끝 -->
 						</p>
+						</se:authorize>
 					</div>
 				</div>
 			</div>

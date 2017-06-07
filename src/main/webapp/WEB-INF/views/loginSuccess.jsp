@@ -6,6 +6,6 @@
 <title></title>
 </head>
 <body>
-	<meta http-equiv="Refresh" content="0; url='home.pet'"/>
+	<meta http-equiv="Refresh" content="0; url='webHome.pet'"/>
 </body>
 </html>

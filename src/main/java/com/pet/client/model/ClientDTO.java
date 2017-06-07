@@ -8,7 +8,7 @@ public class ClientDTO {
 	private String client_id;
 	private String client_pw;
 	private String client_name;
-	private String Client_nickname;
+	private String client_nickname;
 	private int client_age;
 	private String client_tel;
 	private String client_email;
@@ -37,10 +37,10 @@ public class ClientDTO {
 		this.client_name = client_name;
 	}
 	public String getClient_nickname() {
-		return Client_nickname;
+		return client_nickname;
 	}
 	public void setClient_nickname(String client_nickname) {
-		Client_nickname = client_nickname;
+		this.client_nickname = client_nickname;
 	}
 	public int getClient_age() {
 		return client_age;
@@ -91,13 +91,4 @@ public class ClientDTO {
 		this.client_email = client_email;
 	}
 	
-	@Override
-	public String toString() {
-		return "ClientDTO [client_id=" + client_id + ", client_pw=" + client_pw + ", client_name=" + client_name
-				+ ", Client_nickname=" + Client_nickname + ", client_age=" + client_age + ", client_tel=" + client_tel
-				+ ", client_email=" + client_email + ", client_join_date=" + client_join_date + ", client_enabled="
-				+ client_enabled + ", client_add=" + client_add + ", client_add_detail=" + client_add_detail
-				+ ", client_postcode=" + client_postcode + "]";
-	}
-
 }

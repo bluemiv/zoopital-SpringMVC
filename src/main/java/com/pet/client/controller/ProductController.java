@@ -145,7 +145,7 @@ public class ProductController {
 		FileOutputStream fos = null;
 
 		try {
-			fis = new FileInputStream(inputFullPath + "\\" + img_name); // 원본파일
+			fis = new FileInputStream(inputFullPath); // 원본파일
 			fos = new FileOutputStream(fullPath); // 복사위치
 
 			byte[] buffer = new byte[1024];

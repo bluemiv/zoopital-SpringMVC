@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.client.model.ClientDTO;
-import com.pet.client.model.JoinDAO;
+import com.pet.client.model.ClientDAO;
 
 @Controller
 @RequestMapping("/join/")
@@ -30,7 +30,7 @@ public class JoinController {
 	@RequestMapping("joinPro.pet")
 	public String joinPro(ClientDTO dto, Model model){
 		
-		JoinDAO joinDAO = sqlSession.getMapper(JoinDAO.class);
+		ClientDAO joinDAO = sqlSession.getMapper(ClientDAO.class);
 		System.out.println(dto.toString());
 		joinDAO.insertClient(dto);
 
@@ -47,7 +47,7 @@ public class JoinController {
 		System.out.println("Ajax실행");
 		System.out.println(clientDTO.getClient_id());
 		
-		JoinDAO joinDAO = sqlSession.getMapper(JoinDAO.class);
+		ClientDAO joinDAO = sqlSession.getMapper(ClientDAO.class);
 		
 		boolean check = false;
 		
