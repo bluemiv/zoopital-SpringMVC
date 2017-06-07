@@ -34,6 +34,9 @@
 												UNION
 												SELECT 'system', 'oracle', 1
 												FROM STORE
+												UNION
+												SELECT CLIENT_ID, CLIENT_PW, 1
+												FROM CLIENT
 											)
 											WHERE EMP_CODE = ?"
 				authorities-by-username-query="SELECT * 
@@ -43,6 +46,9 @@
 													UNION
 													SELECT 'system', 'ROLE_SUPER_FULL'
 													FROM EMP
+													UNION
+													SELECT CLIENT_ID, 'ROLE_CLIENT'
+													FROM CLIENT
 												)
 												WHERE EMP_CODE = ?" />
 		</security:authentication-provider>
