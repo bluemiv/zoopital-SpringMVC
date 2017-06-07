@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>진료 대기 동물</title>
+<title>수납</title>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -16,7 +16,7 @@
 		<div class="row">
 			<!-- 첫째 줄 -->
 			<div class="col-lg-12 text-center">
-				<h2>진료대기 리스트</h2>
+				<h2>수납대기 리스트</h2>
 				<hr>
 			</div>
 			<!-- 두번째 줄 -->
@@ -35,8 +35,8 @@
 						<th>동물 종류</th>
 						<th>동물 성별</th>
 						<th>나이(개월)</th>
-						<th>접수 시간</th>
-						<th>접수 내용</th>
+						<th>방문 시간</th>
+						<th>진료 시간</th>
 						<th>지점</th>
 					</tr>
 				</thead>
@@ -49,12 +49,12 @@
 						<td>${c.pet_sex }</td>
 						<td>${c.pet_age }</td>
 						<td>${c.petaccept_date }</td>
-						<td>${c.petaccept_coments }</td>
+						<td>${c.pethistory_today }</td>
 						<td>${c.store_code }</td>
 						<td>
-							<button class = "btn btn-custom btn-md"
-							onclick="location='historyinsert.pet?pet_code=${c.petaccept_petcode}&petaccept_code=${c.petaccept_code }&m_total_cost=0&treat_cost=0'">
-							진료보기 <span class="glyphicon glyphicon-random"></span></button>
+							<button class="btn btn-md btn-custom"
+							onclick = "location='payingDetail.pet?pethistory_key=${c.pethistory_key}&petaccept_code=${c.petaccept_code }'">
+							수납정보<span class="glyphicon glyphicon-list-alt"></span></button>
 						</td>
 					</tr>
 				</c:forEach>

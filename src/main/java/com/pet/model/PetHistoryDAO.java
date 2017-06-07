@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PetHistoryDAO {
 	//전체목록 한번 출력해볼려고...
-	public List<PetHistoryDTO> selectAllHistory();
+	public List<PetHistoryDTO> selectAllHistory(String store);
 	
 	//처방전 추가
 	public void insertHistory(PetHistoryDTO petHistoryDTO);
@@ -17,4 +17,7 @@ public interface PetHistoryDAO {
 	
 	//진료대기자 명단에서 삭제
 	public void deleteWaiting(int petaccept_code) throws Exception;
+	
+	//진료대기자 명단 안보이게 하기
+	public void updateWaiting(int petaccept_code) throws Exception;
 }

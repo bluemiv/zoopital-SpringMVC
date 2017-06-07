@@ -5,10 +5,14 @@
     
 <mapper namespace="com.pet.model.PetHistoryDAO">
 <select id="selectAllHistory" resultType="com.pet.model.PetHistoryDTO">
-	select * from pethistory
+	SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, H.*
+	FROM PETHISTORY H, PET P
+	WHERE H.STORE_CODE = #{store_code}
+  	AND H.PETHISTORY_PETCODE = P.PET_CODE
+  	ORDER BY H.PETHISTORY_TODAY DESC
 </select>
 <insert id="insertHistory" parameterType="com.pet.model.PetHistoryDTO">
-	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_name},#{pethistory_medicine},#{pethistory_coments},SYSDATE)
+	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_medicine},#{pethistory_m_amount},#{pethistory_coments},#{pethistory_m_cost},#{pethistory_cost},#{pethistory_btoday},SYSDATE,#{store_code},#{petaccept_code})
 </insert>
 <delete id="deleteHistory">
 	delete pethistory where pethistory_key = #{key}
@@ -23,6 +27,7 @@
 				FROM PET P, PETACCEPT A
 				WHERE P.PET_CODE = A.PETACCEPT_PETCODE
 				AND A.STORE_CODE = #{STORE_CODE}
+				AND A.PETACCEPT_VIEW = 'N'
 				ORDER BY A.PETACCEPT_DATE
 		) A)
 </select>
@@ -31,5 +36,8 @@
 	DELETE PETACCEPT
 	WHERE PETACCEPT_CODE = #{PETACCEPT_CODE}
 </delete>
-
+<update id="updateWaiting">
+	UPDATE PETACCEPT
+	SET PETACCEPT_VIEW = 'Y' WHERE PETACCEPT_CODE = #{PETACCEPT_CODE}
+</update>
 </mapper>
