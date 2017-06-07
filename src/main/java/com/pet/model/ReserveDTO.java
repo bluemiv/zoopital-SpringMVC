@@ -15,6 +15,8 @@ public class ReserveDTO {
 	private int pet_code;
 	private String pet_name;
 	private String pet_phone;
+	private String start; // 시작 날짜 시간
+	private String end; // 끝 날짜 시간
 	
 	public String getPet_name() {
 		return pet_name;
@@ -82,16 +84,16 @@ public class ReserveDTO {
 	public void setReserve_status(String reserve_status) {
 		this.reserve_status = reserve_status;
 	}
-	@Override
-	public String toString() {
-		return "ReserveDTO [reserve_code=" + reserve_code + ", reserve_date=" + reserve_date + ", reserve_start_time="
-				+ reserve_start_time + ", reserve_end_time=" + reserve_end_time + ", emp_name=" + emp_name
-				+ ", reserve_contents=" + reserve_contents + ", store_code=" + store_code + ", reserve_status="
-				+ reserve_status + ", pet_code=" + pet_code + ", pet_name=" + pet_name + ", pet_phone=" + pet_phone
-				+ "]";
+	public String getStart() {
+		return start;
 	}
-	
-	
-	
-	
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
+	}
 }

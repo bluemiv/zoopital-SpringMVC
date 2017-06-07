@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.CalendarDTO;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
 import com.pet.model.MedicamentDAO;
@@ -80,7 +81,7 @@ public class ReserveController {
 	
 
 	//동물리스트에서 예약 추가 버튼 클릭 시 연결되는 컨트롤러
-	@RequestMapping("/reserveInsertForm.pet")
+	@RequestMapping("/reserveCalendarForm.pet")
 	public String reserveInsertForm(HttpServletRequest request,HttpSession session, Model model) throws Exception{
 		System.out.println("reserveListForm 컨트롤러 진입");
 		
@@ -102,7 +103,8 @@ public class ReserveController {
 		model.addAttribute("empList", empList);
 		model.addAttribute("petInfo", petDTO);
 		
-		return "/reserve/reserveInsertForm";
+//		return "/reserve/reserveInsertForm";
+		return "/reserve/reserveCalendarForm";
 	}
 	
 	//예약 추가 시 직원선택 후 날짜/시간 선택하는 폼으로 연결되는 컨트롤러
@@ -296,13 +298,41 @@ public class ReserveController {
 	
 	@ResponseBody
 	@RequestMapping("end_timeSearchAjax.pet")
-	public List end_timeSearchAjax(@RequestBody int reserve_start_time, HttpSession session) throws Exception {
+	public List<Integer> end_timeSearchAjax(@RequestBody String reserve_start_time) throws Exception {
+		System.out.println("end_timeSearchAjax 접근");
+		
+		int start_time = Integer.parseInt(reserve_start_time.split("=")[1]); // 시작 시간
 		List test = new ArrayList();
-		test.add(6);
-		test.add(10);
+		for(int i = start_time + 1; i<19; i++){
+			test.add(i);
+		}
+		
 		return test;
 	}
 
+	
+	// 모든 예약 일정 가져옴
+	@ResponseBody
+	@RequestMapping("reserveCalendarFormAjax.pet")
+	public List<ReserveDTO> reserveCalendarFormAjax(HttpSession session) throws Exception{
+		System.out.println("reserveCalendarFormAjax");
+		
+		// DB에서 모든 일정을 불러온다
+		ReserveDTO reserveDTO = new ReserveDTO();
+		reserveDTO.setStore_code((String)session.getAttribute("session_store_code"));		
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		List<ReserveDTO> passReservationList = reserveDAO.reservationListAll(reserveDTO);
+		
+		// 시작 시간, 시작 날짜 가져오기
+		for(int i=0; i < passReservationList.size(); i++){
+			String start = String.valueOf(passReservationList.get(i).getReserve_date()) + " " + passReservationList.get(i).getReserve_start_time() + ":00:00";
+			String end = String.valueOf(passReservationList.get(i).getReserve_date()) + " " + passReservationList.get(i).getReserve_end_time() + ":00:00";
+			passReservationList.get(i).setStart(start);
+			passReservationList.get(i).setEnd(end);
+		}
+		
+		return passReservationList;
+	}
 }
 
 	

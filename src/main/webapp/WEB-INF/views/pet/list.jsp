@@ -69,7 +69,7 @@
 							onclick="location='petDetailForm.pet?pet_code=${list.pet_code}'">
 							상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
 							<button class = "btn btn-custom btn-md"
-							onclick="location='../reserve/reserveInsertForm.pet?pet_code=${list.pet_code}'">
+							onclick="location='../reserve/reserveCalendarForm.pet?pet_code=${list.pet_code}'">
 							진료 예약하기<span class="glyphicon glyphicon-calendar"></span></button>
 						</td>
 					</tr>
