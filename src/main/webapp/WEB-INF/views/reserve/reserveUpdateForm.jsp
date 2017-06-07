@@ -8,6 +8,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#reserve_date").on("change", function() {
+				$.ajax({ // Ajax 요청을 작성하고 POST 방식으로 전송함.
+					url : "available_timeSearchAjax.pet",
+					method : 'POST',
+					type : 'json',
+					contentType: "application/json",
+					data : {
+						date : $(this).val(),
+						emp_name : $("#emp_name option:selected").val()
+					},
+					success : function(result) {
+						alert("성공?"+result);
+						var contents = '';
+						for (var i = 0; i < result.length; i++) {
+							contents = contents + result[i] + "<br>";
+						}
+						$("#available_time").html(contents);
+					},
+					error : function(result, status, er) {
+						alert("실패?"+result + status + er);
+						$("#available_time").text(er);
+					}
+				}); // Ajax 응답을 정상적으로 받으면 실행됨.
+			});
+		});
+	</script>
+
+<script type="text/javascript">
+function change(){
+	alert("바뀜");
+	
+}
+
+</script>
 </head>
 <body>
 
@@ -38,19 +76,19 @@
 					
 					 <div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">담당 직원: ${reservation.emp_name }</label>
-							<select class="form-control" name = "emp_name">
-							<c:forEach items="${empList }" var="empList">
-								<%-- <c:if test="'${reservation.emp_name}' != '${empList.emp_name }'">
-					 --%>				<option value = ${empList.emp_name }>${empList.emp_name }</option>
-						<%-- 		</c:if>
-						 --%>	</c:forEach>
+							<select id="emp_name" class="form-control" name = "emp_name">
+								<option value = "${reservation.emp_name}" selected="selected">${reservation.emp_name}</option>
+								
+								<c:forEach items="${empList }" var="empList">
+					 					<option value = ${empList.emp_name }>${empList.emp_name }</option>
+						 		</c:forEach>
 							</select>
 					</div>
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">날짜</label>
 							<input type="date" value="${reservation.reserve_date }" class="form-control" 
-							name="reserve_date">
+							id = "reserve_date" name="reserve_date">
 						</div>
 						
 					</div>
@@ -58,9 +96,10 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">시간</label>
-							<select name="reserve_start_time">
+							<div id ="available_time"></div>
+							<%-- <select id="available_time" name="reserve_start_time">
 								<option value=""></option>
-							</select>
+							</select> --%>
 							<select name="reserve_end_time">
 								<option value=""></option>
 							</select>

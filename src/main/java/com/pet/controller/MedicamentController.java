@@ -187,7 +187,7 @@ public class MedicamentController {
 		while(tokenizer.hasMoreTokens()){
 			search = tokenizer.nextToken();
 		}
-		System.out.println(search);
+		System.out.println("search:"+search);
 		MedicamentDTO medicamentDTO = new MedicamentDTO();
 		medicamentDTO.setSearch(search);
 		// 세션 store 값 가져옴

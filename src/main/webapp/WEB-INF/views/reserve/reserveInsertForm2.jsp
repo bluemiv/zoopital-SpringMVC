@@ -7,12 +7,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-	function submitFunc(){
-		
-	}
-</script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+			$("#start_time").on("change", function() {
+				alert("start_time : "+$(this).val());
+				
+				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+					url : "end_timeSearchAjax.pet",
+					method : 'GET',
+					type : 'json',
+					data : {
+						reserve_start_time: $(this).val()
+					},
+					success : function(test) {
+						alert("성공?"+test);
+						
+						$("#available_time").html(test[0]);
+					},
+					error : function(result, status, er) {
+						alert("실패?"+result);
+						$("#available_time").text(er);
+					}
+				}); // Ajax 응답을 정상적으로 받으면 실행됨.
+			});
+		});
+	</script>
+
 
 <script type="text/javascript">
 
@@ -30,7 +53,9 @@
 			
 			//끝시간 셀렉트박스&시작시간 다시선택 버튼 나타내고 시작시간 셀렉박스 비활성화
 			$("#end_time").show();
-		});
+			
+		
+		 });
 		
 		//시작 시간 다시선택 버튼 클릭하면
 		$("#start_reselect").click(function(){
@@ -72,6 +97,7 @@
 	~
 	<select id="end_time" name="reserve_end_time" onchange="" >
 	
+	<div id="available_time"></div>
 		<c:forEach var="num" begin="10" end="19" step="1">
 			<option value="${num}">${num}시</option>
 		</c:forEach>

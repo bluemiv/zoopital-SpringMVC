@@ -1,7 +1,10 @@
 package com.pet.controller;
 
 import java.util.ArrayList;
+
+import java.sql.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,11 +13,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
+import com.pet.model.MedicamentDAO;
+import com.pet.model.MedicamentDTO;
 import com.pet.model.PetDAO;
 import com.pet.model.PetDTO;
 import com.pet.model.ReserveDAO;
@@ -249,34 +256,54 @@ public class ReserveController {
 		return "/reserve/passReservationList";
 	}
 	
-	
-	
-	/*private List<Integer> end_time(List<ReserveDTO> reserveDTOList){
-		final int INPUT_SIZE = reserveDTOList.size();
+	/////////////////////////////////////////////
+	//////////////////// AJAX ///////////////////
+	/////////////////////////////////////////////
+	@ResponseBody
+	@RequestMapping("available_timeSearchAjax.pet")
+	public List available_timeSearchAjax(@RequestBody String date, @RequestBody String emp_name, HttpSession session) throws Exception {
 		
-		int[] arr = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+		System.out.println("Ajax 실행????");
+		StringTokenizer tokenizer = new StringTokenizer(emp_name, "=");
 		
-		for(int i=0; i < INPUT_SIZE; i++){
-			for(int j = 0; j < arr.length; j++){
-				if((reserveDTOList.get(i).getReserve_start_time()<= arr[j]) && (reserveDTOList.get(i).getReserve_end_time() > arr[j])){
-					arr[j] = 0;
-				}
-			}
+		while (tokenizer.hasMoreTokens()) {
+			emp_name = tokenizer.nextToken();
 		}
-		List<Integer> output_list= new ArrayList<Integer>();
-		for(int i=0; i < arr.length; i++){
-			if(arr[i] != 0){
-				output_list.add(arr[i]+1);
-			}
-		}
+		System.out.println(date);
+		date = date.split("=")[1];
+		System.out.println("date = "  + date);
 		
-		for(int i = 0 ; i < output_list.size(); i++){
-			if(output_list.indexOf(i+1)-output_list.indexOf(i)>2){
-				
-			}
-			
-		}
-		return output_list;
-	}*/
+		
+		System.out.println(emp_name);
+		ReserveDTO reserveDTO = new ReserveDTO();
+//		reserveDTO.setReserve_date();
+		reserveDTO.setEmp_name(emp_name);
+
+		// 세션 store 값 가져옴
+		reserveDTO.setStore_code((String) session.getAttribute("session_store_code"));
+
+		System.out.println("------------------------------");
+		System.out.println(reserveDTO.toString());
+		
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		List<ReserveDTO> reservedList = reserveDAO.select_available_time(reserveDTO);
+		
+		//해당 일에 가능한 시간만 리스트형태로 저장해서 넘기기
+		List available_list = time(reservedList);
+		
+		return available_list;
+	} // 검색 추천 기능
 	
+	@ResponseBody
+	@RequestMapping("end_timeSearchAjax.pet")
+	public List end_timeSearchAjax(@RequestBody int reserve_start_time, HttpSession session) throws Exception {
+		List test = new ArrayList();
+		test.add(6);
+		test.add(10);
+		return test;
+	}
+
 }
+
+	
+
