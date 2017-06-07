@@ -13,8 +13,10 @@
 	<jsp:include page="../layout/header.jsp"/>
 	
 
+
 	<!-- 컨텐츠 -->
 	<div class="container">
+
 		<div class="row">
 			<!-- 첫째 줄 -->
 			<div class="col-lg-12 text-center">
@@ -30,6 +32,10 @@
 			</div>
 		</div>
 	
+		<c:forEach var="i" begin="1" end="12" step="1">
+		<button value="${ i }" onclick="location='shotList.pet?month=${i}'">${ i }</button>
+		</c:forEach>
+		
 		<div class="row">
 			<table width="100%" class="table table-stripedtable-hover" id="dataTables-example">
 				<thead>
@@ -46,7 +52,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${ list }" var="list" >
-					 	<c:if test="${  currentTime <= list.shot_must && list.shot_must <= lastDay }">
+					 	<c:if test="${  firstDay <= list.shot_must && list.shot_must <= lastDay}">
 						<tr class = "board-custom">
 						<td>${ list.shot_name }</td>
 						<td>${ list.shot_cycle }</td>

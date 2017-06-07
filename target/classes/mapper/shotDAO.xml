@@ -4,16 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pet.model.ShotDAO">
 <select id="selectAll" resultType = "com.pet.model.ShotDTO" parameterType="com.pet.model.PetDTO">
-	SELECT S.*, P.PET_EMAIL, P.PET_PHONE
-	FROM SHOT S, PET P
+	select s.*,P.PET_EMAIL, P.PET_PHONE, to_char( s.shot_must ,'MM') month
+	 from shot s, pet p
 	WHERE S.PET_CODE = P.PET_CODE AND P.STORE_CODE = #{store_code}
 </select>
 
 <select id="selectShot" resultType="com.pet.model.ShotDTO" parameterType="com.pet.model.PetDTO">
-  select a.pethistory_name shot_petName, a.pethistory_medicine shot_name, a.pethistory_petcode pet_code, m.MEDICAMENT_CYCLE shot_cycle
-from (select p.* from pethistory p, petaccept pa 
-      where p.pethistory_petcode = pa.petaccept_petcode) a, medicament m
-where a.pethistory_medicine=m.medicament_name  and store_code = #{store_code}
+     	select a.pethistory_name shot_petName, a.pethistory_medicine shot_name, a.pethistory_petcode pet_code, m.MEDICAMENT_CYCLE shot_cycle
+	from (select p.* from pethistory p, petaccept pa 
+    where p.pethistory_petcode = pa.petaccept_petcode) a, medicament m
+	where a.pethistory_medicine=m.medicament_name  and store_code =#{store_code} and a.pethistory_petcode=${pet_code}
 </select>
 
 <insert id="insertShot" parameterType="com.pet.model.ShotDTO" >

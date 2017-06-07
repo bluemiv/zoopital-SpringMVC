@@ -12,6 +12,17 @@ public class ShotDTO {
 	private Date shot_must;
 	private String pet_phone; // varchar2(500) not null, -- 주인 전화번호
 	private String pet_email; // varchar2(1000) not null, -- 이메일
+	private String month;
+	
+	
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
 
 	public String getShot_name() {
 		return shot_name;
