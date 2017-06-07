@@ -36,7 +36,7 @@ public class MedicamentController {
 		// 세션 store 값 가져옴
 		medicamentDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
-		// 페이징 처리
+		// 페이징 처리0
 		MedicamentDAO medicamentDAO = sqlSession.getMapper(MedicamentDAO.class);
 		int totalCount = medicamentDAO.getTotalCountOfMedicament(medicamentDTO);
 		final int pageSize = 5;
@@ -187,7 +187,7 @@ public class MedicamentController {
 		while(tokenizer.hasMoreTokens()){
 			search = tokenizer.nextToken();
 		}
-		System.out.println(search);
+		System.out.println("search:"+search);
 		MedicamentDTO medicamentDTO = new MedicamentDTO();
 		medicamentDTO.setSearch(search);
 		// 세션 store 값 가져옴
