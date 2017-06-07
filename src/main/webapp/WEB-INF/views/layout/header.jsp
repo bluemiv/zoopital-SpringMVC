@@ -133,9 +133,15 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
+							<!-- 직원들만 볼 수 있음 -->
 							<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 								<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
 								<li><a href="${messageListForm}">쪽지함</a></li>
+							</se:authorize>
+							<!-- 고객만 볼 수 있음 -->
+							<se:authorize access="hasRole('ROLE_CLIENT')">
+								<c:url value="/client/clientMypageForm.pet" var = "clientMypageForm"></c:url>
+								<li><a href="${clientMypageForm}">마이페이지</a></li>
 							</se:authorize>
 							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
 							<li>

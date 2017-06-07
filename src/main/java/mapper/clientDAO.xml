@@ -33,4 +33,45 @@
 		FROM CLIENT
 		WHERE CLIENT_ID = #{client_id}
 	</select>
+	
+	<!-- 고객 정보 수정 -->
+	<update id="clientUpdatePro" parameterType="com.pet.client.model.ClientDTO">
+		UPDATE CLIENT
+		<set>
+			<if test="client_pw != null and client_pw !=''">
+				CLIENT_PW = #{client_pw}
+			</if>
+			<if test="client_name != null and client_name !=''">
+				,CLIENT_NAME = #{client_name}
+			</if>
+			<if test="client_tel != null and client_tel !=''">
+				,CLIENT_TEL = #{client_tel}
+			</if>
+			<if test="client_email != null and client_email !=''">
+				,CLIENT_EMAIL = #{client_email}
+			</if>
+			<if test="client_join_date != null and client_join_date !=''">
+				,CLIENT_JOIN_DATE = #{client_join_date}
+			</if>
+			<if test="client_enabled != null and client_enabled !=''">
+				,CLIENT_ENABLED = #{client_enabled}
+			</if>
+			<if test="client_add != null and client_add !=''">
+				,CLIENT_ADD = #{client_add}
+			</if>
+			<if test="client_add_detail != null and client_add_detail !=''">
+				,CLIENT_ADD_DETAIL = #{client_add_detail}
+			</if>
+			<if test="client_postcode != null and client_postcode !=''">
+				,CLIENT_POSTCODE = #{client_postcode}
+			</if>
+		</set>
+		WHERE CLIENT_ID = #{client_id}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="clientDeletePro" parameterType="com.pet.client.model.ClientDTO">
+		DELETE CLIENT
+		WHERE CLIENT_ID = #{client_id} AND CLIENT_PW = #{client_pw}
+	</delete>
 </mapper>

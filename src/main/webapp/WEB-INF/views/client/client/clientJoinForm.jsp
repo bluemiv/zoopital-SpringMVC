@@ -158,7 +158,7 @@
 <!-- 푸터 파일 -->
 <jsp:include page="../../layout/footer.jsp"/>
 
-<!-- 주소 "검색"창  -->
+	<!-- 주소 "검색"창  -->
 	<script>
 		$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
 	</script>

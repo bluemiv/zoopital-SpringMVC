@@ -17,7 +17,7 @@
 		<!-- 컨텐츠 -->
 		<div class="text-vertical-center">
 			<h1>동물병원</h1>
-			<h3>회원이 아니신가요? 3분이면 회원가입 가능합니다.</h3>
+			<h3>회원이 아니신가요? 3분이면 <a href="client/clientJoinForm.pet">회원가입</a> 가능합니다.</h3>
 			<br>
             <!-- 로그인 -->
             <div class="container-fluid">
@@ -44,8 +44,9 @@
 										<input type="submit" class="btn btn-lg btn-info btn-block" value = "로그인">
 									</fieldset>
 								</form>
-								<button class="btn btn-lg btn-custom" onclick="location='join/joinForm.pet'">회원가입</button>
-								<button class="btn btn-lg btn-custom" onclick="location='#'">비밀번호 찾기</button>
+								<hr>
+								<button class="btn btn-lg btn-block btn-custom" onclick="location='client/clientJoinForm.pet'">회원가입</button>
+								<button class="btn btn-lg btn-block btn-custom" onclick="location='#'">비밀번호 찾기</button>
 							</se:authorize>
 							<se:authorize access = "isAuthenticated()">
 								<button onclick= "location='j_spring_security_logout'"
