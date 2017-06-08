@@ -83,7 +83,7 @@
 						<div class="row control-group">
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 								<label for="name">ID</label>
-								<input class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">
+								<input id = "client_id" class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">
 							</div>
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<br>
