@@ -112,47 +112,53 @@ public class CounterController {
 	@RequestMapping("payingEnd.pet")
 	public String payingEnd(HttpSession session, PetHistoryDTO petHistoryDTO) throws Exception{
 		System.out.println("payingEnd 접근");
-		
+		// dao 객체 생성
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		SalesLogDAO salesLogDAO = sqlSession.getMapper(SalesLogDAO.class);
 		ShotDAO shotDAO=sqlSession.getMapper(ShotDAO.class);
 		MedicamentDAO medicamentDAO=sqlSession.getMapper(MedicamentDAO.class);
 		
-		
+		// 세션 값 가져옴
 		String store_code = (String)session.getAttribute("session_store_code");
 		
-		String str=shotDAO.divide_medicine(petHistoryDTO.getPetaccept_code());
-		System.out.println("str:"+str);
-		
+		// 모든 처방약 가져옴
+		String str=petHistoryDTO.getPethistory_medicine();
+		// 약 나눔
 		String[] medicine=str.split(",");
 		
-		for(int i=0; i<=medicine.length; i++){
-			if(medicine.equals(medicamentDTO.getMedicament_name()) &&
-					medicamentDTO.getMedicament_category().equals("주사")){
-				System.out.println("되나?");
+		for(int i=0; i< medicine.length; i++){
+			// 종류가 주사인 약만 가져옴 
+			MedicamentDTO medicamentDTO = new MedicamentDTO();
+			medicamentDTO.setMedicament_name(medicine[i]);
+			medicamentDTO.setStore_code(store_code);
+			medicamentDTO = medicamentDAO.selectShot_medicine(medicamentDTO);
+			
+			// 값이 있을때만 실행(약종류 == 주사)
+			if(medicamentDTO != null){
+				int shot_cycle=medicamentDTO.getMedicament_cycle();
+				String shot_name=medicamentDTO.getMedicament_name();
+				
+				// shot table에 들어갈 주사 정보를 가져옴
+				ShotDTO shotDTO = new ShotDTO();
+				shotDTO.setShot_name(shot_name);
+				shotDTO.setPetaccept_code(petHistoryDTO.getPetaccept_code());
+				shotDTO = shotDAO.selectShot(shotDTO);
+				
+				// 위에서 가져온 shot 정보를 insert
+				shotDTO.setShot_cycle(shot_cycle);
+				insert_shotPro(shotDTO);
 			}
 		}
-		
-		
-		
-		ShotDTO shotDTO=shotDAO.selectShot(petHistoryDTO.getPetaccept_code());
-		System.out.println(shotDTO.toString());
-		
-		
-		
-		/*insert_shotPro(shotDTO);
-		
-		System.out.println(shotDTO.toString());
+	
 		SalesLogController sc = new SalesLogController();
 		String today = sc.checkSalesDB(store_code,salesLogDAO);
 		petHistoryDTO.setToday(today);
 		salesLogDAO.upDateIncome(petHistoryDTO);
 		System.out.println("완료?");
-		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());*/
+		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());
 		return "redirect:payingList.pet";
 	}
 	
-
 	public void insert_shotPro(ShotDTO dto) throws Exception{
 		
 		System.out.println("insertShotPro 접근");

@@ -13,7 +13,7 @@ public class ShotDTO {
 	private String pet_phone; // varchar2(500) not null, -- 주인 전화번호
 	private String pet_email; // varchar2(1000) not null, -- 이메일
 	private String month;
-	
+	private int petaccept_code;
 	
 
 	public String getMonth() {
@@ -88,11 +88,20 @@ public class ShotDTO {
 		this.pet_email = pet_email;
 	}
 
+	public int getPetaccept_code() {
+		return petaccept_code;
+	}
+
+	public void setPetaccept_code(int petaccept_code) {
+		this.petaccept_code = petaccept_code;
+	}
+
 	@Override
 	public String toString() {
 		return "ShotDTO [shot_name=" + shot_name + ", shot_cycle=" + shot_cycle + ", pet_code=" + pet_code
 				+ ", shot_petName=" + shot_petName + ", shot_date=" + shot_date + ", shot_must=" + shot_must
-				+ ", pet_phone=" + pet_phone + ", pet_email=" + pet_email + "]";
+				+ ", pet_phone=" + pet_phone + ", pet_email=" + pet_email + ", month=" + month + ", petaccept_code="
+				+ petaccept_code + "]";
 	}
 
 }

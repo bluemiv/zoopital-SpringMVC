@@ -9,13 +9,13 @@
 	WHERE S.PET_CODE = P.PET_CODE AND P.STORE_CODE = #{store_code}
 </select>
 
-<select id="selectShot" resultType="com.pet.model.ShotDTO" parameterType="com.pet.model.CounterDTO">
-select p.PET_NAME shot_petName, h.PETHISTORY_MEDICINE shot_name, m.MEDICAMENT_CYCLE shot_cycle, h.PETHISTORY_PETCODE pet_code
+<select id="selectShot" resultType="com.pet.model.ShotDTO" parameterType="com.pet.model.ShotDTO">
+select p.PET_NAME shot_petName, m.MEDICAMENT_NAME shot_name, m.MEDICAMENT_CYCLE shot_cycle, h.PETHISTORY_PETCODE pet_code
 from pethistory h, PET p, MEDICAMENT m
 where h.PETACCEPT_CODE = #{petaccept_code}
 AND h.PETHISTORY_PETCODE = p.PET_CODE
 AND h.STORE_CODE = m.STORE_CODE
-AND h.PETHISTORY_MEDICINE = m.MEDICAMENT_NAME
+AND m.MEDICAMENT_NAME = #{shot_name}
 </select>
 
 <insert id="insertShot" parameterType="com.pet.model.ShotDTO" >
@@ -33,4 +33,6 @@ AND h.PETHISTORY_MEDICINE = m.MEDICAMENT_NAME
 	select pethistory_medicine from pethistory
 	where petaccept_code=#{petaccept_code}
 </select>
+
+
 </mapper>

@@ -36,4 +36,6 @@ public interface MedicamentDAO {
 	// 약품 재고 업데이트 (history용)
 	public int updateAmountOfHistory(MedicamentDTO medicamentDTO);
 
+	public MedicamentDTO selectShot_medicine(MedicamentDTO medicamentDTO);
+
 }
