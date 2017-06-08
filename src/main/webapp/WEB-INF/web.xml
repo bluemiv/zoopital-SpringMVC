@@ -58,7 +58,7 @@
 	</filter-mapping>
 	
 	<!-- 에러페이지 설정 -->
-	<error-page>
+ 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/error_404.jsp</location>
 	</error-page>
