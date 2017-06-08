@@ -68,6 +68,7 @@ public class ShotController {
 	    mav.addObject("lastDay", lastDay);
 	    mav.addObject("firstDay", firstDay);
 	    mav.addObject("currentTime", currentTime);
+	    mav.addObject("month", month_str);
 		mav.setViewName("/shot/shotList");
 		return mav;
 	

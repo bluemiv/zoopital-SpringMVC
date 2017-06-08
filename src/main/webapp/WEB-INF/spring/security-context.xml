@@ -47,7 +47,7 @@
 													FROM EMP
 													UNION
 													SELECT 'system', 'ROLE_SUPER_FULL'
-													FROM EMP
+													FROM STORE
 													UNION
 													SELECT CLIENT_ID, 'ROLE_CLIENT'
 													FROM CLIENT

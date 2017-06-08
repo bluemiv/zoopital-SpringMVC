@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 /*	div생성을 통해서 해보려다가 실패.. 그래도 다음에 바꿀 수 있으면 바꿔봐야지

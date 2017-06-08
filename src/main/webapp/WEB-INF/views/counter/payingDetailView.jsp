@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수납 정보</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	function end_sub(){
 		var frm = document.getElementById("frm");

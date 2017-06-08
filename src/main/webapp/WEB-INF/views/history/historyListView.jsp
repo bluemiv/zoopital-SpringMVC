@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>처방전 히스토리</title>
 </head>
 <body>

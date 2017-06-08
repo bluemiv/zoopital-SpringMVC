@@ -46,8 +46,11 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
+					<c:if test="${username != 'system'}">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
+					<c:url value="/shot/shotList.pet" var = "shotList"></c:url>
+					<li><a href="${shotList}">예방접종</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">접수 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -72,8 +75,6 @@
 					<li><a href="${medicamentListForm}">약품</a></li>
 					<c:url value="/order/orderInfoForm.pet" var = "orderInfoForm"></c:url>
 					<li><a href="${orderInfoForm}">발주</a></li>
-					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
-					<li><a href="${empListForm}">직원</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">예약관리 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -85,6 +86,8 @@
 							<li><a href="${passReservationList}">지난예약내역</a></li>
 						</ul>
 					</li>
+					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
+					<li><a href="${empListForm}">직원</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">동물 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -94,6 +97,11 @@
 							<li><a href="${petWriteForm}">동물 등록</a></li>
 						</ul>
 					</li>
+					</c:if>
+					<c:if test="${username == 'system'}">
+					<c:url value="/emp/empInsertForm.pet" var = "empInsertForm"></c:url>
+					<li><a href="${empInsertForm}">직원추가</a></li>
+					</c:if>
 					<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_SUPER_FULL')">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
@@ -105,6 +113,7 @@
 						</ul>
 					</li>
 					</se:authorize>
+					<c:if test="${username != 'system'}">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">매출현황 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -125,6 +134,7 @@
 							<li><a href="${reportInsert}">보고서 쓰기</a></li>
 						</ul>
 					</li>
+					</c:if>
 					</se:authorize>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -133,6 +143,7 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
+							<c:if test="${username != 'system'}">
 							<!-- 직원들만 볼 수 있음 -->
 							<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 								<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
@@ -145,14 +156,11 @@
 								<c:url value="/client/basket/baksetListForm.pet" var = "baksetListForm"></c:url>
 								<li><a href="${baksetListForm}">장바구니</a></li>
 							</se:authorize>
+							</c:if>
 							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
-							<li>
-							<a href="${logout}">로그아웃</a>
-							</li>
+							<li> <a href="${logout}">로그아웃</a></li>
 						</ul>
 					</li>
-					
-					
 				</ul>
 			</div>
 			</se:authorize>

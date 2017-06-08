@@ -5,22 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 	<!-- 헤더 파일 -->
 	<jsp:include page="../layout/header.jsp"/>
 	
-
-
 	<!-- 컨텐츠 -->
 	<div class="container">
-
 		<div class="row">
 			<!-- 첫째 줄 -->
 			<div class="col-lg-12 text-center">
-				<h2>이 달의 예방접종 리스트</h2>
+				<h2>${month}월 예방접종 리스트</h2>
 				<hr>
 			</div>
 			<!-- 두번째 줄 -->
@@ -33,7 +30,8 @@
 		</div>
 	
 		<c:forEach var="i" begin="1" end="12" step="1">
-		<button value="${ i }" onclick="location='shotList.pet?month=${i}'">${ i }</button>
+			<button value="${i}" onclick="location='shotList.pet?month=${i}'"
+			class = "btn btn-sm btn-custom">${i}월</button>
 		</c:forEach>
 		
 		<div class="row">

@@ -68,6 +68,7 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
+	<se:authentication property="name" var="username"/>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -145,7 +146,15 @@
 							</select>
 						</div>
 					</div>
-	
+					<c:if test="${username == 'system' }">
+					<div>
+						<select name = "store_code" class="form-control">
+							<c:forEach items="${store_list}" var="list">
+							<option value = "${list.store_code}">${list.store_code}</option>
+							</c:forEach>
+						</select>
+					</div>
+					</c:if>
 					<br>
 					<div id="success"></div>
 					<div class="row">
