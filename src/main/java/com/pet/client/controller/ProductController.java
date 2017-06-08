@@ -130,6 +130,13 @@ public class ProductController {
 		return "client/product/productDetailForm";
 	}
 	
+	@RequestMapping("productBuyForm.pet")
+	public String productBuyForm(ProductDTO productDTO) throws Exception{
+		System.out.println("productBuyForm 접근");
+		System.out.println(productDTO.toString());
+		return "client/product/productBuyForm";
+	}
+	
 	public String getCurrentDayTime(){
 	    long time = System.currentTimeMillis();
 	    SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMdd-HH-mm-ss", Locale.KOREA);

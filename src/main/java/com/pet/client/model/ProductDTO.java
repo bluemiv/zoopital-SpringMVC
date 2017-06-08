@@ -83,6 +83,6 @@ public class ProductDTO {
 				+ ", product_regdate=" + product_regdate + ", product_modifyDate=" + product_modifyDate
 				+ ", product_url=" + product_url + "]";
 	}
-	
+
 
 }

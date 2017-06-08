@@ -38,6 +38,10 @@
 	width:140px;
 	height:140px;
 }
+.img-md{
+	width:280px;
+	height:250px;
+}
 .img-sm:hover{
 	opacity: 0.5;
 	cursor: pointer;
