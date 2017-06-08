@@ -17,6 +17,10 @@ public class ClientDTO {
 	private String client_add;
 	private String client_add_detail;
 	private String client_postcode;
+	private int product_code;
+	private String product_name; // varchar2(500) not null, -- 상품 이름
+	private int product_cost; // number not null, -- 상품 가격
+	private int product_amount; // number not null, -- 상품 개수
 	
 	public String getClient_id() {
 		return client_id;
@@ -89,6 +93,30 @@ public class ClientDTO {
 	}
 	public void setClient_email(String client_email) {
 		this.client_email = client_email;
+	}
+	public int getProduct_code() {
+		return product_code;
+	}
+	public void setProduct_code(int product_code) {
+		this.product_code = product_code;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public int getProduct_cost() {
+		return product_cost;
+	}
+	public void setProduct_cost(int product_cost) {
+		this.product_cost = product_cost;
+	}
+	public int getProduct_amount() {
+		return product_amount;
+	}
+	public void setProduct_amount(int product_amount) {
+		this.product_amount = product_amount;
 	}
 	
 }

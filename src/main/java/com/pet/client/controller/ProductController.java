@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.client.model.ClientDAO;
+import com.pet.client.model.ClientDTO;
 import com.pet.client.model.ProductDAO;
 import com.pet.client.model.ProductDTO;
 
@@ -131,10 +134,42 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productBuyForm.pet")
-	public String productBuyForm(ProductDTO productDTO) throws Exception{
+	public String productBuyForm(ClientDTO clientDTO, int buy_amount, Principal principal, Model model) throws Exception{
 		System.out.println("productBuyForm 접근");
-		System.out.println(productDTO.toString());
+		
+		// 세션 값 가져옴
+		clientDTO.setClient_id(principal.getName());
+		
+		// 구매자 정보 가져옴
+		ClientDAO clientDAO = sqlSession.getMapper(ClientDAO.class);
+		clientDTO = clientDAO.getClientBuyInfo(clientDTO);
+		
+		// 구매한 개수 설정
+		clientDTO.setProduct_amount(buy_amount);
+		
+		model.addAttribute("clientDTO",clientDTO);
+		
 		return "client/product/productBuyForm";
+	}
+	
+	@RequestMapping("productBuyPro.pet")
+	public String productBuyPro(String result, ProductDTO productDTO,Model model) throws Exception{
+		System.out.println("productBuyPro 접근");
+		System.out.println(productDTO.toString());
+		boolean check = false;
+		if(result.equals("success")){
+			// 결제 성공
+			check = true;
+			ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
+			if(productDAO.updateBuyProduct(productDTO)>0){
+				System.out.println("수정 완료");
+			}
+		} else {
+			// 결제 실패
+			check = false;
+		}
+		model.addAttribute("check", check);
+		return "client/product/productBuyPro";
 	}
 	
 	public String getCurrentDayTime(){

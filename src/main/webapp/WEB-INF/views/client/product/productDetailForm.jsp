@@ -40,7 +40,7 @@
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">구입할 개수</label>
-							<input type="number" min="0" name = "product_amount" class="form-control"/>
+							<input type="number" min="0" name = "buy_amount" class="form-control"/>
 						</div>
 					</div>
 					

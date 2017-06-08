@@ -74,4 +74,10 @@
 		DELETE CLIENT
 		WHERE CLIENT_ID = #{client_id} AND CLIENT_PW = #{client_pw}
 	</delete>
+	
+	<select id="getClientBuyInfo" parameterType="com.pet.client.model.ClientDTO" resultType="com.pet.client.model.ClientDTO">
+		SELECT C.*, P.*
+		FROM CLIENT C, PRODUCT P
+		WHERE P.PRODUCT_CODE = #{product_code} AND C.CLIENT_ID = #{client_id}
+	</select>
 </mapper>

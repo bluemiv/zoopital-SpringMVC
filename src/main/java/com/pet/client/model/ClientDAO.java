@@ -16,4 +16,7 @@ public interface ClientDAO {
 
 	// 회원탈퇴
 	public int clientDeletePro(ClientDTO clientDTO) throws Exception;
+
+	// 구매자 정보 가져옴
+	public ClientDTO getClientBuyInfo(ClientDTO clientDTO) throws Exception;
 }

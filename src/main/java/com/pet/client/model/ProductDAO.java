@@ -18,4 +18,7 @@ public interface ProductDAO {
 
 	// 특정한 상품 정보 가져오기
 	public ProductDTO getProduct(ProductDTO productDTO) throws Exception;
+
+	// 구매시 상품 개수 수정
+	public int updateBuyProduct(ProductDTO productDTO)throws Exception;
 }
