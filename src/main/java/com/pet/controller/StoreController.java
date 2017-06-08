@@ -86,6 +86,7 @@ public class StoreController {
 
 		mav.addObject("adminList", adminList);
 		mav.addObject("totalPageNum", totalPageNum);
+		mav.addObject("currentPageNum", pageNum);
 		return mav;
 	}
 
@@ -148,7 +149,7 @@ public class StoreController {
 		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
 		System.out.println("searchList 실행되었습니다.");
 		List searchList = dao.searchStore(dto);
-		mav.addObject("searchList", searchList);
+		mav.addObject("adminList", searchList);
 
 		return mav;
 	}
