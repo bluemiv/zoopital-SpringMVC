@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-				<a class="navbar-brand" href="/controller/home.pet">
+				<a class="navbar-brand" href="/controller/webHome.pet">
 					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
 					Zoopital
 				</a>
@@ -45,6 +45,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
 					<li class="dropdown">
@@ -124,6 +125,7 @@
 							<li><a href="${reportInsert}">보고서 쓰기</a></li>
 						</ul>
 					</li>
+					</se:authorize>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -131,8 +133,18 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
-							<li><a href="${messageListForm}">쪽지함</a></li>
+							<!-- 직원들만 볼 수 있음 -->
+							<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
+								<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
+								<li><a href="${messageListForm}">쪽지함</a></li>
+							</se:authorize>
+							<!-- 고객만 볼 수 있음 -->
+							<se:authorize access="hasRole('ROLE_CLIENT')">
+								<c:url value="/client/clientMypageForm.pet" var = "clientMypageForm"></c:url>
+								<li><a href="${clientMypageForm}">마이페이지</a></li>
+								<c:url value="/client/basket/baksetListForm.pet" var = "baksetListForm"></c:url>
+								<li><a href="${baksetListForm}">장바구니</a></li>
+							</se:authorize>
 							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
 							<li>
 							<a href="${logout}">로그아웃</a>

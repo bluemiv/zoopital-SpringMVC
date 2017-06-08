@@ -17,7 +17,7 @@
 		<!-- 컨텐츠 -->
 		<div class="text-vertical-center">
 			<h1>동물병원</h1>
-			<h3>관리자 로그인 바랍니다</h3>
+			<h3>회원이 아니신가요? 3분이면 <a href="client/clientJoinForm.pet">회원가입</a> 가능합니다.</h3>
 			<br>
             <!-- 로그인 -->
             <div class="container-fluid">
@@ -44,22 +44,9 @@
 										<input type="submit" class="btn btn-lg btn-info btn-block" value = "로그인">
 									</fieldset>
 								</form>
-								<a id="kakao-login-btn"></a>
-								<a href="http://developers.kakao.com/logout">로그아웃</a>
-								<script type='text/javascript'>
-							       // 사용할 앱의 JavaScript 키를 설정해 주세요.
-							       Kakao.init('098b6bb17830f13f39ceaac788f39115');
-							       // 카카오 로그인 버튼을 생성합니다.
-							       Kakao.Auth.createLoginButton({
-							         container: '#kakao-login-btn',
-							         success: function(authObj) {
-										alert(JSON.stringify(authObj));
-							         },
-							         fail: function(err) {
-							            alert(JSON.stringify(err));
-							         }
-							       });
-							   </script>
+								<hr>
+								<button class="btn btn-lg btn-block btn-custom" onclick="location='client/clientJoinForm.pet'">회원가입</button>
+								<button class="btn btn-lg btn-block btn-custom" onclick="location='#'">비밀번호 찾기</button>
 							</se:authorize>
 							<se:authorize access = "isAuthenticated()">
 								<button onclick= "location='j_spring_security_logout'"

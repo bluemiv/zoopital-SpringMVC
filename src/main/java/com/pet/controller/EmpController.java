@@ -7,15 +7,16 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.client.model.ClientDAO;
+import com.pet.client.model.ClientDTO;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
-import com.pet.model.StoreDAO;
-import com.pet.model.StoreDTO;
 
 @Controller
 @RequestMapping("/emp/")
@@ -66,7 +67,7 @@ public class EmpController {
 		System.out.println("empUpdateDeleteForm 컨트롤러 진입");
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		
-		// 직원 세부 저보 가져옴
+		// 직원 세부 정보 가져옴
 		EmpDTO selectEmp = EmpDAO.selectEmpList(dto);
 		
 		model.addAttribute("selectEmp",selectEmp);
@@ -92,21 +93,45 @@ public class EmpController {
 		return "redirect:empListForm.pet";
 	}
 
+	@Transactional
 	@ResponseBody
 	@RequestMapping("/idConfirmAjax.pet")
-	public boolean idConfirmAjax(@RequestBody EmpDTO empDTO){
-		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+	public boolean idConfirmAjax(@RequestBody EmpDTO empDTO) throws Exception{
 		
-		boolean check = false;
+		// 직원 테이블 아이디와 비교
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		boolean empCheck = false;
 		try {
 			EmpDTO result_empDTO = empDAO.selectEmpList(empDTO);
 			if(result_empDTO.getEmp_code() != null){
 				// 아이디가 존재함(사용 불가능)
-				check = false;
+				empCheck = false;
 			}
 		} catch (Exception e) {
 			// 아이디가 없음 (사용가능)
 			// NullPointException에 걸림
+			empCheck = true;
+		}
+		
+		// 고객 테이블 아이디와 비교
+		ClientDAO clientDAO = sqlSession.getMapper(ClientDAO.class);
+		ClientDTO clientDTO = new ClientDTO();
+		clientDTO.setClient_id(empDTO.getEmp_code());
+		boolean clientCheck = false;
+		try {
+			clientDTO = clientDAO.getClientInfo(clientDTO);
+			if(clientDTO.getClient_id() != null){
+				// 아이디가 존재함(사용 불가능)
+				clientCheck = false;
+			}
+		} catch (Exception e) {
+			// 아이디가 없음 (사용가능)
+			// NullPointException에 걸림
+			clientCheck = true;
+		}
+		
+		boolean check = false;
+		if(empCheck && clientCheck){
 			check = true;
 		}
 		

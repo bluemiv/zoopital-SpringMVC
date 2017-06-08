@@ -3,6 +3,8 @@ package com.pet.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,6 @@ import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
 import com.pet.model.ReportDAO;
 import com.pet.model.ReportDTO;
-import com.pet.model.StoreDAO;
 
 
 @Controller
@@ -27,7 +28,7 @@ public class ReportController {
 	
 	// 보고서 쓰기
 	@RequestMapping("/reportInsert.pet")
-	public  ModelAndView report() throws Exception{	
+	public  ModelAndView report(HttpSession session) throws Exception{	
 		System.out.println("보고서 쓰기");
 		ModelAndView mav = new ModelAndView("/report/reportInsert");
 		
@@ -35,7 +36,7 @@ public class ReportController {
  		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
  		List<EmpDTO> empFullList = empDAO.getEmpFullTimeInfo();
  		mav.addObject("empFullList", empFullList);
- 		 
+ 	 		 
 		return mav;
 	}
 	
