@@ -9,14 +9,14 @@
 	    INSERT INTO STORE
 	    	(STORE_CODE, STORE_NAME, STORE_COST, STORE_PAYMENT, STORE_INCOME, STORE_RENTCOST, STORE_DOCTOR, STORE_WORKER, STORE_DATE)
 	    VALUES
-	    	(#{store_code}, #{store_name},#{store_cost},#{store_payment},#{store_income},#{store_rentCost},#{store_doctor},#{store_worker},SYSDATE)
+	    	(#{store_code}, #{store_name},#{store_cost},DEFAULT,DEFAULT,#{store_rentCost},DEFAULT,DEFAULT,SYSDATE)
     </insert>
    <!-- Admin목록 페이지 쿼리 -->
     <select id="getSelectAll" resultType="com.pet.model.StoreDTO">
 		SELECT *
 		FROM STORE
     </select>
-    <select id="adminUpdate"   resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
+    <select id="adminUpdate" resultType="com.pet.model.StoreDTO" parameterType="com.pet.model.StoreDTO">
 	    SELECT *
 	    FROM STORE
 	    WHERE STORE_CODE = #{store_code}

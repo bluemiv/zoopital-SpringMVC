@@ -34,8 +34,8 @@
 												SELECT EMP_CODE, EMP_PWD, EMP_ENABLED
 												FROM EMP
 												UNION
-												SELECT 'system', 'oracle', 1
-												FROM STORE
+												SELECT SYSTEMLOGIN_CODE, SYSTEMLOGIN_PWD, 1
+												FROM SYSTEMLOGIN
 												UNION
 												SELECT CLIENT_ID, CLIENT_PW, 1
 												FROM CLIENT
@@ -46,8 +46,8 @@
 													SELECT EMP_CODE, EMP_ROLE
 													FROM EMP
 													UNION
-													SELECT 'system', 'ROLE_SUPER_FULL'
-													FROM STORE
+													SELECT SYSTEMLOGIN_CODE, SYSTEMLOGIN_ROLE
+													FROM SYSTEMLOGIN
 													UNION
 													SELECT CLIENT_ID, 'ROLE_CLIENT'
 													FROM CLIENT

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>회원 가입 홈페이지 입니다</title>
+<title>지점 등록</title>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
@@ -104,34 +104,7 @@
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>
-					
-					<div class="row control-group">
-						<div
-							class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">총 수입</label>
-							<input type = "text" name = "store_income" class="form-control">
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">직원 급여</label>
-							<input type = "text" name = "store_payment" class="form-control">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div
-							class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">정규직 인원</label>
-							<input type = "text" name = "store_doctor" class="form-control">
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">비정규직 인원</label>
-							<input type = "text" name = "store_worker" class="form-control">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
 					<br>
-					<div id="success"></div>
 					<div class="row">
 						<div class="form-group col-xs-12">
 							<input class = "btn btn-custom btn-md" id = "join_us_btn" type="submit" value="지점 등록">
