@@ -40,10 +40,10 @@
 						<p class="form-inline">
 							<a href="productDetailForm.pet?product_code=${product.product_code}" class="btn btn-custom btn-md">살펴보기</a>
 							<!-- 장바구니 -->
-							<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#basketModal">
+							<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#basketModal${product.product_code}">
 								장바구니 담기
 							</button>
-							<div class="modal fade" id="basketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal fade" id="basketModal${product.product_code}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">

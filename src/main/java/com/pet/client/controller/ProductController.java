@@ -15,11 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.client.model.BasketDAO;
+import com.pet.client.model.BasketDTO;
 import com.pet.client.model.ClientDAO;
 import com.pet.client.model.ClientDTO;
 import com.pet.client.model.ProductDAO;
@@ -134,7 +137,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productBuyForm.pet")
-	public String productBuyForm(ClientDTO clientDTO, int buy_amount, Principal principal, Model model) throws Exception{
+	public String productBuyForm(ClientDTO clientDTO, int buy_amount, String basket_code, Principal principal, Model model) throws Exception{
 		System.out.println("productBuyForm 접근");
 		
 		// 세션 값 가져옴
@@ -148,12 +151,13 @@ public class ProductController {
 		clientDTO.setProduct_amount(buy_amount);
 		
 		model.addAttribute("clientDTO",clientDTO);
-		
+		model.addAttribute("basket_code",basket_code);
 		return "client/product/productBuyForm";
 	}
 	
+	@Transactional
 	@RequestMapping("productBuyPro.pet")
-	public String productBuyPro(String result, ProductDTO productDTO,Model model) throws Exception{
+	public String productBuyPro(String result, ProductDTO productDTO, String basket_code, Model model) throws Exception{
 		System.out.println("productBuyPro 접근");
 		System.out.println(productDTO.toString());
 		boolean check = false;
@@ -162,7 +166,17 @@ public class ProductController {
 			check = true;
 			ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
 			if(productDAO.updateBuyProduct(productDTO)>0){
-				System.out.println("수정 완료");
+				try{
+					// 장바구니 리스트 삭제
+					BasketDTO basketDTO = new BasketDTO();
+					basketDTO.setBasket_code(Integer.parseInt(basket_code));
+					BasketDAO basketDAO = sqlSession.getMapper(BasketDAO.class);
+					if(basketDAO.basketDelete(basketDTO)>0){
+						System.out.println("수정 완료");
+					}
+				} catch(Exception e){
+					System.out.println("장바구니 목록 없음");
+				}
 			}
 		} else {
 			// 결제 실패

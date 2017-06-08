@@ -33,7 +33,7 @@
 				        msg += '상점 거래ID : ' + rsp.merchant_uid;
 				        msg += '결제 금액 : ' + rsp.paid_amount;
 				        msg += '카드 승인번호 : ' + rsp.apply_num;
-				        location.replace('productBuyPro.pet?result=success&product_code='+$("#product_code").val()+'&product_amount='+$("#product_amount").val());
+				        location.replace('productBuyPro.pet?result=success&product_code='+$("#product_code").val()+'&product_amount='+$("#product_amount").val()+'&basket_code='+$("#basket_code").val());
 				    } else {
 				        var msg = '결제에 실패하였습니다.';
 				        msg += '에러내용 : ' + rsp.error_msg;
@@ -76,8 +76,7 @@
 		</div>
 	</div>
 	
-	
-	
+	<input type = "hidden" value="${basket_code}" id="basket_code"/>
 	<input type = "hidden" value="${clientDTO.product_code}" id="product_code"/>
 	<input type = "hidden" value="${clientDTO.product_name}" id="product_name"/>
 	<input type = "hidden" value="${clientDTO.product_amount}" id="product_amount"/>

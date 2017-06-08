@@ -10,13 +10,20 @@
 	<!-- 헤더 파일 -->
 	<jsp:include page="../../layout/header.jsp"/>
 	
+	<center>
 	<c:if test="${check == true }">
-		결제 성공!
+		<h1>결제 완료! 감사합니다.</h1>
+		<img src="<c:url value="/resources/images/buy/success_img.gif" />" alt="">
 	</c:if>
-	
 	<c:if test="${check == false }">
-		결제 실패!
+		<h1>결제를 실패 했습니다.</h1>
+		<img src="<c:url value="/resources/images/buy/fail_img.gif" />" alt="">
 	</c:if>
+	<hr>
+	<h4>메인화면으로 가기</h4>
+	<a href="<c:url value="/webHome.pet"/>" class="btn btn-custom btn-lg">
+	<span class="glyphicon glyphicon-home"></span> HOME</a>
+	</center>
 	
 	<!-- 푸터 파일 -->
 	<jsp:include page="../../layout/footer.jsp"/>
