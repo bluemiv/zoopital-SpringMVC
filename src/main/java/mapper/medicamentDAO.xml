@@ -107,4 +107,8 @@
 	<update id="updateAmountOfHistory" parameterType="com.pet.model.MedicamentDTO">
 	update medicament set medicament_amount = (medicament_amount - #{am_count}) where store_code = #{store_code} and medicament_name = #{medicament_name}
 	</update>
+	
+	<select id="SelectAll" resultType="com.pet.model.MedicamentDTO" parameterType="com.pet.model.MedicamentDTO">
+	select * from medicament where store_code = #{store_code}
+	</select>
 </mapper>

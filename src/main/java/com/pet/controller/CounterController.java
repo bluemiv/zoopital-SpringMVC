@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.model.CounterDAO;
 import com.pet.model.CounterDTO;
+import com.pet.model.MedicamentDAO;
+import com.pet.model.MedicamentDTO;
 import com.pet.model.PetDTO;
 import com.pet.model.PetHistoryDAO;
 import com.pet.model.PetHistoryDTO;
@@ -110,17 +111,36 @@ public class CounterController {
 	
 	@RequestMapping("payingEnd.pet")
 	public String payingEnd(HttpSession session, PetHistoryDTO petHistoryDTO) throws Exception{
+		System.out.println("payingEnd 접근");
+		
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		SalesLogDAO salesLogDAO = sqlSession.getMapper(SalesLogDAO.class);
 		ShotDAO shotDAO=sqlSession.getMapper(ShotDAO.class);
+		MedicamentDAO medicamentDAO=sqlSession.getMapper(MedicamentDAO.class);
+		
 		
 		String store_code = (String)session.getAttribute("session_store_code");
 		
+		String str=shotDAO.divide_medicine(petHistoryDTO.getPetaccept_code());
+		System.out.println("str:"+str);
+		
+		String[] medicine=str.split(",");
+		
+		for(int i=0; i<=medicine.length; i++){
+			if(medicine.equals(medicamentDTO.getMedicament_name()) &&
+					medicamentDTO.getMedicament_category().equals("주사")){
+				System.out.println("되나?");
+			}
+		}
+		
+		
+		
 		ShotDTO shotDTO=shotDAO.selectShot(petHistoryDTO.getPetaccept_code());
-	
+		System.out.println(shotDTO.toString());
 		
 		
-		insert_shotPro(shotDTO);
+		
+		/*insert_shotPro(shotDTO);
 		
 		System.out.println(shotDTO.toString());
 		SalesLogController sc = new SalesLogController();
@@ -128,7 +148,7 @@ public class CounterController {
 		petHistoryDTO.setToday(today);
 		salesLogDAO.upDateIncome(petHistoryDTO);
 		System.out.println("완료?");
-		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());
+		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());*/
 		return "redirect:payingList.pet";
 	}
 	
@@ -151,7 +171,6 @@ public class CounterController {
 		
 		System.out.println(dto.toString());
 
-		
 		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
 		shotDAO.insertShot(dto);
 		

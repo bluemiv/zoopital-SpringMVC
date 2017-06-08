@@ -29,5 +29,8 @@ AND h.PETHISTORY_MEDICINE = m.MEDICAMENT_NAME
 		#{shot_must}
 	)
 </insert>
-
+ <select id="divide_medicine" parameterType="com.pet.model.CounterDTO" resultType="String">
+	select pethistory_medicine from pethistory
+	where petaccept_code=#{petaccept_code}
+</select>
 </mapper>
