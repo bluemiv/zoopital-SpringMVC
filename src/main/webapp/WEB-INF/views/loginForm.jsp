@@ -8,6 +8,14 @@
 	<title>로그인</title>
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
+	<script type="text/javascript">
+		function pupup(){
+			var url = "find/pwSearchForm.pet";
+			var name  = "popup";
+			window.open(url, name, "width=1000, toolbar=no, status=no, location=no, scrollbars=yes, menubar=no, resizable=yes, left=50, right=50");		
+		}
+	</script>
+	
 </head>
 <body>
 	<div id="top" class="header">
@@ -46,7 +54,7 @@
 								</form>
 								<hr>
 								<button class="btn btn-lg btn-block btn-custom" onclick="location='client/clientJoinForm.pet'">회원가입</button>
-								<button class="btn btn-lg btn-block btn-custom" onclick="location='#'">비밀번호 찾기</button>
+								<button class="btn btn-lg btn-block btn-custom" onclick="pupup()">비밀번호 찾기</button>
 							</se:authorize>
 							<se:authorize access = "isAuthenticated()">
 								<button onclick= "location='j_spring_security_logout'"

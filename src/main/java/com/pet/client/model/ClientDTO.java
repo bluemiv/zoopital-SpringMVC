@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class ClientDTO {
 	
-	//11개 값
 	private String client_id;
 	private String client_pw;
 	private String client_name;
@@ -17,6 +16,8 @@ public class ClientDTO {
 	private String client_add;
 	private String client_add_detail;
 	private String client_postcode;
+	private String client_pw_qst;
+	private String client_pw_asw;
 	
 	public String getClient_id() {
 		return client_id;
@@ -89,6 +90,27 @@ public class ClientDTO {
 	}
 	public void setClient_email(String client_email) {
 		this.client_email = client_email;
+	}
+	public String getClient_pw_qst() {
+		return client_pw_qst;
+	}
+	public void setClient_pw_qst(String client_pw_qst) {
+		this.client_pw_qst = client_pw_qst;
+	}
+	public String getClient_pw_asw() {
+		return client_pw_asw;
+	}
+	public void setClient_pw_asw(String client_pw_asw) {
+		this.client_pw_asw = client_pw_asw;
+	}
+	@Override
+	public String toString() {
+		return "ClientDTO [client_id=" + client_id + ", client_pw=" + client_pw + ", client_name=" + client_name
+				+ ", client_nickname=" + client_nickname + ", client_age=" + client_age + ", client_tel=" + client_tel
+				+ ", client_email=" + client_email + ", client_join_date=" + client_join_date + ", client_enabled="
+				+ client_enabled + ", client_add=" + client_add + ", client_add_detail=" + client_add_detail
+				+ ", client_postcode=" + client_postcode + ", client_pw_qst=" + client_pw_qst + ", client_pw_asw="
+				+ client_pw_asw + "]";
 	}
 	
 }

@@ -32,9 +32,9 @@
 							<label for="name">보고받는 사람</label>
 								<select class="form-control" name="report_reader">
 									<c:forEach items= "${empFullList}" var = "empList">
-									<c:if test="${username != empList.emp_code}">
-									<option value = "${empList.emp_code}">${empList.emp_code}</option>
-									</c:if>
+										<c:if test="${username != empList.emp_code}">
+											<option value = "${empList.emp_code}">${empList.emp_code}</option>
+										</c:if>
 									</c:forEach>
 								</select>
 						</div>

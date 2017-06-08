@@ -24,7 +24,9 @@
 			1,
 			#{client_add},
 			#{client_add_detail},
-			#{client_postcode}
+			#{client_postcode},
+			#{client_pw_qst},
+			#{client_pw_asw}
 		)
 	</insert>
 
@@ -74,4 +76,20 @@
 		DELETE CLIENT
 		WHERE CLIENT_ID = #{client_id} AND CLIENT_PW = #{client_pw}
 	</delete>
+	
+	<!-- 비번찾기 시 비번 변경하는..(다중타입 파라미터 이용)-->
+	<update id="changePw" parameterType="hashmap">
+		UPDATE CLIENT
+		SET CLIENT_PW = #{change_pw}
+		WHERE CLIENT_ID = #{client_id}
+	</update>
+	
+	<!-- 질문 답변 맞는지 확인 -->
+	<select id="checkAnswer" resultType="java.lang.Integer">
+		select count (*) from client
+		where client_pw_qst = #{client_pw_qst}
+		and client_pw_asw = #{client_pw_asw}
+		and client_id = #{client_id}	
+	</select>
+	
 </mapper>
