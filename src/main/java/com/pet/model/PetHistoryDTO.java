@@ -152,6 +152,18 @@ public class PetHistoryDTO {
 	public void setToday(String today) {
 		this.today = today;
 	}
+	@Override
+	public String toString() {
+		return "PetHistoryDTO [pethistory_key=" + pethistory_key + ", pethistory_petcode=" + pethistory_petcode
+				+ ", pethistory_name=" + pethistory_name + ", pethistory_medicine=" + pethistory_medicine
+				+ ", pethistory_coments=" + pethistory_coments + ", pethistory_btoday=" + pethistory_btoday
+				+ ", pethistory_today=" + pethistory_today + ", pethistory_m_amount=" + pethistory_m_amount
+				+ ", pethistory_m_cost=" + pethistory_m_cost + ", pethistory_cost=" + pethistory_cost
+				+ ", pethistory_total_cost=" + pethistory_total_cost + ", store_code=" + store_code
+				+ ", petaccept_code=" + petaccept_code + ", mName=" + mName + ", mAmount=" + mAmount + ", pet_name="
+				+ pet_name + ", pet_type=" + pet_type + ", pet_sex=" + pet_sex + ", pet_age=" + pet_age + ", today="
+				+ today + "]";
+	}
 	
 	
 }

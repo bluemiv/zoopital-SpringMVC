@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>처방전 입력</title>
 <script type="text/javascript">
 /*	div생성을 통해서 해보려다가 실패.. 그래도 다음에 바꿀 수 있으면 바꿔봐야지
 	

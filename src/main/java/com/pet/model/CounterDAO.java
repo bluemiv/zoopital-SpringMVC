@@ -26,4 +26,7 @@ public interface CounterDAO {
 	
 	//상세정보를 보기 위해 key값을 이용해 DTO정보를 가져오는 메소드(수납 상세보기)
 	public PetHistoryDTO getPayingInfo(int pethistory_key) throws Exception;
+	
+	//history수정 시 수납완료인지 아닌지 DB체크
+	public int checkExist(PetHistoryDTO petHistoryDTO) throws Exception;
 }

@@ -40,4 +40,17 @@
 	UPDATE PETACCEPT
 	SET PETACCEPT_VIEW = 'Y' WHERE PETACCEPT_CODE = #{PETACCEPT_CODE}
 </update>
+<select id="getDto" resultType="com.pet.model.PetHistoryDTO">
+	SELECT H.*, P.PET_NAME, P.PET_AGE, P.PET_SEX, P.PET_TYPE
+	FROM PETHISTORY H, PET P
+	WHERE  H.PETHISTORY_KEY = #{pethistory_key}
+	AND H.PETHISTORY_PETCODE = P.PET_CODE
+</select>
+<update id="updateHistory">
+	UPDATE PETHISTORY
+	SET PETHISTORY_MEDICINE = #{pethistory_medicine}, PETHISTORY_COMENTS = #{pethistory_coments},
+	PETHISTORY_M_COST = #{pethistory_m_cost}, PETHISTORY_COST = #{pethistory_cost}, PETHISTORY_M_AMOUNT = #{pethistory_m_amount}
+	WHERE STORE_CODE = #{store_code}
+	AND PETHISTORY_KEY = #{pethistory_key}
+</update>
 </mapper>

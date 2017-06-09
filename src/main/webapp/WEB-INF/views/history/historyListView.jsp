@@ -6,6 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>처방전 히스토리</title>
+<script type="text/javascript">
+	function delHistory(param){
+
+		if(!confirm("삭제하겠습니까?")){
+			/* history.go( -1 ); */
+			return;
+		}else{
+			var route = "historydelete.pet?key=" + param;
+			location.href=route;
+		}
+	}
+</script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -61,13 +73,13 @@
 						<td>${h.store_code }</td>
 						<td>
 							<button class = "btn btn-custom btn-md"
-							onclick="location='tt.pet'">
+							onclick="location='modifyHistory.pet?pethistory_key=${h.pethistory_key}'">
 							수정 <span class="glyphicon glyphicon-random"></span></button>
 							<button class = "btn btn-custom btn-md"
-							onclick="location='tt.pet'">
+							onclick="delHistory(${h.pethistory_key})">
 							<span class="glyphicon glyphicon-trash"></span></button>
 							<button class = "btn btn-custom btn-md"
-							onclick="location='tt.pet'">
+							onclick="location='historyDetail.pet?pethistory_key=${h.pethistory_key}'">
 							상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
 						</td>
 					</tr>

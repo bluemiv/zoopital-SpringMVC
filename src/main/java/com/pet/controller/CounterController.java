@@ -113,6 +113,7 @@ public class CounterController {
 		String today = sc.checkSalesDB(store_code,salesLogDAO);
 		petHistoryDTO.setToday(today);
 		salesLogDAO.upDateIncome(petHistoryDTO);
+		salesLogDAO.upDateNIncome(petHistoryDTO);
 		System.out.println("완료?");
 		petHistoryDAO.deleteWaiting(petHistoryDTO.getPetaccept_code());
 		return "redirect:payingList.pet";
