@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.SalesLogDAO;
 import com.pet.model.SalesLogDTO;
@@ -58,5 +59,26 @@ public class SalesLogController {
 			
 		}
 		return today;
+	}
+	
+	
+	@RequestMapping("dailyChart.pet")
+	public String dailyChart() throws Exception{
+		System.out.println("dailyChart 접근");
+		return "/saleslog/dailyChart";
+	}
+	
+	@ResponseBody
+	@RequestMapping("dailyChartAjax.pet")
+	public List<SalesLogDTO> dailyChartAjax() throws Exception{
+		System.out.println("dailyChartAjax 접근");
+		
+		SalesLogDTO salesLogDTO = new SalesLogDTO();
+		salesLogDTO.setSaleslog_year(17);
+		
+		SalesLogDAO salesLogDAO = sqlSession.getMapper(SalesLogDAO.class);
+		List<SalesLogDTO> list = salesLogDAO.getMonthList(salesLogDTO);
+		System.out.println("dailyChartAjax 접근3");
+		return list;
 	}
 }

@@ -27,6 +27,7 @@ public class SalesLogDTO {
 	private int saleslog_day;
 	private String saleslog_date;
 	private String store_code;
+	
 	public int getSaleslog_key() {
 		return saleslog_key;
 	}

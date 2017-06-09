@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.pet.client.model.BuyListDAO">
+	<!-- 전체 구매목록 리스트 -->
+	<select id="selectAllList" resultType="com.pet.client.model.BuyListDTO" parameterType="com.pet.client.model.BuyListDTO">
+		SELECT B.*, P.*
+		FROM BUYLIST B, PRODUCT P
+		WHERE B.PRODUCT_CODE = P.PRODUCT_CODE and CLIENT_ID = #{client_id}
+		ORDER BY B.BUTLIST_DATE DESC
+	</select>
+	
+	<!-- 구매목록 추가 -->
+	<insert id="insertBuyList" parameterType="com.pet.client.model.BuyListDTO">
+		INSERT INTO BUYLIST
+		VALUES(BUYLIST_NUM.NEXTVAL, #{product_code}, #{product_amount}, SYSDATE, #{client_id})
+	</insert>
+</mapper>
+
+

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.client.model.BasketDAO;
 import com.pet.client.model.BasketDTO;
+import com.pet.client.model.BuyListDAO;
+import com.pet.client.model.BuyListDTO;
 import com.pet.client.model.ClientDAO;
 import com.pet.client.model.ClientDTO;
 import com.pet.client.model.ProductDAO;
@@ -157,7 +160,7 @@ public class ProductController {
 	
 	@Transactional
 	@RequestMapping("productBuyPro.pet")
-	public String productBuyPro(String result, ProductDTO productDTO, String basket_code, Model model) throws Exception{
+	public String productBuyPro(Principal principal,String result, ProductDTO productDTO, String basket_code, Model model, HttpSession session) throws Exception{
 		System.out.println("productBuyPro 접근");
 		System.out.println(productDTO.toString());
 		boolean check = false;
@@ -166,8 +169,8 @@ public class ProductController {
 			check = true;
 			ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
 			if(productDAO.updateBuyProduct(productDTO)>0){
+				// 장바구니 리스트 삭제
 				try{
-					// 장바구니 리스트 삭제
 					BasketDTO basketDTO = new BasketDTO();
 					basketDTO.setBasket_code(Integer.parseInt(basket_code));
 					BasketDAO basketDAO = sqlSession.getMapper(BasketDAO.class);
@@ -176,6 +179,16 @@ public class ProductController {
 					}
 				} catch(Exception e){
 					System.out.println("장바구니 목록 없음");
+				}
+				
+				// 구매목록에 추가
+				BuyListDTO buyListDTO = new BuyListDTO();
+				buyListDTO.setClient_id(principal.getName());
+				buyListDTO.setProduct_amount(productDTO.getProduct_amount());
+				buyListDTO.setProduct_code(productDTO.getProduct_code());
+				BuyListDAO buyListDAO = sqlSession.getMapper(BuyListDAO.class);
+				if(buyListDAO.insertBuyList(buyListDTO) > 0){
+					System.out.println("구매목록 추가");
 				}
 			}
 		} else {

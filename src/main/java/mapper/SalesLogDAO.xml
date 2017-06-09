@@ -28,4 +28,16 @@
 		WHERE STORE_CODE = #{store_code}
 		AND SALESLOG_DATE = #{today}
 	</update>
+	<!-- 월 별로 가져옴 -->
+	<select id="getMonthList" resultType="com.pet.model.SalesLogDTO">
+		SELECT SUM(SALESLOG_INCOME) AS SALESLOG_INCOME, SUM(SALESLOG_SPENDING) AS SALESLOG_SPENDING
+		FROM SALESLOG
+		WHERE SALESLOG_YEAR = #{saleslog_year}
+	</select>
+	<!-- 년 별로 가져옴 -->
+	<select id="getYearList" resultType="com.pet.model.SalesLogDTO">
+		SELECT SUM(SALESLOG_INCOME) AS SALESLOG_INCOME, SUM(SALESLOG_SPENDING) AS SALESLOG_SPENDING
+		FROM SALESLOG
+		WHERE SALESLOG_YEAR = #{saleslog_year} AND SALESLOG_MONTH = #{saleslog_month}
+	</select>
 </mapper>

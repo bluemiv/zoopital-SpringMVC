@@ -147,6 +147,9 @@
 							<se:authorize access="hasRole('ROLE_CLIENT')">
 								<c:url value="/client/clientMypageForm.pet" var = "clientMypageForm"></c:url>
 								<li><a href="${clientMypageForm}">마이페이지</a></li>
+								<hr>
+								<c:url value="/client/buyList/buyListForm.pet" var = "buyListForm"></c:url>
+								<li><a href="${buyListForm}">구매목록</a></li>
 								<c:url value="/client/basket/baksetListForm.pet" var = "baksetListForm"></c:url>
 								<li><a href="${baksetListForm}">장바구니</a></li>
 							</se:authorize>
