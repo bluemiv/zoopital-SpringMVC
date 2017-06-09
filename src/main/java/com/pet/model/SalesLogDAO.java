@@ -17,8 +17,8 @@ public interface SalesLogDAO {
 	
 	//총수익 업데이트 메소드
 	public void upDateNIncome(PetHistoryDTO petHistoryDTO) throws Exception;
-	
+	//차트 리스트 메소드
 	public List<SalesLogDTO> getMonthList(SalesLogDTO salesLogDTO) throws Exception;
 	
-	public List<SalesLogDTO> getYearList(SalesLogDTO salesLogDTO) throws Exception;
+	
 }

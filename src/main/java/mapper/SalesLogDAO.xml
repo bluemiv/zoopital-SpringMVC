@@ -7,37 +7,43 @@
 	<select id="getSalesList" resultType="com.pet.model.SalesLogDTO">
 		SELECT *
 		FROM SALESLOG
-		WHERE STORE_CODE = #{store_code}
+		WHERE
+		STORE_CODE = #{store_code}
 	</select>
 	<select id="getList" resultType="Integer">
 		<!-- param으로 값을 넣을땐 무조건 소문자! 대문자는 인식못함 -->
 		SELECT COUNT(*)
 		FROM SALESLOG
 		WHERE SALESLOG_DATE = #{param1}
-		AND STORE_CODE = #{param2}
+		AND
+		STORE_CODE = #{param2}
 	</select>
 	<insert id="insertSaleslog">
 		INSERT INTO SALESLOG
-		VALUES(saleslog_seq.nextval,0,0,0,0,0, #{saleslog_year}, #{saleslog_month}, #{saleslog_day}, #{saleslog_date}, #{store_code})
+		VALUES(saleslog_seq.nextval,0,0,0,0,0, #{saleslog_year},
+		#{saleslog_month}, #{saleslog_day}, #{saleslog_date}, #{store_code})
 	</insert>
 	<update id="upDateIncome">
 		UPDATE SALESLOG
-		SET SALESLOG_M_INCOME = SALESLOG_M_INCOME + #{pethistory_m_cost}, SALESLOG_T_INCOME = SALESLOG_T_INCOME + #{pethistory_cost},
-		SALESLOG_INCOME = SALESLOG_INCOME + #{pethistory_m_cost} + #{pethistory_cost},
-		SALESLOG_NET_INCOME = SALESLOG_NET_INCOME + SALESLOG_INCOME + #{pethistory_m_cost} + #{pethistory_cost}
-		WHERE STORE_CODE = #{store_code}
+		SET SALESLOG_M_INCOME =
+		SALESLOG_M_INCOME + #{pethistory_m_cost}, SALESLOG_T_INCOME =
+		SALESLOG_T_INCOME + #{pethistory_cost},
+		SALESLOG_INCOME =
+		SALESLOG_INCOME + #{pethistory_m_cost} + #{pethistory_cost},
+		SALESLOG_NET_INCOME = SALESLOG_NET_INCOME + SALESLOG_INCOME +
+		#{pethistory_m_cost} + #{pethistory_cost}
+		WHERE STORE_CODE =
+		#{store_code}
 		AND SALESLOG_DATE = #{today}
 	</update>
 	<!-- 월 별로 가져옴 -->
-	<select id="getMonthList" resultType="com.pet.model.SalesLogDTO">
-		SELECT SUM(SALESLOG_INCOME) AS SALESLOG_INCOME, SUM(SALESLOG_SPENDING) AS SALESLOG_SPENDING
+	<select id="getMonthList" parameterType="com.pet.model.SalesLogDTO" resultType="com.pet.model.SalesLogDTO">
+		SELECT SALESLOG_MONTH, SUM(SALESLOG_INCOME) AS SALESLOG_INCOME, SUM(SALESLOG_SPENDING)
+		AS SALESLOG_SPENDING, SUM(SALESLOG_NET_INCOME) AS SALESLOG_NET_INCOME
 		FROM SALESLOG
-		WHERE SALESLOG_YEAR = #{saleslog_year}
+		WHERE STORE_CODE= #{store_code} AND SALESLOG_YEAR = #{saleslog_year}
+		GROUP BY SALESLOG_MONTH
+		ORDER BY SALESLOG_MONTH ASC
 	</select>
-	<!-- 년 별로 가져옴 -->
-	<select id="getYearList" resultType="com.pet.model.SalesLogDTO">
-		SELECT SUM(SALESLOG_INCOME) AS SALESLOG_INCOME, SUM(SALESLOG_SPENDING) AS SALESLOG_SPENDING
-		FROM SALESLOG
-		WHERE SALESLOG_YEAR = #{saleslog_year} AND SALESLOG_MONTH = #{saleslog_month}
-	</select>
+
 </mapper>
