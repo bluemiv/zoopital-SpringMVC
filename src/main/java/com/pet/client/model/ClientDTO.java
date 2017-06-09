@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class ClientDTO {
 	
-	//11개 값
 	private String client_id;
 	private String client_pw;
 	private String client_name;
@@ -21,7 +20,10 @@ public class ClientDTO {
 	private String product_name; // varchar2(500) not null, -- 상품 이름
 	private int product_cost; // number not null, -- 상품 가격
 	private int product_amount; // number not null, -- 상품 개수
+	private String client_pw_qst;
+	private String client_pw_asw;
 	
+	// set get method
 	public String getClient_id() {
 		return client_id;
 	}
@@ -58,6 +60,12 @@ public class ClientDTO {
 	public void setClient_tel(String client_tel) {
 		this.client_tel = client_tel;
 	}
+	public String getClient_email() {
+		return client_email;
+	}
+	public void setClient_email(String client_email) {
+		this.client_email = client_email;
+	}
 	public Date getClient_join_date() {
 		return client_join_date;
 	}
@@ -87,12 +95,6 @@ public class ClientDTO {
 	}
 	public void setClient_postcode(String client_postcode) {
 		this.client_postcode = client_postcode;
-	}	
-	public String getClient_email() {
-		return client_email;
-	}
-	public void setClient_email(String client_email) {
-		this.client_email = client_email;
 	}
 	public int getProduct_code() {
 		return product_code;
@@ -118,5 +120,18 @@ public class ClientDTO {
 	public void setProduct_amount(int product_amount) {
 		this.product_amount = product_amount;
 	}
-	
+	public String getClient_pw_qst() {
+		return client_pw_qst;
+	}
+	public void setClient_pw_qst(String client_pw_qst) {
+		this.client_pw_qst = client_pw_qst;
+	}
+	public String getClient_pw_asw() {
+		return client_pw_asw;
+	}
+	public void setClient_pw_asw(String client_pw_asw) {
+		this.client_pw_asw = client_pw_asw;
+	}
+
+
 }

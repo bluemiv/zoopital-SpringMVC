@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.client.model.ClientDAO;
 import com.pet.client.model.ClientDTO;
+import com.pet.model.EmpDAO;
+import com.pet.model.EmpDTO;
 
 @Controller
 @RequestMapping("/client/")
@@ -85,25 +87,44 @@ public class ClientController {
 	///////////////////Ajax////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("/clientIdConfirmAjax.pet")
-	public boolean clientIdConfirmAjax(@RequestBody ClientDTO clientDTO){
-		
-		
+	public boolean clientIdConfirmAjax(@RequestBody ClientDTO clientDTO) throws Exception{
 		System.out.println("Ajax실행");
 		System.out.println(clientDTO.getClient_id());
-		
-		ClientDAO joinDAO = sqlSession.getMapper(ClientDAO.class);
-		
-		boolean check = false;
-		
+				
+		// 직원 테이블 아이디와 비교
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		boolean empCheck = false;
 		try {
-			ClientDTO result_clientDTO = joinDAO.selectClientList(clientDTO);
-			if(result_clientDTO.getClient_id() != null){
+			EmpDTO empDTO = new EmpDTO();
+			empDTO.setEmp_code(clientDTO.getClient_id());
+			EmpDTO result_empDTO = empDAO.selectEmpList(empDTO);
+			if(result_empDTO.getEmp_code() != null){
 				// 아이디가 존재함(사용 불가능)
-				check = false;
+				empCheck = false;
 			}
 		} catch (Exception e) {
 			// 아이디가 없음 (사용가능)
 			// NullPointException에 걸림
+			empCheck = true;
+		}
+		
+		// 고객 테이블 아이디와 비교
+		ClientDAO clientDAO = sqlSession.getMapper(ClientDAO.class);
+		boolean clientCheck = false;
+		try {
+			clientDTO = clientDAO.getClientInfo(clientDTO);
+			if(clientDTO.getClient_id() != null){
+				// 아이디가 존재함(사용 불가능)
+				clientCheck = false;
+			}
+		} catch (Exception e) {
+			// 아이디가 없음 (사용가능)
+			// NullPointException에 걸림
+			clientCheck = true;
+		}
+		
+		boolean check = false;
+		if(empCheck && clientCheck){
 			check = true;
 		}
 		

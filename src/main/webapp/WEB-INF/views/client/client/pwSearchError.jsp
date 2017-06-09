@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<!DOCTYPE>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>500 오류</title>
-	
-	<!-- Latest compiled and minified CSS -->
+<title>비밀번호 찾기 오류</title>
+<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-	;
+	
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
@@ -32,24 +30,20 @@
 		.error-actions .btn { margin-right:10px; }
 	</style>
 </head>
-<body>
-
+<body onload="javascript: window.resizeTo(400,420)">
 	<div class="container">
 	    <div class="row">
 	        <div class="col-md-12">
 	            <div class="error-template">
-	                <h1>오류가 발생 하다니...</h1>
-	                <div><img alt="Error" src="<c:url value="/resources/images/error1.gif"/>"></div>
-	                <h2>오류 내용 : 500</h2>
-	                <div class="error-details">홈 버튼을 눌러주세요</div>
+	                <h4><font style="font-weight: bold">비밀번호 찾기 답변이 일치하지 않습니다.<br>다시 시도해주세요.</font></h4>
+	                <div><img width="200" alt="Error" src="<c:url value="/resources/images/error1.gif"/>"></div>
 	                <div class="error-actions">
-	                    <a href="<c:url value="/webHome.pet"/>" class="btn btn-custom btn-lg"><span class="glyphicon glyphicon-home"></span>
-						HOME</a>
+	                    <a onclick="javascript:history.back()" class="btn btn-custom btn-lg"><span class="glyphicon glyphicon-circle-arrow-left"></span>
+						다시 시도</a>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-	
 </body>
 </html>

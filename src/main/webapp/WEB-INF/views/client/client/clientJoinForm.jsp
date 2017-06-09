@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <title></title>
@@ -83,12 +83,28 @@
 						<div class="row control-group">
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 								<label for="name">ID</label>
-								<input class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">
+								<input id = "client_id" class="form-control" type="text" name="client_id" placeholder="ID를 입력하세요">
 							</div>
 							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<br>
 							<input type = "button" value="중복확인" id = "id_check" class = "btn btn-custom btn-md"/>
 							<p id = "id_check_display"></p>
+							</div>
+						</div>
+						<div class="row control-group">
+							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+								<label for="name">비밀번호 확인 질문</label>
+								<select class="form-control" name="client_pw_qst" id="client_pw_qst">
+									<option value = "어릴 적 내 별명은?">어릴 적 내 별명은?</option>
+									<option value = "애완동물 이름은?">애완동물 이름은?</option>
+									<option value = "가장 좋아하는 음식은?">가장 좋아하는 음식은?</option>
+									<option value = "가장 존경하는 인물은?">가장 존경하는 인물은?</option>
+									<option value = "감명깊게 읽은 책?">감명깊게 읽은 책?</option>
+								</select>
+							</div>
+							<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+								<label for="name">답변</label>
+								<input type="text" class="form-control" id = "client_pw_asw" name="client_pw_asw" placeholder="비밀번호 확인 답변을 입력해주세요." />
 							</div>
 						</div>
 						<div class="row control-group">

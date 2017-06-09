@@ -9,6 +9,7 @@
 	<title>Insert title here</title>
 	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 	
 	<script type="text/javascript">
 		$(function() {

@@ -66,14 +66,18 @@
 							<td class="form-inline">
 								<se:authentication property="name" var="username"/>
 									<c:if test = "${ username == list.report_writer}">
-										<button class = "btn btn-custom btn-md" onclick = "location='deleteReport.pet?report_code=${list.report_code}'">삭제</button>
-										<button class = "btn btn-custom btn-md" onclick = "location='updateReportForm.pet?report_code=${list.report_code}'">수정</button>
+										<c:if test="${list.report_check=='success'}"><font color="green">승인완료</font>
+										</c:if>
+										<c:if test="${list.report_check!='success'}">
+											<button class = "btn btn-custom btn-md" onclick = "location='deleteReport.pet?report_code=${list.report_code}'">삭제</button>
+											<button class = "btn btn-custom btn-md" onclick = "location='updateReportForm.pet?report_code=${list.report_code}'">수정</button>
+										</c:if>
 									</c:if>
-									<c:if test="${ username != list.report_writer}">권한 없음</c:if>
+									<c:if test="${ username != list.report_writer}"><font color="red">권한 없음</font></c:if>
 							</td>
 							<td class="form-inline">
 								<se:authentication property="name" var="username"/>
-									<c:if test="${username == list.report_writer}">
+									<c:if test="${username == list.report_reader}">
 										<c:if test = "${ list.report_check == 'success'}">
 											<button class = "btn btn-custom btn-md" onclick = "location='checkReport.pet?report_check=fail&report_code=${list.report_code}'">미승인</button>
 										</c:if>
@@ -81,7 +85,7 @@
 											<button class = "btn btn-custom btn-md" onclick = "location='checkReport.pet?report_check=success&report_code=${list.report_code}'">승인</button>
 										</c:if>
 									</c:if>
-									<c:if test="${username != list.report_writer}"><font color="red">권한 없음</font></c:if>
+									<c:if test="${username != list.report_reader}"><font color="red">권한 없음</font></c:if>
 							</td>
 						</tr>
 					</c:forEach>
