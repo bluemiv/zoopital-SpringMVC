@@ -80,13 +80,14 @@ public class FindPwController {
 		if(result_client == null){
 			//아이디가 없음
 			System.out.println("ID가 없네영");
-					
 			return null;
+			
 		} else{
 			//아이디가 있음 
 			//해당 아이디에 대한 비번 정보 보내야 함!
-			
+			System.out.println(result_client.toString());
 			return result_client;
 		}
+		
 	}
 }

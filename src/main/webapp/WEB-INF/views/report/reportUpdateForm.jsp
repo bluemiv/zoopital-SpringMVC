@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,39 +13,55 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
-	<h1>업무 보고서</h1>
-	<form action="updateReportPro.pet" method = "post">
-		<div>
-		<input type = "hidden" name = "report_code" value="${reportDTO.report_code}"/>
-			결재하는 사람:
-			<select name="report_reader">
-				<c:forEach items= "${storeCodeList}" var = "storeList">
-					<c:if test="${reportDTO.report_reader == storeList}">
-						<option selected="selected" value = "${storeList}">${storeList}</option>
-					</c:if>
-					<c:if test="${reportDTO.report_reader != storeList}">
-						<option value = "${storeList}">${storeList}</option>
-					</c:if>
-				</c:forEach>
-			</select><br>
-			직위:
-			<select name="report_position">
-			<c:if test="${reportDTO.report_position == 'doctor'}">
-				<option selected="selected" value = "doctor">의사</option>
-				<option value = "worker">비정규직</option>
-			</c:if>
-			<c:if test="${reportDTO.report_position == 'worker'}">
-				<option value = "doctor">의사</option>
-				<option selected="selected" value = "worker">비정규직</option>
-			</c:if>
-			</select>
-			<hr>
-			보고내용: <textarea rows="5" cols="30" name="report_contents" >${reportDTO.report_contents}</textarea><br><hr>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2>보고서 수정</h2>
+				<hr>
+			</div>
 		</div>
-		<div>
-			<input type="submit"  value="작성완료">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<form action="updateReportPro.pet" method = "post">
+					<input type = "hidden" name = "report_code" value="${reportDTO.report_code}"/>
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">결재하는 사람</label>
+							<select class="form-control" name="report_reader">
+								<c:forEach items= "${empFullList}" var = "empFullList">
+									<c:if test="${reportDTO.report_reader == empFullList.emp_name}">
+										<option selected="selected" value = "${empFullList.emp_name}">${empFullList.emp_name}</option>
+									</c:if>
+									<c:if test="${reportDTO.report_reader != empFullList.emp_name}">
+										<option value = "${empFullList.emp_name}">${empFullList.emp_name}</option>
+									</c:if>
+								</c:forEach>
+							</select><br>
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">작성자 직급</label>
+							<se:authorize access="hasAnyRole('ROLE_FULL', 'ROLE_SUPER_FULL')">
+								<input type="text" value="정규직" class="form-control" name="report_position" readonly ="readonly">
+							</se:authorize>
+							<se:authorize access="hasAnyRole('ROLE_PART', 'ROLE_SUPER_PART')">
+								<input type="text" value="비정규직" class="form-control" name="report_position" readonly ="readonly">
+							</se:authorize>	
+						</div>
+					</div>
+					<hr>
+					<div class="row control-group">
+						<label for="message">보고내용</label>
+							<textarea class="form-control" rows="10" name="report_contents" >${reportDTO.report_contents}</textarea><br><hr>
+						<p class="help-block text-danger"></p>
+					</div>
+					<div>
+						<input  type="submit" class = "btn btn-custom btn-md"  value="작성완료">
+					</div>
+				</form>
+			</div>
 		</div>
-	</form>
+	</div>
+				
 
 	<!-- 푸터 파일 -->
 	<jsp:include page="../layout/footer.jsp"/>

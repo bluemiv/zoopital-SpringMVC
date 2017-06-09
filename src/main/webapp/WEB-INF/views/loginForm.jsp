@@ -12,7 +12,7 @@
 		function pupup(){
 			var url = "find/pwSearchForm.pet";
 			var name  = "popup";
-			window.open(url, name, "width=1000, toolbar=no, status=no, location=no, scrollbars=yes, menubar=no, resizable=yes, left=50, right=50");		
+			window.open(url, name, "width=500, height=300 toolbar=no, status=no, location=no, scrollbars=yes, menubar=no, resizable=yes, left=50, right=50");		
 		}
 	</script>
 	
