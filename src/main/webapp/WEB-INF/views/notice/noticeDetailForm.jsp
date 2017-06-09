@@ -122,7 +122,8 @@
 							</form>
 						</c:if>
 						</div>
-						<div class = "col-md-12">
+						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+							<h4>제목 : ${list.reply_title}</h4>
 							<h4>내용 : ${list.reply_contents}</h4>
 						</div>
 						<form action = "updateReply.pet" method="post">

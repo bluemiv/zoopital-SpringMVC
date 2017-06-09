@@ -79,6 +79,8 @@
 							class="btn btn-md btn-custom">수정</button>
 							<button onclick = "location='deletePro.pet?store_code=${list.store_code}'"
 							class="btn btn-md btn-custom">삭제</button>
+							<button onclick = "location='storeInfoRefresh.pet?store_code=${list.store_code}'"
+							class="btn btn-md btn-custom">정보갱신</button>
 						</td>
 					</tr>
 					</c:forEach>
