@@ -50,6 +50,7 @@
 						<th>정규직</th>
 						<th>비정규직</th>
 						<th>가입날짜</th>
+						<th>권한</th>
 						<th>기타</th>
 					</tr>
 				</thead>
@@ -65,6 +66,14 @@
 						<td>${list.store_doctor}</td>
 						<td>${list.store_worker}</td>
 						<td>${list.store_date }</td>
+						<td>
+						<c:if test="${list.store_role == 'ROLE_SUPER_FULL'}">
+							본사
+						</c:if>
+						<c:if test="${list.store_role == 'ROLE_FULL'}">
+							지점
+						</c:if>
+						</td>
 						<td>
 							<button onclick = "location='adminUpdate.pet?store_code=${list.store_code}'"
 							class="btn btn-md btn-custom">수정</button>

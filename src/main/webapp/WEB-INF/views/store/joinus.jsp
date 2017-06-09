@@ -78,9 +78,16 @@
 					</div>
 					
 					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">지점 명</label>
 							<input type = "text" name = "store_name" class="form-control" required="required" placeholder="병원이름을 입력해주세요">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">권한</label>
+							<select name = "store_role" class="form-control" required="required">
+								<option value="ROLE_SUPER_FULL">본사</option>
+								<option value="ROLE_FULL">지점</option>
+							</select>
 						</div>
 					</div>
 					

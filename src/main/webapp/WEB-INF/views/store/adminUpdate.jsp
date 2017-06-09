@@ -23,7 +23,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<form action = "input.pet" method = "post">
+				<form action = "adminUpdatPro.pet" method = "post">
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">지점 ID</label>
@@ -32,9 +32,16 @@
 					</div>
 					
 					<div class="row control-group">
-						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">지점 명</label>
 							<input type = "text" name = "store_name" value="${storeDTO.store_name }" class="form-control" required="required" placeholder="병원이름을 입력해주세요">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">권한</label>
+							<select name = "store_role" class="form-control" required="required">
+								<option value="ROLE_SUPER_FULL">본사</option>
+								<option value="ROLE_FULL">지점</option>
+							</select>
 						</div>
 					</div>
 					
@@ -55,32 +62,6 @@
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="message">임대비</label>
 							<input type = "text" name = "store_rentCost" value="${storeDTO.store_rentCost }" class="form-control">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div
-							class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">총 수입</label>
-							<input type = "text" name = "store_income" value="${storeDTO.store_income }" class="form-control">
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">직원 급여</label>
-							<input type = "text" name = "store_payment" value="${storeDTO.store_payment }" class="form-control">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					
-					<div class="row control-group">
-						<div
-							class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">정규직 인원</label>
-							<input type = "text" name = "store_doctor" value="${storeDTO.store_doctor }" class="form-control">
-						</div>
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
-							<label for="message">비정규직 인원</label>
-							<input type = "text" name = "store_worker" value="${storeDTO.store_worker }" class="form-control">
 							<p class="help-block text-danger"></p>
 						</div>
 					</div>

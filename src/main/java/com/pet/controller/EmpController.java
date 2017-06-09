@@ -48,6 +48,7 @@ public class EmpController {
 		System.out.println("empInsertForm 컨트롤러 진입");
 		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
 		List<StoreDTO> store_list = storeDAO.selectAllStoreCode();
+		
 		model.addAttribute("store_list",store_list);
 		return "/emp/empInsertForm";
 	}
@@ -146,5 +147,16 @@ public class EmpController {
 		}
 		
 		return check;
+	}
+	
+	@ResponseBody
+	@RequestMapping("storeRoleCheckAjax.pet")
+	public String idConfirmAjax(@RequestBody StoreDTO storeDTO) throws Exception{
+		System.out.println("storeRoleCheckAjax 접근");
+		
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		storeDTO = storeDAO.adminUpdate(storeDTO);
+		
+		return storeDTO.getStore_role();
 	}
 }
