@@ -7,8 +7,8 @@
 	<select id="getSalesList" resultType="com.pet.model.SalesLogDTO">
 		SELECT *
 		FROM SALESLOG
-		WHERE
-		STORE_CODE = #{store_code}
+		WHERE STORE_CODE = #{store_code}
+		ORDER BY SALESLOG_DATE DESC
 	</select>
 	<select id="getList" resultType="Integer">
 		<!-- param으로 값을 넣을땐 무조건 소문자! 대문자는 인식못함 -->
@@ -23,17 +23,17 @@
 		VALUES(saleslog_seq.nextval,0,0,0,0,0, #{saleslog_year},
 		#{saleslog_month}, #{saleslog_day}, #{saleslog_date}, #{store_code})
 	</insert>
-	<update id="upDateIncome">
+	<update id="upDateIncome" parameterType="com.pet.model.PetHistoryDTO">
 		UPDATE SALESLOG
-		SET SALESLOG_M_INCOME =
-		SALESLOG_M_INCOME + #{pethistory_m_cost}, SALESLOG_T_INCOME =
-		SALESLOG_T_INCOME + #{pethistory_cost},
-		SALESLOG_INCOME =
-		SALESLOG_INCOME + #{pethistory_m_cost} + #{pethistory_cost},
-		SALESLOG_NET_INCOME = SALESLOG_NET_INCOME + SALESLOG_INCOME +
-		#{pethistory_m_cost} + #{pethistory_cost}
-		WHERE STORE_CODE =
-		#{store_code}
+		SET SALESLOG_M_INCOME = SALESLOG_M_INCOME + (#{pethistory_m_cost}), SALESLOG_T_INCOME = SALESLOG_T_INCOME + (#{pethistory_cost}),
+		SALESLOG_INCOME = SALESLOG_INCOME + (#{pethistory_m_cost}) + (#{pethistory_cost})
+		WHERE STORE_CODE = #{store_code}
+		AND SALESLOG_DATE = #{today}
+	</update>
+	<update id="upDateNIncome" parameterType="com.pet.model.PetHistoryDTO">
+		UPDATE SALESLOG
+		SET SALESLOG_NET_INCOME = SALESLOG_INCOME - SALESLOG_SPENDING
+		WHERE STORE_CODE = #{store_code}
 		AND SALESLOG_DATE = #{today}
 	</update>
 	<!-- 월 별로 가져옴 -->
