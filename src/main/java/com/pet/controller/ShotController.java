@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.CounterDTO;
 import com.pet.model.ShotDAO;
 import com.pet.model.ShotDTO;
 
@@ -24,7 +25,10 @@ public class ShotController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("shotList.pet")
-	public ModelAndView listForm(ShotDTO dto, HttpSession session){
+	public ModelAndView listForm(ShotDTO dto, HttpSession session, HttpServletRequest request){
+		String month= request.getParameter("month");
+		System.out.println("month: "+month);
+		
 		System.out.println("shotList 접근");
 		
 		ModelAndView mav= new ModelAndView();
@@ -38,12 +42,21 @@ public class ShotController {
 		String year_str = d.split("-")[0];
 		String month_str = d.split("-")[1];
 		String day_str = d.split("-")[2];
-
+		
+		
+		if(month != null){
+		month_str=month;
+		}
 		day_str="30";
 		
+		
 		String lastDay1 = year_str + "-" + month_str + "-" + day_str;
-
+		String firstDay1 = year_str + "-" + month_str + "-" + "01";
+		System.out.println("lastDay1: "+ lastDay1);
+		
+		
 		Date lastDay = Date.valueOf(lastDay1);
+		Date firstDay = Date.valueOf(firstDay1);
 		
 		String store_code = (String) session.getAttribute("session_store_code");
 		
@@ -52,18 +65,21 @@ public class ShotController {
 		
 	    mav.addObject("list", list);
 	    mav.addObject("lastDay", lastDay);
+	    mav.addObject("firstDay", firstDay);
 	    mav.addObject("currentTime", currentTime);
+	    mav.addObject("month", month_str);
 		mav.setViewName("/shot/shotList");
 		return mav;
 	
 	}
 	
 	
-	@RequestMapping("insertShot.pet")
+	/*@RequestMapping("insertShot.pet")
 	public ModelAndView insert_shot(ShotDTO dto, HttpSession session){
 		ModelAndView mav= new ModelAndView();
-		
 		String store_code = (String) session.getAttribute("session_store_code");
+	
+		System.out.println("dto: "+dto.toString());
 		
 		ShotDAO shotDAO = sqlSession.getMapper(ShotDAO.class);
 		List list= shotDAO.selectShot(store_code);
@@ -120,5 +136,5 @@ public class ShotController {
 	       Date mustDate = Date.valueOf(mustDate_str);
 	       
 	       return mustDate;
-	    }
+	    }*/
 }

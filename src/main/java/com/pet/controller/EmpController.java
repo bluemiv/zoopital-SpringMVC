@@ -17,6 +17,8 @@ import com.pet.client.model.ClientDAO;
 import com.pet.client.model.ClientDTO;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
+import com.pet.model.StoreDAO;
+import com.pet.model.StoreDTO;
 
 @Controller
 @RequestMapping("/emp/")
@@ -42,8 +44,12 @@ public class EmpController {
 	}
 	
 	@RequestMapping("empInsertForm.pet")
-	public String empInsertForm(Model model){
+	public String empInsertForm(Model model) throws Exception{
 		System.out.println("empInsertForm 컨트롤러 진입");
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		List<StoreDTO> store_list = storeDAO.selectAllStoreCode();
+		
+		model.addAttribute("store_list",store_list);
 		return "/emp/empInsertForm";
 	}
 	
@@ -53,13 +59,18 @@ public class EmpController {
 		
 		// 직원 추가
 		boolean check = false;
-		dto.setStore_code((String)session.getAttribute("session_store_code"));
+		if(dto.getStore_code() == null){
+			System.out.println("실행?");
+			dto.setStore_code((String)session.getAttribute("session_store_code"));
+		}
+		System.out.println("실행?1");
 		EmpDAO EmpDAO = sqlSession.getMapper(EmpDAO.class);
 		if(EmpDAO.insertEmp(dto) > 0){
 			check = true;
+			System.out.println("실행?2");
 		}
-		
-		return "redirect:empListForm.pet";
+		System.out.println("실행?3");
+		return "redirect:../home.pet";
 	}
 	
 	@RequestMapping("empUpdateDeleteForm.pet")
@@ -136,5 +147,16 @@ public class EmpController {
 		}
 		
 		return check;
+	}
+	
+	@ResponseBody
+	@RequestMapping("storeRoleCheckAjax.pet")
+	public String idConfirmAjax(@RequestBody StoreDTO storeDTO) throws Exception{
+		System.out.println("storeRoleCheckAjax 접근");
+		
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		storeDTO = storeDAO.adminUpdate(storeDTO);
+		
+		return storeDTO.getStore_role();
 	}
 }

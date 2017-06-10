@@ -50,14 +50,19 @@
 							상세보기<span class="glyphicon glyphicon-list-alt"></span></button>
 						</td>
 						<td>
-							<form action = "" method = "post">
+							<form action = "../product/productBuyForm.pet" method = "post">
+								<input type = "hidden" value="${var.product_amount}" name = "buy_amount"/>
+								<input type = "hidden" value="${var.product_code}" name="product_code"/>
+								<input type = "hidden" value="${var.basket_code}" name="basket_code"/>
+								<!-- 구입 -->
+								<input type="submit" value="구입" class = "btn btn-custom btn-md"/>
 								<!-- 목록 삭제 -->
-								<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#deleteBasketModal">
+								<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#deleteBasketModal${var.basket_code}">
 									삭제
 								</button>
 							</form>
 							<!-- 삭제 모달 -->
-							<div class="modal fade" id="deleteBasketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal fade" id="deleteBasketModal${var.basket_code}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">

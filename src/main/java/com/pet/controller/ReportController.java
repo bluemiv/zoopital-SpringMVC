@@ -92,6 +92,8 @@ public class ReportController {
 	public String updateReportForm(ReportDTO reportDTO, Principal principal, Model model) throws Exception{
 		System.out.println("updateReportForm 접근");
 		
+		
+		
 		// 자세한 정보 가져오기
 		reportDTO.setReport_writer(principal.getName());
 		ReportDAO reportDAO = sqlSession.getMapper(ReportDAO.class);
@@ -103,7 +105,6 @@ public class ReportController {
 		 		
 		model.addAttribute("empFullList", empFullList);
 		model.addAttribute("reportDTO", reportDTO);
-		
 		return "/report/reportUpdateForm";
 	}
 	

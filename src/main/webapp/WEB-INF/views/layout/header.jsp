@@ -40,14 +40,22 @@
 					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
 					Zoopital
 				</a>
+				<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
+				<a class="navbar-brand" href="/controller/home.pet">
+					관리자
+				</a>
+				</se:authorize>
 			</div>
 			<se:authorize access="isAuthenticated()">
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
+					<c:if test="${username != 'system'}">
 					<c:url value="/notice/noticeListForm.pet" var = "noticeListForm"></c:url>
 					<li><a href="${noticeListForm}">공지사항</a></li>
+					<c:url value="/shot/shotList.pet" var = "shotList"></c:url>
+					<li><a href="${shotList}">예방접종</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">접수 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -72,8 +80,6 @@
 					<li><a href="${medicamentListForm}">약품</a></li>
 					<c:url value="/order/orderInfoForm.pet" var = "orderInfoForm"></c:url>
 					<li><a href="${orderInfoForm}">발주</a></li>
-					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
-					<li><a href="${empListForm}">직원</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">예약관리 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -85,6 +91,8 @@
 							<li><a href="${passReservationList}">지난예약내역</a></li>
 						</ul>
 					</li>
+					<c:url value="/emp/empListForm.pet" var = "empListForm"></c:url>
+					<li><a href="${empListForm}">직원</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">동물 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -94,37 +102,22 @@
 							<li><a href="${petWriteForm}">동물 등록</a></li>
 						</ul>
 					</li>
+					</c:if>
+					<c:if test="${username == 'system'}">
+					<c:url value="/emp/empInsertForm.pet" var = "empInsertForm"></c:url>
+					<li><a href="${empInsertForm}">직원추가</a></li>
+					</c:if>
 					<se:authorize access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_SUPER_FULL')">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
-							<li><a href="${storeSelectAll}">지점 목록</a></li>
-							<c:url value="/store/inputForm.pet" var = "storeInputForm"></c:url>
-							<li><a href="${storeInputForm}">지점 가입</a></li>
-						</ul>
-					</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">지점 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
+								<li><a href="${storeSelectAll}">지점 목록</a></li>
+								<c:url value="/store/inputForm.pet" var = "storeInputForm"></c:url>
+								<li><a href="${storeInputForm}">지점 가입</a></li>
+							</ul>
+						</li>
 					</se:authorize>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">매출현황 <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<c:url value="/saleslog/dailylog.pet" var = "dailylog"></c:url>
-							<li><a href="${dailylog}">일일매출</a></li>
-							<c:url value="/saleslog/logchart.pet" var = "logchart"></c:url>
-							<li><a href="${logchart}">매출차트</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						보고서 <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
-							<li><a href="${reportGetReportList}">보고서 리스트</a></li>
-							<c:url value="/report/reportInsert.pet" var = "reportInsert"></c:url>
-							<li><a href="${reportInsert}">보고서 쓰기</a></li>
-						</ul>
-					</li>
 					</se:authorize>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -133,26 +126,38 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
+							<c:if test="${username != 'system'}">
 							<!-- 직원들만 볼 수 있음 -->
 							<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 								<c:url value="/message/messageListForm.pet" var = "messageListForm"></c:url>
 								<li><a href="${messageListForm}">쪽지함</a></li>
+								<hr>
+								<c:url value="/saleslog/dailylog.pet" var = "dailylog"></c:url>
+								<li><a href="${dailylog}">일일매출</a></li>
+								<c:url value="/saleslog/logchart.pet" var = "logchart"></c:url>
+								<li><a href="${logchart}">매출차트</a></li>
+								<hr>
+								<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
+								<li><a href="${reportGetReportList}">보고서 리스트</a></li>
+								<c:url value="/report/reportInsert.pet" var = "reportInsert"></c:url>
+								<li><a href="${reportInsert}">보고서 쓰기</a></li>
+								<hr>
 							</se:authorize>
 							<!-- 고객만 볼 수 있음 -->
 							<se:authorize access="hasRole('ROLE_CLIENT')">
 								<c:url value="/client/clientMypageForm.pet" var = "clientMypageForm"></c:url>
 								<li><a href="${clientMypageForm}">마이페이지</a></li>
+								<hr>
+								<c:url value="/client/buyList/buyListForm.pet" var = "buyListForm"></c:url>
+								<li><a href="${buyListForm}">구매목록</a></li>
 								<c:url value="/client/basket/baksetListForm.pet" var = "baksetListForm"></c:url>
 								<li><a href="${baksetListForm}">장바구니</a></li>
 							</se:authorize>
+							</c:if>
 							<c:url value="/j_spring_security_logout" var = "logout"></c:url>
-							<li>
-							<a href="${logout}">로그아웃</a>
-							</li>
+							<li> <a href="${logout}">로그아웃</a></li>
 						</ul>
 					</li>
-					
-					
 				</ul>
 			</div>
 			</se:authorize>

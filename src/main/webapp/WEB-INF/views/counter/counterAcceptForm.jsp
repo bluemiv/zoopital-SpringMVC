@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>접수하기</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	function accept_sub(){
 	alert("접수가 완료 되었습니다");

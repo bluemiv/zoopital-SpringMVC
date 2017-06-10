@@ -12,7 +12,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.SalesLogDAO;
 import com.pet.model.SalesLogDTO;
@@ -58,5 +60,26 @@ public class SalesLogController {
 			
 		}
 		return today;
+	}
+	
+	
+	@RequestMapping("dailyChart.pet")
+	public String dailyChart() throws Exception{
+		System.out.println("dailyChart 접근");
+		return "/saleslog/dailyChart";
+	}
+	
+	@ResponseBody
+	@RequestMapping("dailyChartAjax.pet")
+	public List<SalesLogDTO> dailyChartAjax(@RequestBody SalesLogDTO salesLogDTO, HttpSession session) throws Exception{
+		System.out.println("dailyChartAjax 접근");
+		// 세션값 가져옴
+		String store_code =(String)session.getAttribute("session_store_code");
+		salesLogDTO.setStore_code(store_code);
+		// 리스트 가져옴
+		SalesLogDAO dao = sqlSession.getMapper(SalesLogDAO.class);
+		List<SalesLogDTO> list = dao.getMonthList(salesLogDTO);
+		
+		return list;
 	}
 }

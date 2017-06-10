@@ -10,6 +10,7 @@ public class ProductDTO {
 	private String product_regdate; // varchar2(500) not null, -- 상품 등록 날짜
 	private String product_modifyDate; // varchar2(500) -- 수정 날짜
 	private String product_url; // varchar2(500) -- 상품 이미지 경로
+	private String client_id; // 고객 아이디
 	
 	// set get method
 	public int getProduct_code() {
@@ -74,6 +75,14 @@ public class ProductDTO {
 
 	public void setProduct_url(String product_url) {
 		this.product_url = product_url;
+	}
+
+	public String getClient_id() {
+		return client_id;
+	}
+
+	public void setClient_id(String client_id) {
+		this.client_id = client_id;
 	}
 
 	@Override

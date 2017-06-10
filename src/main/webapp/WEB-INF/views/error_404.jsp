@@ -43,7 +43,7 @@
 	                <h2>오류 내용 : 404 Not Found</h2>
 	                <div class="error-details">홈 버튼을 눌러주세요</div>
 	                <div class="error-actions">
-	                    <a href="<c:url value="/home.pet"/>" class="btn btn-custom btn-lg"><span class="glyphicon glyphicon-home"></span>
+	                    <a href="<c:url value="/webHome.pet"/>" class="btn btn-custom btn-lg"><span class="glyphicon glyphicon-home"></span>
 						HOME</a>
 	                </div>
 	            </div>

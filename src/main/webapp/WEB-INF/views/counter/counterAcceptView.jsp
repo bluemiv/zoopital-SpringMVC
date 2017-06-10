@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>진료 대기 동물</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->

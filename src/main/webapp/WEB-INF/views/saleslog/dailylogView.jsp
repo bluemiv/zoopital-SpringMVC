@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>일일매출</title>
 </head>
 <body>
@@ -23,6 +24,7 @@
 			<div class="col-lg-9 text-center">
 			</div>
 			<div class="col-lg-3 text-center">
+				<button onclick="location='dailyChart.pet'">차트보기</button>
 			</div>
 		</div>
 	

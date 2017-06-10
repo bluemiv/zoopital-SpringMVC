@@ -59,33 +59,28 @@ public class FindPwController {
 	@RequestMapping("showPw.pet")
 	public String showPw(HttpServletRequest request, Model model){
 		String change_pw = request.getParameter("change_pw");
-		System.out.println("--------------------"+change_pw);
+		
 		model.addAttribute("change_pw", change_pw);
 
-		
 		return "/client/client/showPw";
 	}
 	
 	////////////////Ajax/////////////
-	//
 	@ResponseBody
 	@RequestMapping("pwSearchAjax.pet")
 	public ClientDTO pwSearchAjax(@RequestBody ClientDTO clientDTO) throws Exception{
 		System.out.println("Ajax실행");
-		System.out.println(clientDTO.getClient_id());
 				
 		ClientDAO clientDAO = sqlSession.getMapper(ClientDAO.class);
 		ClientDTO result_client = clientDAO.getClientInfo(clientDTO);
 		
 		if(result_client == null){
 			//아이디가 없음
-			System.out.println("ID가 없네영");
 			return null;
 			
 		} else{
 			//아이디가 있음 
 			//해당 아이디에 대한 비번 정보 보내야 함!
-			System.out.println(result_client.toString());
 			return result_client;
 		}
 		

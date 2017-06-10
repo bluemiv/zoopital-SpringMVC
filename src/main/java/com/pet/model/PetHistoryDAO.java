@@ -3,7 +3,7 @@ package com.pet.model;
 import java.util.List;
 
 public interface PetHistoryDAO {
-	//전체목록 한번 출력해볼려고...
+	//전체목록 한번 출력해보려고...
 	public List<PetHistoryDTO> selectAllHistory(String store);
 	
 	//처방전 추가
@@ -20,4 +20,10 @@ public interface PetHistoryDAO {
 	
 	//진료대기자 명단 안보이게 하기
 	public void updateWaiting(int petaccept_code) throws Exception;
+	
+	//히스토리 수정을 위해 key값으로 불러오기
+	public PetHistoryDTO getDto(int pethistory_key) throws Exception;
+	
+	//히스토리 수정
+	public void updateHistory(PetHistoryDTO petHistoryDTO) throws Exception;
 }

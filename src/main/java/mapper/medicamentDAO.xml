@@ -105,6 +105,15 @@
 		select * from medicament where store_code = #{param1} and medicament_name = #{param2}
 	</select>
 	<update id="updateAmountOfHistory" parameterType="com.pet.model.MedicamentDTO">
-	update medicament set medicament_amount = (medicament_amount - #{am_count}) where store_code = #{store_code} and medicament_name = #{medicament_name}
+		update medicament set medicament_amount = (medicament_amount - #{am_count}) where store_code = #{store_code} and medicament_name = #{medicament_name}
 	</update>
+	<update id="updateAmountReturn" parameterType="com.pet.model.MedicamentDTO">
+		update medicament set medicament_amount = (medicament_amount + #{am_count}) where store_code = #{store_code} and medicament_name = #{medicament_name}
+	</update>
+	
+ 	<select id="selectShot_medicine" resultType="com.pet.model.MedicamentDTO" parameterType="com.pet.model.MedicamentDTO">
+		SELECT *
+		FROM MEDICAMENT
+		WHERE STORE_CODE = #{store_code} AND MEDICAMENT_NAME = #{medicament_name} AND MEDICAMENT_CATEGORY='주사'
+	</select> 
 </mapper>

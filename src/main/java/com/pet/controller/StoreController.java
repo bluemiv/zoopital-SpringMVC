@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pet.model.EmpDAO;
+import com.pet.model.EmpDTO;
 import com.pet.model.PageDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
@@ -86,6 +88,7 @@ public class StoreController {
 
 		mav.addObject("adminList", adminList);
 		mav.addObject("totalPageNum", totalPageNum);
+		mav.addObject("currentPageNum", pageNum);
 		return mav;
 	}
 
@@ -148,7 +151,7 @@ public class StoreController {
 		StoreDAO dao = sqlSession.getMapper(StoreDAO.class);
 		System.out.println("searchList 실행되었습니다.");
 		List searchList = dao.searchStore(dto);
-		mav.addObject("searchList", searchList);
+		mav.addObject("adminList", searchList);
 
 		return mav;
 	}
@@ -180,5 +183,31 @@ public class StoreController {
 		}
 		
 		return check;
+	}
+	
+	@Transactional
+	@RequestMapping("storeInfoRefresh.pet")
+	public String storeInfoRefresh(EmpDTO empDTO) throws Exception{
+		System.out.println("storeInfoRefresh 접근");
+		
+		// 정규직 인원 수 가져옴
+		EmpDAO empDAO = sqlSession.getMapper(EmpDAO.class);
+		EmpDTO empDTO_full = empDAO.getEmpFullCount(empDTO);
+		
+		StoreDAO storeDAO = sqlSession.getMapper(StoreDAO.class);
+		StoreDTO storeDTO = new StoreDTO();
+		storeDTO.setStore_doctor(String.valueOf(empDTO_full.getEmp_full_total()));
+		
+		// 비정규직 인원 수 가져옴
+		EmpDTO empDTO_part = empDAO.getEmpPartCount(empDTO);
+		storeDTO.setStore_worker(String.valueOf(empDTO_part.getEmp_part_total()));
+		System.out.println(storeDTO.getStore_doctor());
+		System.out.println(storeDTO.getStore_worker());
+		
+		// 정규직/비정규직 인원수 수정
+		storeDTO.setStore_code(empDTO.getStore_code());
+		storeDAO.adminUpdatePro(storeDTO);
+		
+		return "redirect:selectAll.pet";
 	}
 }

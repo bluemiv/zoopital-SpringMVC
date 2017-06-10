@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수납 정보</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	function end_sub(){
 		var frm = document.getElementById("frm");
@@ -79,7 +80,7 @@
 						<div
 							class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="message">약품${i.count} 이름</label>
-							<input type = "text" class="form-control" value = "${p.mName}" readonly="readonly">
+							<input type = "text" class="form-control" value = "${p.mName}" name="pethistory_medicine" readonly="readonly">
 							<p class="help-block text-danger"></p>
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">

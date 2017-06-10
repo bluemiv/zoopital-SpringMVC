@@ -55,4 +55,11 @@
 		FROM PRODUCT
 		WHERE PRODUCT_CODE = #{product_code}
 	</select>
+	
+	<!-- 상품 구매시 개수 감소 -->
+	<update id="updateBuyProduct" parameterType= "com.pet.client.model.ProductDTO">
+		UPDATE PRODUCT
+		SET PRODUCT_AMOUNT = (PRODUCT_AMOUNT - #{product_amount})
+		WHERE PRODUCT_CODE = #{product_code}
+	</update>
 </mapper>

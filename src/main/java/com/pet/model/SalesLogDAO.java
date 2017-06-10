@@ -17,5 +17,13 @@ public interface SalesLogDAO {
 	
 	//총수익 업데이트 메소드
 	public void upDateNIncome(PetHistoryDTO petHistoryDTO) throws Exception;
+	//차트 리스트 메소드
+	public List<SalesLogDTO> getMonthList(SalesLogDTO salesLogDTO) throws Exception;
 	
+	
+	//history수정 들어갈때 salesLog에 수익 다시 돌려주기
+	public void upDateIncomeForMod(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	//history수정 들어갈때 salesLog에 수익 다시 돌려주기 후 총수익 다시 계산
+	public void upDateNIncomeForMod(PetHistoryDTO petHistoryDTO) throws Exception;
 }

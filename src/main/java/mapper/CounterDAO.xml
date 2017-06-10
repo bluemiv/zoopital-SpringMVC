@@ -59,9 +59,15 @@
 		) A)
 	</select>
 	<select id="getPayingInfo" resultType="com.pet.model.PetHistoryDTO">
-		select h.*, p.pet_name, p.pet_type, p.pet_sex, p.pet_age
-		from pethistory h, pet p
-		where h.pethistory_key = #{pethistory_key}
-		and h.pethistory_petcode = p.pet_code
+		SELECT H.*, P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE
+		FROM PETHISTORY H, PET P
+		WHERE H.PETHISTORY_KEY = #{pethistory_key}
+		AND H.PETHISTORY_PETCODE = P.PET_CODE
+	</select>
+	<select id="checkExist" resultType="Integer">
+		SELECT COUNT(*)
+		FROM PETACCEPT
+		WHERE STORE_CODE = #{store_code}
+		AND PETACCEPT_CODE = #{petaccept_code}
 	</select>
 </mapper>

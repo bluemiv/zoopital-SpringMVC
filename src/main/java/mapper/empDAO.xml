@@ -79,4 +79,24 @@
 		FROM EMP
 		ORDER BY STORE_CODE
 	</select>
+	
+	<!-- 정규직 인원 수 가져옴 -->
+	<select id="getEmpFullCount" resultType= "com.pet.model.EmpDTO" parameterType= "com.pet.model.EmpDTO">
+		SELECT COUNT(*) AS EMP_FULL_TOTAL
+		FROM EMP
+		<where>
+			STORE_CODE = #{store_code} AND
+			(EMP_ROLE = 'ROLE_SUPER_FULL' OR EMP_ROLE = 'ROLE_FULL')
+		</where>
+	</select>
+	
+	<!-- 비정규직 인원 수 가져옴 -->
+	<select id="getEmpPartCount" resultType= "com.pet.model.EmpDTO" parameterType= "com.pet.model.EmpDTO">
+		SELECT COUNT(*) AS EMP_PART_TOTAL
+		FROM EMP
+		<where>
+			STORE_CODE = #{store_code} AND
+			(EMP_ROLE = 'ROLE_SUPER_PART' OR EMP_ROLE = 'ROLE_PART')
+		</where>
+	</select>
 </mapper>

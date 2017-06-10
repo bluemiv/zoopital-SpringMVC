@@ -35,5 +35,10 @@ public interface MedicamentDAO {
 	public MedicamentDTO getSelectChoice2(String store_code, String m_name) throws Exception;
 	// 약품 재고 업데이트 (history용)
 	public int updateAmountOfHistory(MedicamentDTO medicamentDTO);
+	
+	// 약품 재고 업데이트 (history용)
+	public int updateAmountReturn(MedicamentDTO medicamentDTO);
+
+	public MedicamentDTO selectShot_medicine(MedicamentDTO medicamentDTO);
 
 }

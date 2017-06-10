@@ -60,6 +60,35 @@
 					$("#join_us_btn").attr("disabled", true);
 				}
 			}, 100);
+			
+			// system일때 직원 권한 설정
+			$("#role").hide();
+			$("#store").on("click",function(){
+				$("#role").hide();
+			})
+			$("#store_btn").on("click",function(){
+				var dataForm={
+					store_code : $("#store").val()
+				};
+				$.ajax({
+					url : "storeRoleCheckAjax.pet",
+  	  				method : 'POST',
+  	  				type : 'json',
+  	  				data : JSON.stringify(dataForm),
+  	  				contentType : "application/json",
+  	  				success : function(data) {
+  	  					if(data == 'ROLE_SUPER_FULL'){
+  	  						$("#role").val("ROLE_SUPER_FULL");
+  	  					}else{
+  	  						$("#role").val("ROLE_FULL");
+  	  					}
+  	  					$("#role").show();
+  	  				},
+  					error : function(data, status, er) {
+  						alert("실패 / "+ data + "/" + status + "/" + er);
+  					}
+				})
+			})
 		});
 	</script>
 </head>
@@ -68,6 +97,7 @@
 	<jsp:include page="../layout/header.jsp"/>
 
 	<!-- 컨텐츠 -->
+	<se:authentication property="name" var="username"/>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -131,6 +161,7 @@
 								<option value = "0">비활성화</option>
 							</select>
 						</div>
+						<c:if test="${username != 'system' }">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">직급</label>
 							<select name = "emp_role" class="form-control">
@@ -144,8 +175,25 @@
 							</se:authorize>
 							</select>
 						</div>
+						</c:if>
 					</div>
-	
+					<c:if test="${username == 'system' }">
+					<div class="row control-group">
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">지점</label>
+							<select id="store" name = "store_code" class="form-control">
+								<c:forEach items="${store_list}" var="list">
+								<option value = "${list.store_code}">${list.store_code}</option>
+								</c:forEach>
+							</select>
+							<button class = "btn btn-custom btn-md" id="store_btn" type="button">선택</button>
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">권한</label>
+							<input type="text" readonly="readonly" id = "role" name = "emp_role" class="form-control">
+						</div>
+					</div>
+					</c:if>
 					<br>
 					<div id="success"></div>
 					<div class="row">

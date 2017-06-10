@@ -57,6 +57,13 @@
 							<label for="name">고용일</label>
 							<input type="text" value="${ selectEmp.emp_hiredate }" class="form-control" readonly="readonly">
 						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">(비)활성화</label>
+							<select name = "emp_enabled" class="form-control">
+								<option value = "1">활성화</option>
+								<option value = "0">비활성화</option>
+							</select>
+						</div>
 					</div>
 					
 					<div class="row control-group">
@@ -101,16 +108,7 @@
 						</div>
 					</div>
 	
-					<div class="row control-group">
-						<div
-							class="form-group col-xs-12 floating-label-form-group controls board-custom">
-							<label for="message">기타사항</label>
-							<textarea rows="5" class="form-control"></textarea>
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
 					<br>
-					<div id="success"></div>
 					<div class="row">
 						<div class="form-group col-xs-12">
 							<input type="hidden" name = "command" id="command"/>

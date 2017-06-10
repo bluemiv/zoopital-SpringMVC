@@ -12,7 +12,8 @@ public class StoreDTO {
 	private String store_rentCost;  //임대비
 	private String store_doctor; //지점 의사
 	private String store_worker; //지점 직원
-	private Timestamp  store_date=null; // 가입날짜
+	private Timestamp  store_date; // 가입날짜
+	private String  store_role; // 가입날짜
 	
 	// set get method
 	public String getStore_code() {
@@ -68,6 +69,12 @@ public class StoreDTO {
 	}
 	public void setStore_date(Timestamp store_date) {
 		this.store_date = store_date;
+	}
+	public String getStore_role() {
+		return store_role;
+	}
+	public void setStore_role(String store_role) {
+		this.store_role = store_role;
 	}
 	
 }
