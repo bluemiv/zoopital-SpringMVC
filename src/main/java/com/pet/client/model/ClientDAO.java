@@ -23,7 +23,7 @@ public interface ClientDAO {
 	public void changePw(HashMap<String, Object> map) throws Exception;
 	
 	//  Id 찾기
-	public String findId(ClientDTO clientDTO) throws Exception;
+	public ClientDTO findId(ClientDTO clientDTO) throws Exception;
 
 	// 회원탈퇴
 	public int clientDeletePro(ClientDTO clientDTO) throws Exception;

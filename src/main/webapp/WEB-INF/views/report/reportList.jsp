@@ -46,10 +46,10 @@
 							<td>${list.report_reader}</td>
 							<td>${list.report_writer}</td>
 							<td>
-								<c:if test="${list.report_position == 'doctor'}">
-									의사
+								<c:if test="${list.report_position == '정규직'}">
+									정규직
 								</c:if>
-								<c:if test="${list.report_position == 'worker'}">
+								<c:if test="${list.report_position == '비정규직'}">
 									비정규직
 								</c:if>
 							</td>

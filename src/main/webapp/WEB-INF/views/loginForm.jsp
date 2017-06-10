@@ -54,7 +54,7 @@
 								</form>
 								<hr>
 								<button class="btn btn-lg btn-block btn-custom" onclick="location='client/clientJoinForm.pet'">회원가입</button>
-								<button class="btn btn-lg btn-block btn-custom" onclick="pupup()">비밀번호 찾기</button>
+								<button class="btn btn-lg btn-block btn-custom" onclick="pupup()">아이디 / 비밀번호 찾기</button>
 							</se:authorize>
 							<se:authorize access = "isAuthenticated()">
 								<button onclick= "location='j_spring_security_logout'"

@@ -132,6 +132,16 @@ public class ClientDTO {
 	public void setClient_pw_asw(String client_pw_asw) {
 		this.client_pw_asw = client_pw_asw;
 	}
-
+	@Override
+	public String toString() {
+		return "ClientDTO [client_id=" + client_id + ", client_pw=" + client_pw + ", client_name=" + client_name
+				+ ", client_nickname=" + client_nickname + ", client_age=" + client_age + ", client_tel=" + client_tel
+				+ ", client_email=" + client_email + ", client_join_date=" + client_join_date + ", client_enabled="
+				+ client_enabled + ", client_add=" + client_add + ", client_add_detail=" + client_add_detail
+				+ ", client_postcode=" + client_postcode + ", product_code=" + product_code + ", product_name="
+				+ product_name + ", product_cost=" + product_cost + ", product_amount=" + product_amount
+				+ ", client_pw_qst=" + client_pw_qst + ", client_pw_asw=" + client_pw_asw + "]";
+	}
+	
 
 }

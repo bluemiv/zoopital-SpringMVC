@@ -5,7 +5,6 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>비밀번호 찾기</title>
 <link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -28,6 +27,7 @@
 	<!-- custom css -->
 	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 
+	
 <script type="text/javascript">
 	/* 초기 비번영역 숨기기*/
 	$(function(){
@@ -57,6 +57,10 @@
 				if(result.client_id == null){
 					
 					alert("해당 ID가 존재하지 않아요");
+					document.getElementById("client_id").value = '';
+					
+					return;
+					
 				}
 				if(result.client_id =! null){
 					$("#pw").show();
@@ -87,6 +91,8 @@
 		   	<div class = "row">
 		   		<div class = "col-xs-12">
 					아이디 입력 : <input required="required" id="client_id" class = "form-control" type="text" >
+					<br>
+					<a href="<c:url value="findIDForm.pet"/>" >ID를 모르겠어요</a>
 				</div>
 			</div>
 			<br>
