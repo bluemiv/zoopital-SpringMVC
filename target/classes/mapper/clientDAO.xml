@@ -36,6 +36,12 @@
 		WHERE CLIENT_ID = #{client_id}
 	</select>
 	
+	<select id="findId" resultType="com.pet.client.model.ClientDTO">
+		SELECT CLIENT_ID
+		FROM CLIENT
+		WHERE CLIENT_NAME= #{CLIENT_NAME} AND CLIENT_EMAIL = #{CLIENT_EMAIL}
+	</select>
+	
 	<!-- 고객 정보 수정 -->
 	<update id="clientUpdatePro" parameterType="com.pet.client.model.ClientDTO">
 		UPDATE CLIENT

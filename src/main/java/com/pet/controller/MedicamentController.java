@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.EmpDAO;
-import com.pet.model.EmpDTO;
 import com.pet.model.MedicamentDAO;
 import com.pet.model.MedicamentDTO;
 import com.pet.model.OrderDAO;

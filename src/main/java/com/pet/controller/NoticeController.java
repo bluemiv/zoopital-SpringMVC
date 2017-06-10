@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pet.model.MedicamentDAO;
 import com.pet.model.NoticeDAO;
 import com.pet.model.NoticeDTO;
 import com.pet.model.ReplyDAO;

@@ -84,6 +84,18 @@ public class ClientController {
 			return "redirect:clientMypageForm.pet";
 		}
 	}
+	
+	@RequestMapping("findIDForm.pet")
+	public String findIdForm(ClientDTO clientDTO){
+		
+		return "/client/client/findIDForm";
+	}
+	
+	@RequestMapping("findIDPro.pet")
+	public String findIdPro(ClientDTO clientDTO){
+		
+		return "";
+	}
 	///////////////////Ajax////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("/clientIdConfirmAjax.pet")

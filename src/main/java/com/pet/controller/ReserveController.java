@@ -1,8 +1,6 @@
 package com.pet.controller;
 
 import java.util.ArrayList;
-
-import java.sql.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -16,13 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.pet.model.CalendarDTO;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
-import com.pet.model.MedicamentDAO;
-import com.pet.model.MedicamentDTO;
 import com.pet.model.PetDAO;
 import com.pet.model.PetDTO;
 import com.pet.model.ReserveDAO;

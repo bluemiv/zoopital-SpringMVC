@@ -1,7 +1,5 @@
 package com.pet.model;
 
-import java.util.Date;
-
 public class PetDTO {
 
 	private int pet_code; // number constraint pet_pk primary key, -- 내부 번호(pk)
