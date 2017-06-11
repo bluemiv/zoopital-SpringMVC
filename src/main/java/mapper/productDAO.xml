@@ -5,9 +5,12 @@
     
 <mapper namespace="com.pet.client.model.ProductDAO">
 	<!-- 전체 상품 리스트 가져오기 -->
-	<select id="selectAll" resultType="com.pet.client.model.ProductDTO">
+	<select id="selectAll" resultType="com.pet.client.model.ProductDTO" parameterType="com.pet.client.model.ProductDTO">
 		SELECT *
 		FROM PRODUCT
+		<if test="product_category != null and product_category != ''">
+		WHERE PRODUCT_CATEGORY = #{product_category}
+		</if>
 		ORDER BY PRODUCT_NAME
 	</select>
 

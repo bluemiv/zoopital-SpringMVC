@@ -39,11 +39,11 @@ public class ProductController {
 	SqlSession sqlSession;
 	
 	@RequestMapping("productListForm.pet")
-	public String productListForm(Model model) throws Exception{
+	public String productListForm(ProductDTO productDTO,Model model) throws Exception{
 		System.out.println("productListForm 접근");
 
 		ProductDAO productDAO = sqlSession.getMapper(ProductDAO.class);
-		List<ProductDTO> list = productDAO.selectAll();
+		List<ProductDTO> list = productDAO.selectAll(productDTO);
 		
 		model.addAttribute("list", list);
 		return "client/product/productListForm";

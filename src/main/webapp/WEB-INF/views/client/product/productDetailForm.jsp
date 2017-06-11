@@ -25,7 +25,7 @@
 				<form action="productBuyForm.pet" method="post">
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
-							<img src="<c:url value="/resources/images/product_img/${productDTO.product_url}" />" alt="" class="img-md">
+							<img style="width: 200px; height: 225px;" src="<c:url value="/resources/images/product_img/${productDTO.product_url}" />" alt="" class="img-md">
 						</div>
 					</div>
 					<div class="row control-group">
