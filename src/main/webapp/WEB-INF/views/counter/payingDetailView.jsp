@@ -114,9 +114,9 @@
 						</div>
 					</div>
 					<div class="row control-group">
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">의사 소견</label>
-							<input type = "text" class="form-control" value = "${pdto.pethistory_coments}" readonly="readonly">
+							<textarea class="form-control"  readonly="readonly">${pdto.pethistory_coments}</textarea>
 						</div>
 					</div>
 					<br>

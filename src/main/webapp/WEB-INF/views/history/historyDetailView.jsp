@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>히스토리 상세보기</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>히스토리 상세보기</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- 헤더 파일 -->
@@ -15,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<h2>수납 정보</h2>
+				<h2>처방전</h2>
 				<hr>
 			</div>
 		</div>
@@ -106,13 +107,12 @@
 						</div>
 					</div>
 					<div class="row control-group">
-						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">의사 소견</label>
-							<input type = "text" class="form-control" value = "${pdto.pethistory_coments}" readonly="readonly">
+							<textarea class="form-control" readonly="readonly">${pdto.pethistory_coments}</textarea>
 						</div>
 					</div>
 					<br>
-					<div id="success"></div>
 					<div class="row">
 						<div class="form-group col-xs-12">
 							<input class = "btn btn-custom btn-md" type="button" onclick = "location='selectallhistory.pet'" value="돌아가기">
