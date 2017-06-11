@@ -123,4 +123,12 @@
 		FROM RESERVE
 		WHERE RESERVE_CODE = #{reserve_code}
   	</select>
+  	<select id="getStartNum" parameterType="com.pet.model.ReserveDTO" resultType="Integer">
+  		SELECT RESERVE_START_TIME
+  		FROM RESERVE
+  		WHERE EMP_NAME = #{emp_name}
+  		AND RESERVE_DATE = #{reserve_date}
+  		AND STORE_CODE = #{store_code}
+  		ORDER BY RESERVE_START_TIME
+  	</select>
   </mapper>
