@@ -30,6 +30,7 @@ public class PetHistoryDTO {
 	private String pet_sex;
 	private int pet_age;
 	private String today;//payingDetailView에서 가지고온 값을 바로 업데이트 해주기위해 가져옴
+	private String emp_name;
 	
 	public int getPethistory_petcode() {
 		return pethistory_petcode;
@@ -152,6 +153,13 @@ public class PetHistoryDTO {
 	public void setToday(String today) {
 		this.today = today;
 	}
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 	@Override
 	public String toString() {
 		return "PetHistoryDTO [pethistory_key=" + pethistory_key + ", pethistory_petcode=" + pethistory_petcode
@@ -162,8 +170,21 @@ public class PetHistoryDTO {
 				+ ", pethistory_total_cost=" + pethistory_total_cost + ", store_code=" + store_code
 				+ ", petaccept_code=" + petaccept_code + ", mName=" + mName + ", mAmount=" + mAmount + ", pet_name="
 				+ pet_name + ", pet_type=" + pet_type + ", pet_sex=" + pet_sex + ", pet_age=" + pet_age + ", today="
-				+ today + "]";
+				+ today + ", emp_name=" + emp_name + ", getPethistory_petcode()=" + getPethistory_petcode()
+				+ ", getPethistory_medicine()=" + getPethistory_medicine() + ", getPethistory_coments()="
+				+ getPethistory_coments() + ", getPethistory_today()=" + getPethistory_today()
+				+ ", getPethistory_key()=" + getPethistory_key() + ", getPethistory_name()=" + getPethistory_name()
+				+ ", getPethistory_m_amount()=" + getPethistory_m_amount() + ", getmName()=" + getmName()
+				+ ", getmAmount()=" + getmAmount() + ", getStore_code()=" + getStore_code()
+				+ ", getPethistory_btoday()=" + getPethistory_btoday() + ", getPethistory_m_cost()="
+				+ getPethistory_m_cost() + ", getPethistory_cost()=" + getPethistory_cost() + ", getPetaccept_code()="
+				+ getPetaccept_code() + ", getPet_name()=" + getPet_name() + ", getPet_type()=" + getPet_type()
+				+ ", getPet_sex()=" + getPet_sex() + ", getPet_age()=" + getPet_age() + ", getPethistory_total_cost()="
+				+ getPethistory_total_cost() + ", getToday()=" + getToday() + ", getEmp_name()=" + getEmp_name()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+	
 	
 	
 	

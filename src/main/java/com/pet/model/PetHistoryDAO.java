@@ -15,6 +15,9 @@ public interface PetHistoryDAO {
 	//진료대기자 명단(CounterDAO와 동일한 부분-- 가독성 위해서 한번더 사용)
 	public List<CounterDTO> getTreatList(String store_code) throws Exception;
 	
+	//진료대기자 명단 자신의 환자만 보기
+	public List<CounterDTO> searchMyWaiting(String store_code, String emp_name) throws Exception;
+	
 	//진료대기자 명단에서 삭제
 	public void deleteWaiting(int petaccept_code) throws Exception;
 	
@@ -26,4 +29,10 @@ public interface PetHistoryDAO {
 	
 	//히스토리 수정
 	public void updateHistory(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	//히스토리 내에서 검색 
+	public List<PetHistoryDTO> searchHistory(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	//히스토리 내에서 자신의 환자만 나오게 검색 
+	public List<PetHistoryDTO> searchMyHistory(PetHistoryDTO petHistoryDTO) throws Exception;
 }

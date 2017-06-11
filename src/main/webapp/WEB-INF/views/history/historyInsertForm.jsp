@@ -84,6 +84,7 @@
 	<h3>처방전 입력구간!!!!!!!!!</h3>
 	<!-- <form action="inserthistoryend.pet" id="mcheck" name="mcheck"> -->
 	<form  id="frm" name="frm" method="post">
+	담당 의사 --- <input type="text" name="emp_name" value="${cdto.emp_name }" readonly="readonly"><br>
 	강아지 코드 --- <input type="text" name="pet_code" id="pet_code" value="${pdto.pet_code }" readonly="readonly"><br>
 	강아지 이름 --- <input type="text" name="pet_name" id="pet_name" value="${pdto.pet_name }" readonly="readonly"><br>
 	강아지 종류 --- <input type="text" name="pet_type" id="pet_type" value="${pdto.pet_type }" readonly="readonly"><br>

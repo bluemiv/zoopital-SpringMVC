@@ -73,8 +73,9 @@
 <h3>처방전 수정</h3>
 <!-- <form action="inserthistoryend.pet" id="mcheck" name="mcheck"> -->
 <form  id="frm" name="frm" method="post">
-<input type="text" name="pethistory_m_cost" value="${pdto.pethistory_m_cost }">
-<input type="text" name="pethistory_cost" value="${pdto.pethistory_cost }">
+<input type="hidden" name="pethistory_m_cost" value="${pdto.pethistory_m_cost }">
+<input type="hidden" name="pethistory_cost" value="${pdto.pethistory_cost }">
+담당 의사 --- <input type="text" name="emp_name" value="${pdto.emp_name }" readonly="readonly"><br>
 강아지 코드 --- <input type="text" name="pet_code" id="pet_code" value="${pdto.pethistory_petcode }" readonly="readonly"><br>
 강아지 이름 --- <input type="text" name="pet_name" id="pet_name" value="${pdto.pet_name }" readonly="readonly"><br>
 강아지 종류 --- <input type="text" name="pet_type" id="pet_type" value="${pdto.pet_type }" readonly="readonly"><br>

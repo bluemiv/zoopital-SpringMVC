@@ -29,4 +29,8 @@ public interface CounterDAO {
 	
 	//history수정 시 수납완료인지 아닌지 DB체크
 	public int checkExist(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	//담당 선생님 선택을 위해 emp_name가져오기
+	public List<CounterDTO> getDoctorName(String store_code) throws Exception;
+	
 }

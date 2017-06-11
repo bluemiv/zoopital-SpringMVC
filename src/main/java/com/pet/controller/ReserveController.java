@@ -1,8 +1,8 @@
 package com.pet.controller;
 
-import java.util.ArrayList;
-
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -12,17 +12,16 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.pet.model.CalendarDTO;
+import com.pet.model.CounterDAO;
+import com.pet.model.CounterDTO;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
-import com.pet.model.MedicamentDAO;
-import com.pet.model.MedicamentDTO;
 import com.pet.model.PetDAO;
 import com.pet.model.PetDTO;
 import com.pet.model.ReserveDAO;
@@ -151,14 +150,17 @@ public class ReserveController {
 	}
 	
 	//예약 리스트에서 방문완료/미방문 버튼 클릭 시 실행되는 컨트롤러
+	@Transactional
 	@RequestMapping("/reserveVisited.pet")
-	public String reserveVisited(HttpServletRequest request){
+	public String reserveVisited(HttpServletRequest request) throws Exception{
 		System.out.println("reserveVisited 컨트롤러 진입");		
 	
 		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
-		
+		CounterDAO counterDAO = sqlSession.getMapper(CounterDAO.class);
 		if (request.getParameter("visited") != null) {
 			String reserve_code = request.getParameter("visited");
+			CounterDTO counterDTO = reserveDAO.getReserveInfoForAccept(reserve_code);
+			counterDAO.insertAccept(counterDTO);
 			reserveDAO.changeStatusVisited(reserve_code);
 		}
 		

@@ -13,7 +13,8 @@
 	<select id="searchList" resultType="com.pet.model.PetDTO" parameterType="com.pet.model.PetDTO">
     	SELECT *
     	FROM PET
-    	WHERE PET_NAME LIKE '%${pet_name}%'
+    	WHERE STORE_CODE = #{store_code}
+    	AND PET_NAME LIKE '%${pet_name}%'
     </select>
     <select id="getListWaiting" resultType="com.pet.model.CounterDTO">
 		SELECT *
@@ -37,7 +38,7 @@
     
     <insert id="insertAccept" parameterType="com.pet.model.CounterDTO">
     	INSERT INTO PETACCEPT
-    	VALUES (PETACCEPT_SEQ.NEXTVAL, #{petaccept_petcode}, sysdate, #{petaccept_coments}, #{store_code},'N')
+    	VALUES (PETACCEPT_SEQ.NEXTVAL, #{petaccept_petcode}, sysdate, #{petaccept_coments}, #{store_code},'N',#{emp_name})
     </insert>
     <select id="getTime" resultType="com.pet.model.CounterDTO">
 		SELECT *
@@ -69,5 +70,10 @@
 		FROM PETACCEPT
 		WHERE STORE_CODE = #{store_code}
 		AND PETACCEPT_CODE = #{petaccept_code}
+	</select>
+	<select id="getDoctorName" resultType="com.pet.model.CounterDTO">
+		SELECT EMP_NAME
+		FROM EMP
+		WHERE STORE_CODE = #{store_code}
 	</select>
 </mapper>

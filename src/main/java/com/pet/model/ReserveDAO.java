@@ -37,4 +37,7 @@ public interface ReserveDAO {
 	// 전체 리스트 가져옴
 	public List<ReserveDTO> reservationListAll(ReserveDTO reserveDTO) throws Exception;
 	
+	//방문 완료시 접수 자동등록위해 DTO에 입력
+	public CounterDTO getReserveInfoForAccept(String reserve_code) throws Exception;
+	
 }

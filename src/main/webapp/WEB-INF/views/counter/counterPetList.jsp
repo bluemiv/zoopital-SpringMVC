@@ -25,9 +25,9 @@
 			</div>
 			<div class="col-lg-3 text-center">
 				<div class="input-group">
-					<form action="search.pet" method="get">
+					<form action="searchCounter.pet" method="get">
 						<span class="input-group-btn">
-							<input class = "form-control" type="text" size="30" name="search" placeholder="이름으로 검색">
+							<input class = "form-control" type="text" size="30" name="petname" placeholder="이름으로 검색">
 							<button class="btn btn-custom" type="button">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>

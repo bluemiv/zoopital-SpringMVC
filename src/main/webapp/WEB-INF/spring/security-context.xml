@@ -22,7 +22,7 @@
 		<security:intercept-url pattern="/notice/noticeWriteForm.pet" access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')" />
 		<security:intercept-url pattern="/emp/empInsertForm.pet" access="hasAnyRole('ROLE_SUPER_FULL', 'ROLE_FULL')" />
 		
-		<security:logout logout-success-url="/loginForm.pet" logout-url="/j_spring_security_logout"/>
+		<security:logout logout-success-url="/webHome.pet" logout-url="/j_spring_security_logout"/>
 	</security:http>
 
 	<security:authentication-manager>

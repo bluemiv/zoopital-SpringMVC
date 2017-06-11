@@ -36,10 +36,15 @@
 			<div class="col-lg-9 text-center">
 			</div>
 			<div class="col-lg-3 text-center">
+				<div class="row">
+					<div class="form-group col-xs-12">
+						<input class = "btn btn-custom btn-md" type="button" onclick = "location='searchMyHistory.pet'" value="담당환자만 보기">
+					</div>
+				</div>
 				<div class="input-group">
-					<form action="tt.pet" method="get">
+					<form action="searchHistory.pet" method="get">
 						<span class="input-group-btn">
-							<input class = "form-control" type="text" size="30" name="search" placeholder="이름으로 검색">
+							<input class = "form-control" type="text" size="30" name="petname" placeholder="이름으로 검색">
 							<button class="btn btn-custom" type="button">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
@@ -54,6 +59,7 @@
 				<thead>
 					<tr>
 						<th>No.</th>
+						<th>담당 의사</th>
 						<th>동물 이름</th>
 						<th>동물 종류</th>
 						<th>나이(개월)</th>
@@ -66,6 +72,7 @@
 				<c:forEach  items="${hlist }" var="h">
 					<tr class = "board-custom">
 						<td>${h.pethistory_key }</td>
+						<td>${h.emp_name }</td>
 						<td>${h.pet_name }</td>
 						<td>${h.pet_type }</td>
 						<td>${h.pet_age }</td>

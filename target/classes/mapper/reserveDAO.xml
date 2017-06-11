@@ -117,4 +117,10 @@
   		WHERE STORE_CODE = #{store_code}
   		ORDER BY RESERVE_DATE, RESERVE_START_TIME
   	</select>
+  	
+  	<select id="getReserveInfoForAccept" resultType="com.pet.model.CounterDTO">
+  		SELECT PET_CODE AS PETACCEPT_PETCODE, RESERVE_CONTENTS AS PETACCEPT_COMENTS, STORE_CODE, EMP_NAME
+		FROM RESERVE
+		WHERE RESERVE_CODE = #{reserve_code}
+  	</select>
   </mapper>

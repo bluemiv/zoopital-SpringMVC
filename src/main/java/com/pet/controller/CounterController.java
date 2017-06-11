@@ -42,23 +42,28 @@ public class CounterController {
 		return "/counter/counterPetList";
 	}
 	
-	@RequestMapping("search.pet")
-	public String search(String search, Model model) throws Exception{
+	@RequestMapping("searchCounter.pet")
+	public String search(String petname, HttpSession session, Model model) throws Exception{
 		CounterDAO counterDAO = sqlSession.getMapper(CounterDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
 		PetDTO dto=new PetDTO();
-		dto.setPet_name(search);
+		dto.setPet_name(petname);
+		dto.setStore_code(store_code);
 		List<PetDTO> list= counterDAO.searchList(dto);
-		model.addAttribute("list", list);
+		model.addAttribute("plist", list);
 		
 		return "/counter/counterPetList";
 	}
 	
 	@RequestMapping("accept.pet")
-	public String accept(int pet_code, Model model) throws Exception{
+	public String accept(int pet_code, Model model, HttpSession session) throws Exception{
 		CounterDAO counterDAO = sqlSession.getMapper(CounterDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
 		PetDTO petDTO = new PetDTO();
 		petDTO = counterDAO.getPetInfo(pet_code);
+		List<CounterDTO> clist = counterDAO.getDoctorName(store_code);
 		model.addAttribute("pdto", petDTO);
+		model.addAttribute("clist", clist);
 		return "/counter/counterAcceptForm";
 	}
 	@RequestMapping("insertAccept.pet")

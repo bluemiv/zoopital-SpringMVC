@@ -12,7 +12,7 @@
   	ORDER BY H.PETHISTORY_TODAY DESC
 </select>
 <insert id="insertHistory" parameterType="com.pet.model.PetHistoryDTO">
-	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_medicine},#{pethistory_m_amount},#{pethistory_coments},#{pethistory_m_cost},#{pethistory_cost},#{pethistory_btoday},SYSDATE,#{store_code},#{petaccept_code})
+	insert into pethistory values(pethistory_seq.nextval,#{pethistory_petcode},#{pethistory_medicine},#{pethistory_m_amount},#{pethistory_coments},#{pethistory_m_cost},#{pethistory_cost},#{pethistory_btoday},SYSDATE,#{store_code},#{petaccept_code},#{emp_name})
 </insert>
 <delete id="deleteHistory">
 	delete pethistory where pethistory_key = #{key}
@@ -53,4 +53,36 @@
 	WHERE STORE_CODE = #{store_code}
 	AND PETHISTORY_KEY = #{pethistory_key}
 </update>
+<select id="searchHistory" parameterType="com.pet.model.PetHistoryDTO" resultType="com.pet.model.PetHistoryDTO">
+	SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, H.*
+	  FROM (SELECT P.*
+	        FROM PET P
+	        WHERE P.PET_NAME LIKE '%${pet_name}%'
+	        )P , PETHISTORY H
+	WHERE H.STORE_CODE = #{store_code}
+	AND P.PET_CODE = H.PETHISTORY_PETCODE
+	ORDER BY H.PETHISTORY_TODAY DESC
+</select>
+<select id="searchMyHistory" parameterType="com.pet.model.PetHistoryDTO" resultType="com.pet.model.PetHistoryDTO">
+	SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, H.*
+	FROM PET P, PETHISTORY H
+	WHERE H.STORE_CODE = #{store_code}
+	AND H.EMP_NAME = #{emp_name}
+	AND P.PET_CODE = H.PETHISTORY_PETCODE
+	ORDER BY H.PETHISTORY_TODAY DESC
+</select>
+<select id="searchMyWaiting" resultType="com.pet.model.CounterDTO">
+	SELECT *
+		FROM (
+			SELECT ROWNUM WAITING_NUM, A.*
+			FROM(
+				SELECT P.PET_NAME, P.PET_TYPE, P.PET_SEX, P.PET_AGE, A.*
+				FROM PET P, PETACCEPT A
+				WHERE P.PET_CODE = A.PETACCEPT_PETCODE
+				AND A.STORE_CODE = #{param1}
+				AND A.PETACCEPT_VIEW = 'N'
+				AND A.EMP_NAME = #{param2}
+				ORDER BY A.PETACCEPT_DATE
+		) A)
+</select>
 </mapper>

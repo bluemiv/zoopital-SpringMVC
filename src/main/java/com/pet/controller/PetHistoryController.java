@@ -42,23 +42,44 @@ public class PetHistoryController {
 		model.addAttribute("hlist", petlist);
 		return "/history/historyListView";
 	}
-	@RequestMapping("serarchview.pet")
-	public String searchView(Model model){
-		return "/history/historyInsertReady";
+	@RequestMapping("searchHistory.pet")
+	public String searchForHistory(String petname, Model model, HttpSession session) throws Exception{
+		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		PetHistoryDTO petHistoryDTO = new PetHistoryDTO();
+		petHistoryDTO.setPet_name(petname);
+		petHistoryDTO.setStore_code(store_code);
+		List<PetHistoryDTO> petlist = petHistoryDAO.searchHistory(petHistoryDTO);
+		model.addAttribute("hlist", petlist);
+		return "/history/historyListView";
 	}
-	@RequestMapping("searchforhistory.pet")
-	public String searchForHistory(String petname, Model model){
-		PetDAO petDAO = sqlSession.getMapper(PetDAO.class);
-		PetDTO petDTO = new PetDTO();
-		petDTO.setPet_name(petname);
-		List<PetDTO> list = petDAO.getCodeForHistory(petDTO);
-		model.addAttribute("plist", list);
-		return "/history/historyInsert";
+	@RequestMapping("searchMyHistory.pet")
+	public String searchMyHistory(HttpSession session,Model model) throws Exception{
+		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		String emp_name = (String)session.getAttribute("session_emp_name");
+		PetHistoryDTO petHistoryDTO = new PetHistoryDTO();
+		petHistoryDTO.setStore_code(store_code);
+		petHistoryDTO.setEmp_name(emp_name);
+		List<PetHistoryDTO> petlist = petHistoryDAO.searchHistory(petHistoryDTO);
+		model.addAttribute("hlist", petlist);
+		return "/history/historyListView";
+	}
+	@RequestMapping("searchMyWaiting.pet")
+	public String searchMyWaiting(HttpSession session, Model model) throws Exception{
+		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		String emp_name = (String)session.getAttribute("session_emp_name");
+		List<CounterDTO> clist = petHistoryDAO.searchMyWaiting(store_code, emp_name);
+		model.addAttribute("clist", clist);
+		return "/history/waitingView";
 	}
 	@RequestMapping("historyinsert.pet")
 	public String historyinsert(int pet_code, String test, int petaccept_code,String am_count,int m_total_cost, 
 			int treat_cost, HttpSession session, Model model) throws Exception{
 		String store_code = (String)session.getAttribute("session_store_code");
+		String emp_name = (String)session.getAttribute("session_emp_name");
+		System.out.println("emp_name = " + emp_name);
 		System.out.println("code = " + store_code);
 		System.out.println("넘어올 데이터 넘어오나? " + test);
 		System.out.println("코드도 넘어오지? " + pet_code);
@@ -73,6 +94,7 @@ public class PetHistoryController {
 		counterDTO.setPetaccept_code(petaccept_code);
 		counterDTO.setM_total_cost(m_total_cost);
 		counterDTO.setTreat_cost(treat_cost);
+		counterDTO.setEmp_name(emp_name);
 		List<MedicamentDTO> mlist = medicamentDAO.getSelectAll(store_code); 
 		//약 추가를 눌렀을때 하는 기능(넘어오는 test파라미터가 널이면 실행이 되면 안됨)
 		if(test != null){
@@ -126,6 +148,7 @@ public class PetHistoryController {
 	public String dhistoryinsert(int pet_code, String test, String del_num, int petaccept_code,String am_count, 
 			int treat_cost, HttpSession session, Model model) throws Exception{
 		String store_code = (String)session.getAttribute("session_store_code");
+		String emp_name = (String)session.getAttribute("session_emp_name");
 		System.out.println("넘어올 데이터 넘어오나? " + test);
 		System.out.println("코드도 넘어오지? " + pet_code);
 		System.out.println("지울 넘버? " + del_num);
@@ -136,6 +159,7 @@ public class PetHistoryController {
 		CounterDTO counterDTO = new CounterDTO();
 		counterDTO.setPetaccept_code(petaccept_code);
 		counterDTO.setTreat_cost(treat_cost);
+		counterDTO.setEmp_name(emp_name);
 		List<MedicamentDTO> mlist = medicamentDAO.getSelectAll(store_code); 
 		//약 추가를 눌렀을때 하는 기능(넘어오는 파라미터가 널이면 실행아 되면 안됨)
 		if(test != null){
@@ -188,6 +212,7 @@ public class PetHistoryController {
 		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
 		CounterDAO counterDAO = sqlSession.getMapper(CounterDAO.class);
 		String store_code = (String)session.getAttribute("session_store_code");
+		String emp_name = (String)session.getAttribute("session_emp_name");
 		System.out.println("coments = " + petHistoryDTO.getPethistory_coments());
 		System.out.println("code = " + petHistoryDTO.getPethistory_petcode());
 		System.out.println("command = " + test);
@@ -223,6 +248,7 @@ public class PetHistoryController {
 		petHistoryDTO.setPethistory_btoday(cdto.getPetaccept_date());
 		petHistoryDTO.setPethistory_cost(counterDTO.getTreat_cost());
 		petHistoryDTO.setPethistory_m_cost(counterDTO.getM_total_cost());
+		petHistoryDTO.setEmp_name(emp_name);
 		/*System.out.println("m_amount = " + m_amount);
 		System.out.println("m_cost = " + m_cost);*/
 		petHistoryDAO.insertHistory(petHistoryDTO);
@@ -505,6 +531,12 @@ public class PetHistoryController {
 	public String dateCal(Date t_today){
 		SimpleDateFormat formatter = new SimpleDateFormat ("yy/MM/dd");
 		String today=formatter.format(t_today);
+		return today;
+	}
+	public String getToday(){
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat ("yyMMdd");
+		String today = formatter.format(date);
 		return today;
 	}
 	@RequestMapping("historyDetail.pet")

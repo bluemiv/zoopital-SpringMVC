@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,12 @@
 	<!-- 헤더 파일 -->
 	<jsp:include page="../layout/header.jsp"/>
 	<form action="insertAccept.pet" method="post" id="frm">
+		담당 선생님 - 	<select name="emp_name">
+						<c:forEach items="${clist }" var="c">
+							<option value="${c.emp_name }">${c.emp_name }</option>
+						</c:forEach>
+					</select>
+					<br>
 		동물 코드 - <input type="text" value="${pdto.pet_code }" name="petaccept_petcode" readonly="readonly"/><br>
 		동물 이름 - <input type="text" value="${pdto.pet_name }" name="pet_name" readonly="readonly"/><br>
 		동물 종류 - <input type="text" value="${pdto.pet_type }" name="pet_type" readonly="readonly"/><br>

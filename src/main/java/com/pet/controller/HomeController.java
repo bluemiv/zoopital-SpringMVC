@@ -108,6 +108,8 @@ public class HomeController {
 			empDTO = empDAO.selectEmpList(empDTO);
 			// 현재 접속자의 store_code(지점명) 세션값에 설정
 			session.setAttribute("session_store_code", empDTO.getStore_code());
+			// 현재 접속자의 이름 세션값에 설정
+			session.setAttribute("session_emp_name", empDTO.getEmp_name());
 		}catch (Exception e) {
 			System.out.println("client 접속");
 		}

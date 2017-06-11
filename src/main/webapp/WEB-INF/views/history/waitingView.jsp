@@ -24,6 +24,11 @@
 			<div class="col-lg-9 text-center">
 			</div>
 			<div class="col-lg-3 text-center">
+				<div class="row">
+					<div class="form-group col-xs-12">
+						<input class = "btn btn-custom btn-md" type="button" onclick = "location='searchMyWaiting.pet'" value="담당환자만 보기">
+					</div>
+				</div>
 			</div>
 		</div>
 	
@@ -32,6 +37,7 @@
 				<thead>
 					<tr>
 						<th>대기 번호</th>
+						<th>담당 의사</th>
 						<th>동물 이름</th>
 						<th>동물 종류</th>
 						<th>동물 성별</th>
@@ -45,6 +51,7 @@
 				<c:forEach  items="${clist }" var="c">
 					<tr class = "board-custom">
 						<td>${c.waiting_num }</td>
+						<td>${c.emp_name }</td>
 						<td>${c.pet_name }</td>
 						<td>${c.pet_type }</td>
 						<td>${c.pet_sex }</td>

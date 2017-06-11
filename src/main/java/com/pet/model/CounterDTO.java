@@ -12,6 +12,7 @@ public class CounterDTO {
 	private Timestamp petaccept_date;
 	private String petaccept_coments;
 	private String store_code; //세션값 받기 위해서
+	private String emp_name; //예약시 담당선생님
 	private int treat_cost; //진료비 받아오기
 	private String petaccept_view;
 	//join문에 활용 하기 위한 dto
@@ -113,6 +114,12 @@ public class CounterDTO {
 	}
 	public void setPethistory_key(int pethistory_key) {
 		this.pethistory_key = pethistory_key;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	
 	

@@ -36,9 +36,15 @@
 							<label for="name">진료 번호</label>
 							<input type = "text" class="form-control" value = "${pdto.pethistory_key}" name="pethistory_key" readonly="readonly">
 						</div>
+					</div>
+					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">진료 지점</label>
 							<input type = "text" class="form-control" value = "${pdto.store_code}" name="store_code" readonly="readonly">
+						</div>
+						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
+							<label for="name">담당 의사</label>
+							<input type = "text" class="form-control" value = "${pdto.emp_name}" name="emp_name" readonly="readonly">
 						</div>
 					</div>
 					<div class="row control-group">
