@@ -40,4 +40,7 @@ public interface ReserveDAO {
 	//방문 완료시 접수 자동등록위해 DTO에 입력
 	public CounterDTO getReserveInfoForAccept(String reserve_code) throws Exception;
 	
+	//end출력 뽑기위해 startnum 뽑아오기
+	public List<Integer> getStartNum(ReserveDTO reserveDTO) throws Exception;
+	
 }

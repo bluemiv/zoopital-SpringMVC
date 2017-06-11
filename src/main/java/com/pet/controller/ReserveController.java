@@ -6,12 +6,14 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -288,13 +290,29 @@ public class ReserveController {
 	
 	@ResponseBody
 	@RequestMapping("end_timeSearchAjax.pet")
-	public List<Integer> end_timeSearchAjax(@RequestBody String reserve_start_time) throws Exception {
+	public List<Integer> end_timeSearchAjax(@RequestBody ReserveDTO reserveDTO, HttpSession session) throws Exception {
 		System.out.println("end_timeSearchAjax 접근");
-		
-		int start_time = Integer.parseInt(reserve_start_time.split("=")[1]); // 시작 시간
+		ReserveDAO reserveDAO = sqlSession.getMapper(ReserveDAO.class);
+		String store_code = (String)session.getAttribute("session_store_code");
+		reserveDTO.setStore_code(store_code);
+		List<Integer> reservedList = reserveDAO.getStartNum(reserveDTO);
+		reservedList.add(20);
+		int start_time = reserveDTO.getReserve_start_time(); // 시작 시간
 		List test = new ArrayList();
-		for(int i = start_time + 1; i<19; i++){
-			test.add(i);
+		boolean check = false;
+		for(int i = start_time + 1; i<20; i++){
+			if(check == true){
+				break;
+			}
+			for(int j = 0; j<reservedList.size(); j++){
+				if(reservedList.get(j) >= i){
+					test.add(i);
+					if(reservedList.get(j) == i){
+						check = true;
+					}
+					break;
+				}
+			}
 		}
 		
 		return test;

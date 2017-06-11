@@ -14,13 +14,18 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#start_select").click(function() {
+				alert( $("#start_time").val()+"/"+$("#reserve_date").val()+"/"+$("#emp_name").val());
+				var dataForm = {
+						reserve_start_time : $("#start_time").val(),
+						reserve_date : $("#reserve_date").val(),
+						emp_name : $("#emp_name").val()
+				};
 				$.ajax({
 					url : "end_timeSearchAjax.pet",
 					method : 'post',
 					type : 'json',
-					data : {
-						reserve_start_time : $("#start_time").val()
-					},
+					data : JSON.stringify(dataForm),
+					contentType : "application/json",
 					success : function(test) {
 						$('#end_time option').remove();
 						for(var i=0; i< test.length; i++){
@@ -87,8 +92,8 @@
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
 				<form action="reserveInsertPro.pet" method="post">
-					<input type="hidden" name="reserve_date" value="${reserve_date}">
-					<input type="hidden" name="emp_name" value="${emp_name}">
+					<input type="hidden" name="reserve_date" id="reserve_date" value="${reserve_date}">
+					<input type="hidden" name="emp_name" id="emp_name" value="${emp_name}">
 					<input type="hidden" name="pet_code" value="${petInfo.pet_code}">
 					<input type="hidden" name="pet_phone" value="${petInfo.pet_phone}">
 					<div class="row control-group">
