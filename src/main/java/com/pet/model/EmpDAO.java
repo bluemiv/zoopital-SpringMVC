@@ -30,4 +30,6 @@ public interface EmpDAO {
 	// 정규직 및 비정규직 직원 수 가져옴
 	public EmpDTO getEmpFullCount(EmpDTO empDTO);
 	public EmpDTO getEmpPartCount(EmpDTO empDTO);
+	
+	public List<EmpDTO> getEmpListFull(EmpDTO dto) throws Exception;
 }

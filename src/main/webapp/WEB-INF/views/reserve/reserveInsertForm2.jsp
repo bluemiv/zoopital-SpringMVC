@@ -14,7 +14,6 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#start_select").click(function() {
-				alert( $("#start_time").val()+"/"+$("#reserve_date").val()+"/"+$("#emp_name").val());
 				var dataForm = {
 						reserve_start_time : $("#start_time").val(),
 						reserve_date : $("#reserve_date").val(),
@@ -85,7 +84,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<h2>동물 등록</h2>
+				<h2>진료 예약</h2>
 				<hr>
 			</div>
 		</div>

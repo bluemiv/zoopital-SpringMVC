@@ -186,7 +186,8 @@
 			  			                },
 			  			                rendererOptions: {
 			  			                    forceTickAt0: true
-			  			                }
+			  			                },
+			  			                max: 50
 			  			            }
 		  	  		            },
 			  	  		        legend: {

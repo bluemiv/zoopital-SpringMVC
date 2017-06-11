@@ -65,7 +65,7 @@ public class PetHistoryController {
 		PetHistoryDTO petHistoryDTO = new PetHistoryDTO();
 		petHistoryDTO.setStore_code(store_code);
 		petHistoryDTO.setEmp_name(emp_name);
-		List<PetHistoryDTO> petlist = petHistoryDAO.searchHistory(petHistoryDTO);
+		List<PetHistoryDTO> petlist = petHistoryDAO.searchMyHistory(petHistoryDTO);
 		model.addAttribute("hlist", petlist);
 		return "/history/historyListView";
 	}

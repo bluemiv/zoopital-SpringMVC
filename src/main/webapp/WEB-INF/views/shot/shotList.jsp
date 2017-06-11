@@ -79,9 +79,10 @@
 							
 								<label for="name">내용</label>
 								<input type ="hidden" value="
-								안녕하세요. ${ list.shot_name }님! ^^
+								안녕하세요. ${ list.shot_petName } 주인님! ^^
 								${ list.shot_petName }(이)가 ${ list.shot_date }에 ${list.shot_name}을 맞았습니다.
-								${ list.shot_cycle }개월마다 맞아야하기 때문에 다시 한번 찾아와 주세요!"
+								${ list.shot_cycle }개월마다 맞아야하기 때문에 다시 한번 찾아와 주세요!
+								- Zoopital 동물 병원 올림 -"
 								name="contents" rows="13"/>
 								<input class = "btn btn-custom btn-md" type="submit" value="보내기">
 							</form>

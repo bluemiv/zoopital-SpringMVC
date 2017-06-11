@@ -64,7 +64,7 @@
 						<td>${reserve.reserve_contents}</td>
 						<td>
 							<form action="reserveUpdateForm.pet" method="post" class = "form-inline">
-								<button class = "btn btn-custom btn-md" id = "deleteReservation" name = "deleteReservation"
+								<button type = "button" class = "btn btn-custom btn-md" id = "deleteReservation" name = "deleteReservation"
 								onclick = "location='reserveDeletePro.pet?reserve_code=${reserve.reserve_code}'">
 								예약 취소
 								</button>

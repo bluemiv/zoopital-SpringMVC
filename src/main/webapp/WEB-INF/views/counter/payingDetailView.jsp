@@ -116,7 +116,7 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 							<label for="name">의사 소견</label>
-							<textarea class="form-control"  readonly="readonly">${pdto.pethistory_coments}</textarea>
+							<textarea class="form-control" rows="15" readonly="readonly">${pdto.pethistory_coments}</textarea>
 						</div>
 					</div>
 					<br>

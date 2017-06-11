@@ -88,7 +88,7 @@ public class ReserveController {
 		empDTO.setStore_code((String)session.getAttribute("session_store_code"));
 		
 		//해당 지점에 대한 직원 리스트 뽑아오기
-		List<EmpDTO> empList = empDAO.getEmpList(empDTO);
+		List<EmpDTO> empList = empDAO.getEmpListFull(empDTO);
 		
 		//개별 동물에 대한 예약목록 작성 위해 펫DTO 생성 후 DB에서 해당 동물 정보 얻어서
 		PetDTO petDTO = new PetDTO();

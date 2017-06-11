@@ -10,6 +10,13 @@
 		FROM EMP
 		WHERE STORE_CODE = #{store_code}
 	</select>
+	<!-- 정규직 인원만 가져옴 -->
+	<select id="getEmpListFull" resultType="com.pet.model.EmpDTO" parameterType="com.pet.model.EmpDTO">
+		SELECT *
+		FROM EMP
+		WHERE STORE_CODE = #{store_code}
+			AND (EMP_ROLE = 'ROLE_SUPER_FULL' OR EMP_ROLE = 'ROLE_FULL')
+	</select>
 	
 	<select id="selectEmpList" resultType="com.pet.model.EmpDTO">
 		SELECT *

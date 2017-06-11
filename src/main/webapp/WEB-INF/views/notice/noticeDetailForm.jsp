@@ -57,7 +57,7 @@
 				<div class="row control-group">
 					<div class="form-group col-xs-12 floating-label-form-group controls board-custom">
 						<label for="name">글내용</label>
-						<textarea name = "notice_contents" disabled="disabled" class="form-control" placeholder="내용을 입력해주세요.">${noticeDTO.notice_contents}</textarea>
+						<textarea name = "notice_contents" rows = "15" disabled="disabled" class="form-control" placeholder="내용을 입력해주세요.">${noticeDTO.notice_contents}</textarea>
 					</div>
 				</div>
 				<br>

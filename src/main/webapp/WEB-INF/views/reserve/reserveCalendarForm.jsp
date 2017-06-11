@@ -97,14 +97,15 @@
 			<p>동물 이름: ${petInfo.pet_name}</p>
 			<p>보호자 연락처: ${petInfo.pet_phone}</p>
 			<p>직원 선택</p>
-			<select id="emp_name">
+			<div class="col-lg-3">
+			<select id="emp_name" class="form-control">
 				<c:forEach items="${empList}" var="emp">
 				<option value="${emp.emp_name}">${emp.emp_name}</option>
 				</c:forEach>
 			</select>
+			</div>
 			<hr>
 			<input type="hidden" id=pet_code value="${petInfo.pet_code}">
-			<input type = "submit" value="다음>">
 		</div>
 		<div class = "row">
 			<div id='calendar' class= "col-lg-12"></div>
