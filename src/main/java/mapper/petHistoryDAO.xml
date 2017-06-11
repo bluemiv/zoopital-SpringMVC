@@ -85,4 +85,13 @@
 				ORDER BY A.PETACCEPT_DATE
 		) A)
 </select>
+	<!-- 월별 손님 수 가져오기 -->
+	<select id= "getHistoryTodayMonth" parameterType="com.pet.model.PetHistoryDTO" resultType="com.pet.model.PetHistoryDTO">
+		SELECT TO_CHAR(PETHISTORY_TODAY, 'MM') AS PETHISTORY_MONTH, COUNT(*) AS PETHISTORY_COUNT
+		FROM PETHISTORY WHERE (#{pethistory_year}+1) > TO_CHAR(PETHISTORY_TODAY, 'YY')
+			AND TO_CHAR(PETHISTORY_TODAY, 'YY') >= #{pethistory_year}
+			AND STORE_CODE = #{store_code}
+		GROUP BY TO_CHAR(PETHISTORY_TODAY, 'MM')
+		ORDER BY TO_CHAR(PETHISTORY_TODAY, 'MM')
+	</select>
 </mapper>

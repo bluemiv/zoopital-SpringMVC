@@ -1,5 +1,6 @@
 package com.pet.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.model.CounterDAO;
 import com.pet.model.CounterDTO;
@@ -25,6 +28,7 @@ import com.pet.model.PetDTO;
 import com.pet.model.PetHistoryDAO;
 import com.pet.model.PetHistoryDTO;
 import com.pet.model.SalesLogDAO;
+import com.pet.model.SalesLogDTO;
 
 @Controller
 @RequestMapping("/history/")
@@ -567,5 +571,21 @@ public class PetHistoryController {
 	@RequestMapping("tt.pet")
 	public String tt(){
 		return "/history/tt";
+	}
+	
+	@ResponseBody
+	@RequestMapping("petHistoryDailyChartAjax.pet")
+	public List<PetHistoryDTO> petHistoryDailyChartAjax(@RequestBody SalesLogDTO salesLogDTO, HttpSession session) throws Exception{
+		System.out.println("petHistoryDailyChartAjax 접근");
+		// 세션값 가져옴
+		String store_code =(String)session.getAttribute("session_store_code");
+		// 리스트 가져옴
+		PetHistoryDTO petHistoryDTO = new PetHistoryDTO();
+		petHistoryDTO.setPethistory_year(String.valueOf(salesLogDTO.getSaleslog_year()));
+		petHistoryDTO.setStore_code(store_code);
+		PetHistoryDAO petHistoryDAO = sqlSession.getMapper(PetHistoryDAO.class);
+		List<PetHistoryDTO> list = petHistoryDAO.getHistoryTodayMonth(petHistoryDTO);
+		System.out.println(list.get(0).getPethistory_count());
+		return list;
 	}
 }

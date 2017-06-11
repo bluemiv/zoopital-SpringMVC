@@ -24,7 +24,7 @@
 			<div class="col-lg-9 text-center">
 			</div>
 			<div class="col-lg-3 text-center">
-				<button onclick="location='dailyChart.pet'">차트보기</button>
+				<button class = "btn btn-mg btn-custom" onclick="location='dailyChart.pet'">차트보기</button>
 			</div>
 		</div>
 	

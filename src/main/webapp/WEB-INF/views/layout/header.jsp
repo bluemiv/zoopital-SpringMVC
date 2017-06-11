@@ -133,8 +133,8 @@
 								<hr>
 								<c:url value="/saleslog/dailylog.pet" var = "dailylog"></c:url>
 								<li><a href="${dailylog}">일일매출</a></li>
-								<c:url value="/saleslog/logchart.pet" var = "logchart"></c:url>
-								<li><a href="${logchart}">매출차트</a></li>
+								<c:url value="/saleslog/dailyChart.pet" var = "dailyChart"></c:url>
+								<li><a href="${dailyChart}">매출차트</a></li>
 								<hr>
 								<c:url value="/report/getReportList.pet" var = "reportGetReportList"></c:url>
 								<li><a href="${reportGetReportList}">보고서 리스트</a></li>

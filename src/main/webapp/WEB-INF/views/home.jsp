@@ -89,10 +89,6 @@
 	<jsp:include page="layout/header.jsp"/>
 	
 	<!-- 컨텐츠 -->
-	<button onclick="location='history/selectallhistory.pet'">히스토리 보기</button>
-	<br>
-	<button onclick="location='client/member/kakaoLoginForm.pet'">카카오 로그인</button>
-	
 	<div class="container">
 		<div class = "row">
 			<div class = "col-md-4">

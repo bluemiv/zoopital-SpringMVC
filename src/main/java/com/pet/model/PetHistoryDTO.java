@@ -30,6 +30,9 @@ public class PetHistoryDTO {
 	private int pet_age;
 	private String today;//payingDetailView에서 가지고온 값을 바로 업데이트 해주기위해 가져옴
 	private String emp_name;
+	private String pethistory_count;
+	private String pethistory_year;
+	private String pethistory_month;
 	
 	public int getPethistory_petcode() {
 		return pethistory_petcode;
@@ -159,32 +162,25 @@ public class PetHistoryDTO {
 	public void setEmp_name(String emp_name) {
 		this.emp_name = emp_name;
 	}
-	@Override
-	public String toString() {
-		return "PetHistoryDTO [pethistory_key=" + pethistory_key + ", pethistory_petcode=" + pethistory_petcode
-				+ ", pethistory_name=" + pethistory_name + ", pethistory_medicine=" + pethistory_medicine
-				+ ", pethistory_coments=" + pethistory_coments + ", pethistory_btoday=" + pethistory_btoday
-				+ ", pethistory_today=" + pethistory_today + ", pethistory_m_amount=" + pethistory_m_amount
-				+ ", pethistory_m_cost=" + pethistory_m_cost + ", pethistory_cost=" + pethistory_cost
-				+ ", pethistory_total_cost=" + pethistory_total_cost + ", store_code=" + store_code
-				+ ", petaccept_code=" + petaccept_code + ", mName=" + mName + ", mAmount=" + mAmount + ", pet_name="
-				+ pet_name + ", pet_type=" + pet_type + ", pet_sex=" + pet_sex + ", pet_age=" + pet_age + ", today="
-				+ today + ", emp_name=" + emp_name + ", getPethistory_petcode()=" + getPethistory_petcode()
-				+ ", getPethistory_medicine()=" + getPethistory_medicine() + ", getPethistory_coments()="
-				+ getPethistory_coments() + ", getPethistory_today()=" + getPethistory_today()
-				+ ", getPethistory_key()=" + getPethistory_key() + ", getPethistory_name()=" + getPethistory_name()
-				+ ", getPethistory_m_amount()=" + getPethistory_m_amount() + ", getmName()=" + getmName()
-				+ ", getmAmount()=" + getmAmount() + ", getStore_code()=" + getStore_code()
-				+ ", getPethistory_btoday()=" + getPethistory_btoday() + ", getPethistory_m_cost()="
-				+ getPethistory_m_cost() + ", getPethistory_cost()=" + getPethistory_cost() + ", getPetaccept_code()="
-				+ getPetaccept_code() + ", getPet_name()=" + getPet_name() + ", getPet_type()=" + getPet_type()
-				+ ", getPet_sex()=" + getPet_sex() + ", getPet_age()=" + getPet_age() + ", getPethistory_total_cost()="
-				+ getPethistory_total_cost() + ", getToday()=" + getToday() + ", getEmp_name()=" + getEmp_name()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+	public String getPethistory_count() {
+		return pethistory_count;
+	}
+	public void setPethistory_count(String pethistory_count) {
+		this.pethistory_count = pethistory_count;
 	}
 	
-	
+	public String getPethistory_year() {
+		return pethistory_year;
+	}
+	public void setPethistory_year(String pethistory_year) {
+		this.pethistory_year = pethistory_year;
+	}
+	public String getPethistory_month() {
+		return pethistory_month;
+	}
+	public void setPethistory_month(String pethistory_month) {
+		this.pethistory_month = pethistory_month;
+	}
 	
 	
 }

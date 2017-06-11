@@ -35,4 +35,7 @@ public interface PetHistoryDAO {
 	
 	//히스토리 내에서 자신의 환자만 나오게 검색 
 	public List<PetHistoryDTO> searchMyHistory(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	// 월별 손님 수 가져오기
+	public List<PetHistoryDTO> getHistoryTodayMonth(PetHistoryDTO petHistoryDTO) throws Exception;
 }
