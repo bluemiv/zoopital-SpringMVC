@@ -23,8 +23,25 @@
 		
 		<!-- Title -->
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-9">
 				<h3>상품 리스트</h3>
+			</div>
+			<div class="col-lg-3">
+				<div class="input-group">
+					<form action="productListForm.pet" method="post">
+						<span class="input-group-btn">
+							<select class="form-control" name = "product_category">
+								<option value = "음식" selected="selected">음식</option>
+								<option value = "놀이">놀이</option>
+								<option value = "의류">의류</option>
+								<option value = "기타">기타</option>
+							</select>
+							<button class="btn btn-custom" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</span>
+					</form>
+				</div>
 			</div>
 		</div>
 		
@@ -33,10 +50,10 @@
 		<c:forEach items = "${list}" var="product">
 			<div class="col-md-3 col-sm-6 hero-feature">
 				<div class="thumbnail">
-					<img src="<c:url value="/resources/images/product_img/${product.product_url}" />" alt="">
+					<img style="width: 200px; height: 225px;" src="<c:url value="/resources/images/product_img/${product.product_url}" />" alt="">
 					<div class="caption">
 						<h3>${product.product_name}</h3>
-						<p>개수 : ${product.product_cost}/ 가격 : ${product.product_amount}</p>
+						<p>가격 : ${product.product_cost}원 / 개수 : ${product.product_amount}개</p>
 						<p class="form-inline">
 							<a href="productDetailForm.pet?product_code=${product.product_code}" class="btn btn-custom btn-md">살펴보기</a>
 							<!-- 장바구니 -->
@@ -73,10 +90,10 @@
 						<p class="form-inline"> <!-- 관리자만 볼 수 있게.. -->
 							<a href="productUpdateForm.pet?product_code=${product.product_code}" class="btn btn-custom btn-md">수정</a>
 							<!-- 삭제 -->
-							<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#deleteModal">
+							<button type="button" class = "btn btn-custom btn-md" data-toggle="modal" data-target="#deleteModal${product.product_code}">
 								삭제
 							</button>
-							<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal fade" id="deleteModal${product.product_code}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">

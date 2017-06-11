@@ -5,7 +5,7 @@ import java.util.List;
 public interface ProductDAO {
 
 	// 전체 리스트 가져오기
-	public List<ProductDTO> selectAll() throws Exception;
+	public List<ProductDTO> selectAll(ProductDTO productDTO) throws Exception;
 	
 	// 등록
 	public int insertProduct(ProductDTO productDTO) throws Exception;
