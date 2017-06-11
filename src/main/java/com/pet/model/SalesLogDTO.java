@@ -1,7 +1,5 @@
 package com.pet.model;
 
-import java.sql.Date;
-
 public class SalesLogDTO {
 	/*create table saleslog(
 			  saleslog_key number CONSTRAINT saleslog_pk PRIMARY KEY,

@@ -21,6 +21,9 @@ public interface ClientDAO {
 	
 	// 비번 찾기 비번수정
 	public void changePw(HashMap<String, Object> map) throws Exception;
+	
+	//  Id 찾기
+	public ClientDTO findId(ClientDTO clientDTO) throws Exception;
 
 	// 회원탈퇴
 	public int clientDeletePro(ClientDTO clientDTO) throws Exception;

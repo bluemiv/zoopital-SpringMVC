@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>임시 비밀번호</title>
+<title>ID찾기</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -23,33 +23,32 @@
 	<!-- custom css -->
 	<link href="<c:url value="/resources/css/stylish-portfolio.css" />" rel="stylesheet" type="text/css"/>
 
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jeju.css">
-    <style>
-      body {
-        font-family: 'Jeju Gothic', sans-serif;
-        font-size: 48px;
-      }
-    </style>
+
 </head>
 <body>
-	
 	<div class = "container">
 		<div class="row">
-			<h1>임시비밀번호</h1>
+			<h1>ID 안내</h1>
 			<hr>
 		</div>
 		<div class="row">
-		<center>
-			<h4>고객님의 임시 비밀번호는 <br><br>
-			<font color="blue" style="font-weight:bold">${change_pw}</font>
-			<br><br>입니다. 로그인 후 변경해주세요.</h4>
-			<button class = "btn btn-md btn-custom" onclick = "javascript:window.close();">닫기</button><br>
-			
-		</center>
+			<center>
+				<div class = "col-xs-12">
+					<h4>고객님의 ID는 <br><br>
+					<font color="blue" style="font-weight:bold">${result_id}</font>
+					<br><br>입니다.</h4>
+					<button class = "btn btn-md btn-custom" onclick = "javascript:window.close();">로그인 하러 가기</button>
+				</div>
 		</div>
+		<div class="row">
+			<div class = "col-xs-12">
+				<a href="<c:url value='pwSearchForm.pet'/>">패스워드를 모르겠어요</a>
+			</div>
+				
+		</div>
+			</center>
 	</div><br><br>
 	
-	
-		
+
 </body>
 </html>

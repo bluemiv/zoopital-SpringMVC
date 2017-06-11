@@ -65,6 +65,30 @@ public class FindPwController {
 		return "/client/client/showPw";
 	}
 	
+	/*아이디 찾기 폼 컨트롤러*/
+	@RequestMapping("findIDForm.pet")
+	public String findIdForm(){
+		
+		return "/client/client/findIDForm";
+	}
+	
+	/*아이디 찾기 프로 컨트롤러*/
+	@RequestMapping("findIDPro.pet")
+	public String findIdPro(ClientDTO clientDTO, Model model) throws Exception{
+		System.out.println("findPro 실행");
+		System.out.println(clientDTO.toString());
+		ClientDAO clientDAO = sqlSession.getMapper(ClientDAO.class);
+		ClientDTO result = clientDAO.findId(clientDTO);
+		
+		if(result == null){
+			//이름과 이메일이 일치하는 내용이 없다면 error페이지로..
+			return "/client/client/IDSearchError";			
+		}else{
+			model.addAttribute("result_id", result.getClient_id());	
+			return "/client/client/showID";
+		}
+	}
+	
 	////////////////Ajax/////////////
 	@ResponseBody
 	@RequestMapping("pwSearchAjax.pet")

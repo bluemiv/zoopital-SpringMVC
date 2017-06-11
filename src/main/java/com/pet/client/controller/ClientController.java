@@ -84,6 +84,7 @@ public class ClientController {
 			return "redirect:clientMypageForm.pet";
 		}
 	}
+	
 	///////////////////Ajax////////////////////////////////////////
 	@ResponseBody
 	@RequestMapping("/clientIdConfirmAjax.pet")

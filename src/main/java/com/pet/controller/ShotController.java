@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pet.model.CounterDTO;
 import com.pet.model.ShotDAO;
 import com.pet.model.ShotDTO;
 

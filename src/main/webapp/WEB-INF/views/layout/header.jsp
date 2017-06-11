@@ -36,10 +36,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-				<a class="navbar-brand" href="/controller/webHome.pet">
-					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-					Zoopital
-				</a>
+					<a class="navbar-brand" href="/controller/webHome.pet">
+			               <img alt="Home" width="150" src="<c:url value="/resources/images/logo.png"/>"/>
+					</a>
 				<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 				<a class="navbar-brand" href="/controller/home.pet">
 					관리자
