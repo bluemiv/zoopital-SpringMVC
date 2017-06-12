@@ -60,12 +60,6 @@
     </header>
 	<!-- Page Content -->
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1>Zoopital</h1>
-                <p>어서오세요 Zoopital 동물병원 입니다. 부가적으로 애완용품도 판매중이니 애용해주세요</p>
-            </div>
-        </div>
         <div class = "row">
 			<se:authorize access="isAnonymous()">
             <div class="col-lg-3">

@@ -26,4 +26,7 @@ public interface SalesLogDAO {
 	
 	//history수정 들어갈때 salesLog에 수익 다시 돌려주기 후 총수익 다시 계산
 	public void upDateNIncomeForMod(PetHistoryDTO petHistoryDTO) throws Exception;
+	
+	// 지점 별 총 수입
+	public int getTotalIncome(SalesLogDTO salesLogDTO) throws Exception;
 }

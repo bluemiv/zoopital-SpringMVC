@@ -104,4 +104,11 @@
 			(EMP_ROLE = 'ROLE_SUPER_PART' OR EMP_ROLE = 'ROLE_PART')
 		</where>
 	</select>
+	
+	<select id = "getTotalEmpPay" resultType= "Integer" parameterType= "com.pet.model.EmpDTO">
+		SELECT SUM(EMP_PAY) EMP_PAY
+		FROM EMP
+		WHERE STORE_CODE = #{store_code}
+	</select>
+	
 </mapper>

@@ -46,6 +46,10 @@
 	opacity: 0.5;
 	cursor: pointer;
 }
+.img-default:hover{
+	opacity: 0.5;
+	cursor: pointer;
+}
 /* Global Styles */
 html,
 body {

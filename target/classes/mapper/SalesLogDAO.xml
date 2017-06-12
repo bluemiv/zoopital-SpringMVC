@@ -46,4 +46,10 @@
 		ORDER BY SALESLOG_MONTH ASC
 	</select>
 
+	<!-- 지점별 누적 총수입 -->
+	<select id="getTotalIncome"  parameterType="com.pet.model.SalesLogDTO" resultType="Integer">
+		SELECT SUM(SALESLOG_INCOME) AS SALESLOG_INCOME
+		FROM SALESLOG
+		WHERE STORE_CODE =#{store_code}
+	</select>
 </mapper>

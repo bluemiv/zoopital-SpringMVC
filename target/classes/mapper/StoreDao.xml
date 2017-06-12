@@ -92,4 +92,10 @@
 		ORDER BY STORE_CODE
 	</select>
 	
+	<update id="updateTotalStorePay" parameterType="com.pet.model.StoreDTO">
+		UPDATE STORE
+		SET STORE_PAYMENT = #{store_payment}, STORE_INCOME = #{store_income}
+		WHERE STORE_CODE = #{store_code}
+	</update>
+	
  </mapper>

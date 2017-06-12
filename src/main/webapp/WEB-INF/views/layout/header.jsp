@@ -41,7 +41,7 @@
 					</a>
 				<se:authorize access="hasAnyRole('ROLE_SUPER_PART','ROLE_SUPER_FULL', 'ROLE_FULL', 'ROLE_PART')">
 				<a class="navbar-brand" href="/controller/home.pet">
-					관리자
+					 <img alt="Home" width="70" class="img-default" src="<c:url value="/resources/images/admin.png"/>"/>
 				</a>
 				</se:authorize>
 			</div>

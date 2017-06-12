@@ -27,7 +27,7 @@
 				<div class="input-group">
 					<form action="search.pet" method="post">
 						<span class="input-group-btn">
-							<input type="text" name="store_name" id= "search_box" class="form-control" placeholder="약품 이름 검색">
+							<input type="text" name="store_name" id= "search_box" class="form-control" placeholder="지점 이름 검색">
 							<button class="btn btn-custom" type="button">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
@@ -41,7 +41,7 @@
 			<table width="100%" class="table table-striped table-hover" id="dataTables-example">
 				<thead>
 					<tr>
-						<th>지점 코드 및 ID</th>
+						<th>지점 코드</th>
 						<th>지점 이름</th>
 						<th>관리비</th>
 						<th>급여</th>
@@ -59,12 +59,12 @@
 					<tr class = "board-custom">
 						<td>${list.store_code}</td>
 						<td>${list.store_name}</td>
-						<td>${list.store_cost}</td>
-						<td>${list.store_payment}</td>
-						<td>${list.store_income}</td>
-						<td>${list.store_rentCost}</td>
-						<td>${list.store_doctor}</td>
-						<td>${list.store_worker}</td>
+						<td>${list.store_cost}원</td>
+						<td><font color="red">${list.store_payment}</font>원</td>
+						<td><font color="blue">${list.store_income}</font>원</td>
+						<td>${list.store_rentCost}원</td>
+						<td style="text-align : center;">${list.store_doctor}명</td>
+						<td style="text-align : center;">${list.store_worker}명</td>
 						<td>${list.store_date }</td>
 						<td>
 						<c:if test="${list.store_role == 'ROLE_SUPER_FULL'}">
@@ -75,12 +75,15 @@
 						</c:if>
 						</td>
 						<td>
+							<center>
 							<button onclick = "location='adminUpdate.pet?store_code=${list.store_code}'"
 							class="btn btn-md btn-custom">수정</button>
 							<button onclick = "location='deletePro.pet?store_code=${list.store_code}'"
 							class="btn btn-md btn-custom">삭제</button>
+							<br><br>
 							<button onclick = "location='storeInfoRefresh.pet?store_code=${list.store_code}'"
 							class="btn btn-md btn-custom">정보갱신</button>
+							</center>
 						</td>
 					</tr>
 					</c:forEach>

@@ -32,4 +32,6 @@ public interface EmpDAO {
 	public EmpDTO getEmpPartCount(EmpDTO empDTO);
 	
 	public List<EmpDTO> getEmpListFull(EmpDTO dto) throws Exception;
+	
+	public int getTotalEmpPay(EmpDTO empDTO) throws Exception;
 }

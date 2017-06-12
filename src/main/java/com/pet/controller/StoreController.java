@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pet.model.EmpDAO;
 import com.pet.model.EmpDTO;
 import com.pet.model.PageDTO;
+import com.pet.model.SalesLogDAO;
+import com.pet.model.SalesLogDTO;
 import com.pet.model.StoreDAO;
 import com.pet.model.StoreDTO;
 
@@ -203,6 +205,19 @@ public class StoreController {
 		storeDTO.setStore_worker(String.valueOf(empDTO_part.getEmp_part_total()));
 		System.out.println(storeDTO.getStore_doctor());
 		System.out.println(storeDTO.getStore_worker());
+		
+		// 급여 업데이트
+		int totalPay = empDAO.getTotalEmpPay(empDTO);
+		storeDTO.setStore_code(empDTO.getStore_code());
+		storeDTO.setStore_payment(String.valueOf(totalPay));
+		// 총 수입 업데이트
+		SalesLogDTO salesLogDTO = new SalesLogDTO();
+		salesLogDTO.setStore_code(empDTO.getStore_code());
+		SalesLogDAO salesLogDAO = sqlSession.getMapper(SalesLogDAO.class);
+		int totalIncome = salesLogDAO.getTotalIncome(salesLogDTO);
+		storeDTO.setStore_income(String.valueOf(totalIncome));
+		// 업데이트 기능 실행
+		storeDAO.updateTotalStorePay(storeDTO); 
 		
 		// 정규직/비정규직 인원수 수정
 		storeDTO.setStore_code(empDTO.getStore_code());
