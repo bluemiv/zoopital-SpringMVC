@@ -73,7 +73,7 @@
 												<img src="<c:url value="/resources/images/product_img/${product.product_url}" />" alt="">
 												<hr>
 												<h3>${product.product_name}</h3>
-												<p>몇개를 구매 하시겠습니까?</p>
+												<p>몇개를 담겠습니까?</p>
 												<input type="number" min = "0" name="product_amount" class="form-control"/>
 												<input type="hidden" name="product_code" value="${product.product_code}"/>
 											</div>

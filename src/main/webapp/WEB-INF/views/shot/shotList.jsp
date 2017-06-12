@@ -75,7 +75,7 @@
 								<input type = "hidden" value="${ list.pet_email }" class="form-control" name="receive_email">
 							
 								<label for="name">제목</label>
-								<input type = "hidden" value="${list.shot_name} 주인님 예방접종 맞아야합니다!" name="title">
+								<input type = "hidden" value="${ list.shot_petName } 주인님 예방접종 맞아야합니다!" name="title">
 							
 								<label for="name">내용</label>
 								<input type ="hidden" value="
