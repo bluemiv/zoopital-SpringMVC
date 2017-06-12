@@ -53,9 +53,7 @@
 			<if test="emp_pay != null and emp_pay != ''">
 				EMP_PAY = #{emp_pay},
 			</if>
-			<if test="emp_enabled != null and emp_enabled != ''">
-				EMP_ENABLED = #{emp_enabled},
-			</if>
+			EMP_ENABLED = #{emp_enabled},
 			<if test="emp_role != null and emp_role != ''">
 				EMP_ROLE = #{emp_role},
 			</if>

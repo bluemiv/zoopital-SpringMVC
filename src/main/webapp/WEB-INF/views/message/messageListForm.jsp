@@ -29,7 +29,7 @@
 					
 				}
 			});
-		} 
+		}
 	</script>
 </head>
 <body>
@@ -109,7 +109,7 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4 class="modal-title" id="exampleModalLabel">쪽지 내용</h4>
+													<h4 class="modal-title" id="exampleModalLabel">${var.message_writer}님의 쪽지 내용</h4>
 												</div>
 												<form action="messageSendPro.pet" method = "post">
 													<div class="modal-body">
@@ -199,15 +199,17 @@
 								<input type="text" list="mlist" name="message_reader" class="form-control"/>
 								<datalist id="mlist">
 									<c:forEach items="${empDTOList}" var="list">
-									<option value="${list.emp_code}">이름 : ${list.emp_name} || 지점 : ${list.store_code}
-									|| 직위 : 
-									<c:if test="${list.emp_role == 'ROLE_SUPER_FULL' || list.emp_role == 'ROLE_FULL'}">
-										정규직
-									</c:if> 
-									<c:if test="${list.emp_role == 'ROLE_SUPER_PART' || list.emp_role == 'ROLE_PART'}">
-										비정규직
+									<c:if test="${username != list.emp_code}">
+										<option value="${list.emp_code}">이름 : ${list.emp_name} || 지점 : ${list.store_code}
+										|| 직위 : 
+										<c:if test="${list.emp_role == 'ROLE_SUPER_FULL' || list.emp_role == 'ROLE_FULL'}">
+											정규직
+										</c:if> 
+										<c:if test="${list.emp_role == 'ROLE_SUPER_PART' || list.emp_role == 'ROLE_PART'}">
+											비정규직
+										</c:if>
+										</option>
 									</c:if>
-									</option>
 									</c:forEach>					
 								</datalist>
 							</div>

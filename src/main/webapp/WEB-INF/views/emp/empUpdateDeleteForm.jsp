@@ -38,18 +38,30 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">직원 ID</label>
-							<input type="text" name="emp_code" readonly="readonly" class="form-control"value="${ selectEmp.emp_code }" >
+							<input type="text" name="emp_code" readonly="readonly" class="form-control" value="${ selectEmp.emp_code }" >
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">(비)정규직</label>
 							<select class="form-control" name = "emp_role">
 							<c:if test="${selectEmp.emp_role == 'ROLE_FULL' || selectEmp.emp_role == 'ROLE_PART'}">
-								<option value = "ROLE_FULL">정규직</option>
+								<c:if test="${selectEmp.emp_role == 'ROLE_FULL'}">
+								<option value = "ROLE_FULL" selected="selected">정규직</option>
 								<option value = "ROLE_PART">비정규직</option>
+								</c:if>
+								<c:if test="${selectEmp.emp_role == 'ROLE_PART'}">
+								<option value = "ROLE_FULL">정규직</option>
+								<option value = "ROLE_PART" selected="selected">비정규직</option>
+								</c:if>
 							</c:if>
 							<c:if test="${selectEmp.emp_role == 'ROLE_SUPER_FULL' || selectEmp.emp_role == 'ROLE_SUPER_PART'}">
-								<option value = "ROLE_SUPER_FULL">정규직</option>
+								<c:if test="${selectEmp.emp_role == 'ROLE_SUPER_FULL'}">
+								<option value = "ROLE_SUPER_FULL" selected="selected">정규직</option>
 								<option value = "ROLE_SUPER_PART">비정규직</option>
+								</c:if>
+								<c:if test="${selectEmp.emp_role == 'ROLE_SUPER_PART'}">
+								<option value = "ROLE_SUPER_FULL">정규직</option>
+								<option value = "ROLE_SUPER_PART" selected="selected">비정규직</option>
+								</c:if>
 							</c:if>
 							</select>
 						</div>
@@ -59,9 +71,15 @@
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">(비)활성화</label>
-							<select name = "emp_enabled" class="form-control">
-								<option value = "1">활성화</option>
+							<select name = "emp_enabled" class="form-control" >
+								<c:if test="${selectEmp.emp_enabled == '1'}">
+								<option value = "1" selected="selected">활성화</option>
 								<option value = "0">비활성화</option>
+								</c:if>
+								<c:if test="${selectEmp.emp_enabled == '0'}">
+								<option value = "1">활성화</option>
+								<option value = "0" selected="selected">비활성화</option>
+								</c:if>
 							</select>
 						</div>
 					</div>
@@ -69,12 +87,12 @@
 					<div class="row control-group">
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">지점 Password</label>
-							<input type = "password" id = "pwd" name = "emp_pwd" required="required" class="form-control" placeholder="비밀번호를 입력해주세요">
+							<input type = "password" id = "pwd" name = "emp_pwd" class="form-control" placeholder="비밀번호를 입력해주세요">
 							<p id = "pwd_check_display"></p>
 						</div>
 						<div class="form-group col-xs-6 floating-label-form-group controls board-custom">
 							<label for="name">Password 확인</label>
-							<input type = "password" id = "pwd_confirm" name = "emp_pwd_confirm" required="required" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
+							<input type = "password" id = "pwd_confirm" name = "emp_pwd_confirm" class="form-control" placeholder="다시한번 비밀번호를 입력해주세요">
 						</div>
 					</div>
 					

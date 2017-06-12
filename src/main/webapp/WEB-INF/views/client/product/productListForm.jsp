@@ -15,7 +15,7 @@
 	<!-- 컨텐츠 -->
 	<div class="container">
 		<!-- 헤더 -->
-		<header class="jumbotron hero-spacer">
+		<header class="jumbotron hero-spacer" style="background-color: #fff;">
 			<h1>애완동물 용품</h1>
 			<p>Zooital에서 제공하는 애완동물 용품을 살펴보세요!</p>
 		</header>
